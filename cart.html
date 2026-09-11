@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cart & Checkout — Véris Diamonds</title>
+  <meta name="description" content="Review your Véris order and complete checkout. Secure payment, insured worldwide shipping, 30-day returns." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .cart-page {
+      min-height: calc(100vh - 111px);
+      background: var(--surface);
+    }
+    .cart-hero {
+      background: var(--surface-low);
+      padding: var(--space-12) 0 var(--space-10);
+      border-bottom: 1px solid rgba(208,197,175,0.2);
+    }
+    .cart-hero-inner {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-4);
+    }
+    .cart-item-count {
+      font-family: var(--font-sans);
+      font-size: 0.5625rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: var(--secondary);
+    }
+    .cart-outer {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 0;
+      align-items: start;
+      min-height: 400px;
+    }
+    .cart-main {
+      padding: var(--space-10) var(--space-8) var(--space-10) 0;
+      border-right: 1px solid rgba(208,197,175,0.2);
+    }
+    .order-summary {
+      padding: var(--space-10) var(--space-8);
+      background: var(--surface-lowest);
+      position: sticky;
+      top: 111px;
+    }
+    .empty-cart {
+      text-align: center;
+      padding: var(--space-24) var(--space-6) var(--space-20);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-6);
+    }
+    .empty-icon {
+      font-family: 'Material Symbols Outlined';
+      font-size: 72px;
+      color: rgba(208,197,175,0.35);
+      font-variation-settings: 'FILL' 0, 'wght' 100;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-3) 0;
+      font-family: var(--font-sans);
+      font-size: 0.6875rem;
+      border-bottom: 1px solid rgba(208,197,175,0.15);
+    }
+    .summary-row:last-of-type { border-bottom: none; }
+    .summary-key { color: var(--secondary); font-weight: 300; }
+    .summary-val { font-weight: 500; }
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: var(--space-4) 0 0;
+      border-top: 1px solid rgba(208,197,175,0.3);
+      margin-top: var(--space-2);
+    }
+    .total-label { font-family: var(--font-sans); font-size: 0.5rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; }
+    .total-amount { font-family: var(--font-serif); font-size: 1.75rem; font-weight: 300; color: var(--primary); }
+    .promo-wrap { display: flex; gap: 0; margin: var(--space-4) 0; }
+    .promo-input {
+      flex: 1;
+      background: transparent;
+      border: 1px solid rgba(208,197,175,0.4);
+      border-right: none;
+      padding: 10px 14px;
+      font-family: var(--font-sans);
+      font-size: 0.5625rem;
+      color: var(--on-surface);
+      outline: none;
+      letter-spacing: 0.1em;
+    }
+    .promo-input:focus { border-color: var(--primary); }
+    .promo-btn {
+      background: var(--surface-high);
+      border: 1px solid rgba(208,197,175,0.4);
+      padding: 10px 16px;
+      font-family: var(--font-sans);
+      font-size: 0.45rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background var(--transition-base);
+    }
+    .promo-btn:hover { background: var(--surface-container); }
+    .trust-strip {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      margin-top: var(--space-6);
+      padding-top: var(--space-5);
+      border-top: 1px solid rgba(208,197,175,0.2);
+    }
+    .trust-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-family: var(--font-sans);
+      font-size: 0.5625rem;
+      font-weight: 300;
+      color: var(--secondary);
+    }
+    .trust-row-icon { font-family: 'Material Symbols Outlined'; font-size: 15px; color: var(--primary-container); font-variation-settings: 'FILL' 0,'wght' 200; }
+    /* Cart items separator */
+    #cart-items-list .cart-item {
+      border-bottom: 1px solid rgba(208,197,175,0.2);
+      padding-bottom: var(--space-8);
+      margin-bottom: var(--space-8);
+    }
+    #cart-items-list .cart-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+    /* Checkout flow */
+    .checkout-view { display: none; }
+    .checkout-view.active { display: block; }
+    .checkout-step-panel { display: none; }
+    .checkout-step-panel.active { display: block; }
+    .checkout-progress {
+      display: flex;
+      align-items: center;
+      margin-bottom: var(--space-10);
+    }
+    .ck-crumb {
+      font-family: var(--font-sans);
+      font-size: 0.5rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--secondary);
+    }
+    .ck-crumb.active { color: var(--on-surface); font-weight: 700; }
+    .ck-crumb.done { color: var(--primary); }
+    .ck-sep { margin: 0 var(--space-3); color: rgba(208,197,175,0.5); font-family: 'Material Symbols Outlined'; font-size: 14px; font-variation-settings: 'FILL' 0,'wght' 200; }
+    .card-icon { font-family: 'Material Symbols Outlined'; font-size: 28px; color: var(--secondary); font-variation-settings: 'FILL' 0,'wght' 200; }
+    .order-confirm {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: var(--space-16) var(--space-6);
+      gap: var(--space-6);
+    }
+    .order-confirm.active { display: flex; }
+    .confirm-circle {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      border: 1px solid var(--primary-container);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 500ms ease-out;
+    }
+    .confirm-icon {
+      font-family: 'Material Symbols Outlined';
+      font-size: 40px;
+      color: var(--primary-container);
+      font-variation-settings: 'FILL' 0, 'wght' 100;
+    }
+    @media (max-width: 900px) {
+      .cart-outer { grid-template-columns: 1fr; min-height: auto; }
+      .cart-main { padding: var(--space-8) 0; border-right: none; border-bottom: 1px solid rgba(208,197,175,0.2); }
+      .order-summary { position: static; border-left: none; padding: var(--space-8) 0; background: transparent; }
+      .cart-hero-inner { flex-direction: column; gap: var(--space-1); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="announcement-banner">
+  <div class="announcement-ticker">
+    <span>Complimentary insured shipping · Secure 256-bit SSL checkout · 30-day free returns</span>
+    <span>Complimentary insured shipping · Secure 256-bit SSL checkout · 30-day free returns</span>
+  </div>
+</div>
+
+<header class="site-nav">
+  <div class="nav-inner container">
+    <nav class="nav-left">
+      <a href="collections.html" class="nav-link">Collections</a>
+      <a href="our-story.html" class="nav-link">Our Story</a>
+      <a href="ring-builder.html" class="nav-link">Design Yours</a>
+    </nav>
+    <a href="index.html" class="nav-logo">Véris</a>
+    <div class="nav-right">
+      <button class="nav-icon-btn" data-search-open aria-label="Search">
+        <span style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 200">search</span>
+      </button>
+      <a href="cart.html" class="nav-icon-btn" aria-label="Cart">
+        <span style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 200">shopping_bag</span>
+        <span class="cart-badge visible" id="cart-badge">0</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="search-overlay" id="search-overlay">
+  <div class="search-input-wrap">
+    <span style="font-family:'Material Symbols Outlined';font-size:24px;color:var(--outline);font-variation-settings:'FILL' 0,'wght' 200">search</span>
+    <input type="text" id="search-input" placeholder="Search diamonds, rings, bracelets…" autocomplete="off" />
+    <button class="search-close" data-search-close>Close</button>
+  </div>
+  <div class="search-results" id="search-results"></div>
+</div>
+
+<section class="cart-hero">
+  <div class="container">
+    <div class="cart-hero-inner">
+      <div>
+        <div class="section-eyebrow" style="margin-bottom:var(--space-2)" id="page-label">Your Selections</div>
+        <h1 class="display-sm" id="page-title">Shopping Cart</h1>
+      </div>
+      <div class="cart-item-count" id="cart-item-count"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Cart View -->
+<div class="cart-page">
+  <div class="container" style="padding-top:0;padding-bottom:var(--space-20)">
+
+    <!-- Cart items view -->
+    <div id="cart-view" class="checkout-view active">
+      <div class="cart-outer">
+        <div class="cart-main">
+          <!-- Empty state -->
+          <div class="empty-cart" id="empty-cart" style="display:none">
+            <span class="empty-icon">shopping_bag</span>
+            <div>
+              <h2 style="font-family:var(--font-serif);font-size:1.5rem;font-weight:400;margin-bottom:var(--space-3)">Your cart is empty</h2>
+              <p style="font-family:var(--font-sans);font-size:0.8125rem;font-weight:300;color:var(--secondary);margin-bottom:var(--space-8)">Discover our collection of ethical CVD diamonds.</p>
+            </div>
+            <a href="collections.html" class="btn btn-primary btn-lg">Explore Collections</a>
+          </div>
+          <!-- Cart items list -->
+          <div id="cart-items-list"></div>
+          <div id="cart-actions" style="display:flex;gap:var(--space-4);margin-top:var(--space-8)">
+            <a href="collections.html" class="btn btn-ghost">← Continue Shopping</a>
+          </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="order-summary" id="order-summary" style="display:none">
+          <div style="font-family:var(--font-sans);font-size:0.45rem;font-weight:700;letter-spacing:0.35em;text-transform:uppercase;color:var(--secondary);margin-bottom:var(--space-8)">Order Summary</div>
+          <!-- Mini cart items in summary -->
+          <div id="summary-items"></div>
+          <div style="margin-top:var(--space-4)">
+            <div class="summary-row"><span class="summary-key">Subtotal</span><span class="summary-val" id="s-subtotal">$0</span></div>
+            <div class="summary-row"><span class="summary-key">Shipping</span><span class="summary-val" style="color:var(--primary)">Complimentary</span></div>
+            <div class="summary-row"><span class="summary-key">Insurance</span><span class="summary-val" style="color:var(--primary)">Included</span></div>
+            <div class="summary-row"><span class="summary-key">Estimated Tax</span><span class="summary-val" id="s-tax">$0</span></div>
+          </div>
+          <div class="promo-wrap">
+            <input class="promo-input" placeholder="PROMO CODE" type="text" id="promo-input" />
+            <button class="promo-btn" onclick="applyPromo()">Apply</button>
+          </div>
+          <div id="promo-result" style="font-family:var(--font-sans);font-size:0.525rem;height:16px;margin-bottom:var(--space-2)"></div>
+          <div class="summary-total">
+            <span class="total-label">Total</span>
+            <span class="total-amount" id="s-total">$0</span>
+          </div>
+          <button class="btn btn-primary btn-full btn-lg" style="margin-top:var(--space-6)" onclick="beginCheckout()">
+            Proceed to Checkout
+            <span style="font-family:'Material Symbols Outlined';font-size:16px;font-variation-settings:'FILL' 0,'wght' 200">arrow_forward</span>
+          </button>
+          <div class="trust-strip">
+            <div class="trust-row"><span class="trust-row-icon">lock</span>Secure 256-bit SSL encryption</div>
+            <div class="trust-row"><span class="trust-row-icon">local_shipping</span>Complimentary insured worldwide shipping</div>
+            <div class="trust-row"><span class="trust-row-icon">verified</span>IGI Certificate included with every order</div>
+            <div class="trust-row"><span class="trust-row-icon">autorenew</span>30-day hassle-free returns & resizing</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Checkout View -->
+    <div id="checkout-view" class="checkout-view">
+      <div style="display:grid;grid-template-columns:1fr 380px;gap:0;align-items:start" class="cart-outer">
+        <div style="padding:var(--space-10) var(--space-6) var(--space-10) 0">
+          <!-- Progress -->
+          <div class="checkout-progress">
+            <span class="ck-crumb done" id="ck-cart" onclick="backToCart()" style="cursor:pointer">Cart</span>
+            <span class="ck-sep">chevron_right</span>
+            <span class="ck-crumb active" id="ck-contact">Contact</span>
+            <span class="ck-sep">chevron_right</span>
+            <span class="ck-crumb" id="ck-shipping">Shipping</span>
+            <span class="ck-sep">chevron_right</span>
+            <span class="ck-crumb" id="ck-payment">Payment</span>
+          </div>
+
+          <!-- Step 1: Contact -->
+          <div class="checkout-step-panel active" id="ck-step-1">
+            <h2 style="font-family:var(--font-serif);font-size:1.375rem;font-weight:400;margin-bottom:var(--space-8)">Contact Information</h2>
+            <div style="display:flex;flex-direction:column;gap:var(--space-8)">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label">First Name</label>
+                  <input class="form-input" type="text" id="fn" required placeholder="First" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Last Name</label>
+                  <input class="form-input" type="text" id="ln" required placeholder="Last" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input class="form-input" type="email" id="email" required placeholder="your@email.com" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input class="form-input" type="tel" id="phone" placeholder="+1 (555) 000-0000" />
+              </div>
+              <button class="btn btn-primary" style="margin-top:var(--space-2)" onclick="nextStep(2)">
+                Continue to Shipping →
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 2: Shipping -->
+          <div class="checkout-step-panel" id="ck-step-2">
+            <h2 style="font-family:var(--font-serif);font-size:1.375rem;font-weight:400;margin-bottom:var(--space-8)">Shipping Address</h2>
+            <div style="display:flex;flex-direction:column;gap:var(--space-8)">
+              <div class="form-group">
+                <label class="form-label">Street Address</label>
+                <input class="form-input" type="text" placeholder="123 Luxury Avenue" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Apartment, Suite, etc. (optional)</label>
+                <input class="form-input" type="text" placeholder="Apt 4B" />
+              </div>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label">City</label>
+                  <input class="form-input" type="text" placeholder="New York" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">State / Province</label>
+                  <input class="form-input" type="text" placeholder="NY" />
+                </div>
+              </div>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label">ZIP / Postal Code</label>
+                  <input class="form-input" type="text" placeholder="10001" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Country</label>
+                  <input class="form-input" type="text" value="United States" />
+                </div>
+              </div>
+              <!-- Shipping method -->
+              <div>
+                <div style="font-family:var(--font-sans);font-size:0.5rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;margin-bottom:var(--space-4)">Shipping Method</div>
+                <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+                  <label style="display:flex;align-items:center;gap:var(--space-4);padding:var(--space-4);border:1px solid var(--primary-container);cursor:pointer;background:rgba(212,175,55,0.04)">
+                    <input type="radio" name="shipping" value="express" checked style="accent-color:var(--primary)" />
+                    <div>
+                      <div style="font-family:var(--font-sans);font-size:0.5625rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase">Complimentary Insured Express</div>
+                      <div style="font-family:var(--font-sans);font-size:0.5625rem;font-weight:300;color:var(--secondary);margin-top:2px">7–14 business days · Included</div>
+                    </div>
+                    <span style="margin-left:auto;font-family:var(--font-serif);font-size:0.875rem;font-style:italic;color:var(--primary)">Free</span>
+                  </label>
+                  <label style="display:flex;align-items:center;gap:var(--space-4);padding:var(--space-4);border:1px solid rgba(208,197,175,0.3);cursor:pointer">
+                    <input type="radio" name="shipping" value="priority" style="accent-color:var(--primary)" />
+                    <div>
+                      <div style="font-family:var(--font-sans);font-size:0.5625rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase">White Glove Priority</div>
+                      <div style="font-family:var(--font-sans);font-size:0.5625rem;font-weight:300;color:var(--secondary);margin-top:2px">3–5 business days · Hand-delivered</div>
+                    </div>
+                    <span style="margin-left:auto;font-family:var(--font-serif);font-size:0.875rem;font-style:italic;color:var(--primary)">$95</span>
+                  </label>
+                </div>
+              </div>
+              <div style="display:flex;gap:var(--space-3)">
+                <button class="btn btn-ghost" onclick="nextStep(1)">← Back</button>
+                <button class="btn btn-primary" style="flex:1" onclick="nextStep(3)">Continue to Payment →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: Payment -->
+          <div class="checkout-step-panel" id="ck-step-3">
+            <h2 style="font-family:var(--font-serif);font-size:1.375rem;font-weight:400;margin-bottom:var(--space-8)">Payment Details</h2>
+            <div style="display:flex;flex-direction:column;gap:var(--space-8)">
+              <!-- Card icons -->
+              <div style="display:flex;gap:var(--space-3)">
+                <div style="padding:6px 10px;border:1px solid rgba(208,197,175,0.3);font-family:var(--font-sans);font-size:0.45rem;font-weight:700;letter-spacing:0.15em">VISA</div>
+                <div style="padding:6px 10px;border:1px solid rgba(208,197,175,0.3);font-family:var(--font-sans);font-size:0.45rem;font-weight:700;letter-spacing:0.15em">MC</div>
+                <div style="padding:6px 10px;border:1px solid rgba(208,197,175,0.3);font-family:var(--font-sans);font-size:0.45rem;font-weight:700;letter-spacing:0.15em">AMEX</div>
+                <div style="padding:6px 10px;border:1px solid rgba(208,197,175,0.3);font-family:var(--font-sans);font-size:0.45rem;font-weight:700;letter-spacing:0.15em">PayPal</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Card Number</label>
+                <input class="form-input" type="text" placeholder="4242 4242 4242 4242" maxlength="19" oninput="formatCard(this)" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Name on Card</label>
+                <input class="form-input" type="text" placeholder="As it appears on card" />
+              </div>
+              <div class="form-grid-3" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--space-6)">
+                <div class="form-group" style="grid-column:span 1">
+                  <label class="form-label">Expiry Month</label>
+                  <input class="form-input" type="text" placeholder="MM" maxlength="2" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Expiry Year</label>
+                  <input class="form-input" type="text" placeholder="YY" maxlength="2" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">CVV</label>
+                  <input class="form-input" type="text" placeholder="•••" maxlength="4" />
+                </div>
+              </div>
+              <div style="background:var(--surface-low);padding:var(--space-4);display:flex;align-items:center;gap:var(--space-3)">
+                <span style="font-family:'Material Symbols Outlined';font-size:16px;color:var(--primary-container);font-variation-settings:'FILL' 0,'wght' 200">lock</span>
+                <span style="font-family:var(--font-sans);font-size:0.5625rem;font-weight:300;color:var(--secondary)">All transactions are encrypted and secured with 256-bit SSL. Your card details are never stored.</span>
+              </div>
+              <div style="display:flex;gap:var(--space-3)">
+                <button class="btn btn-ghost" onclick="nextStep(2)">← Back</button>
+                <button class="btn btn-primary" style="flex:1" onclick="placeOrder()">
+                  Place Order · <span id="place-total">$0</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Summary sidebar -->
+        <div class="order-summary">
+          <div style="font-family:var(--font-sans);font-size:0.45rem;font-weight:700;letter-spacing:0.35em;text-transform:uppercase;color:var(--secondary);margin-bottom:var(--space-6)">Order Summary</div>
+          <div id="ck-summary-items"></div>
+          <div style="margin-top:var(--space-4)">
+            <div class="summary-row"><span class="summary-key">Subtotal</span><span class="summary-val" id="ck-subtotal">$0</span></div>
+            <div class="summary-row"><span class="summary-key">Shipping</span><span class="summary-val" style="color:var(--primary)">Complimentary</span></div>
+            <div class="summary-row"><span class="summary-key">Tax (8%)</span><span class="summary-val" id="ck-tax">$0</span></div>
+          </div>
+          <div class="summary-total">
+            <span class="total-label">Total</span>
+            <span class="total-amount" id="ck-total">$0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order Confirmation -->
+    <div id="confirm-view" class="checkout-view">
+      <div class="order-confirm active">
+        <div class="confirm-circle">
+          <span class="confirm-icon">check</span>
+        </div>
+        <div>
+          <div class="section-eyebrow" style="text-align:center;margin-bottom:var(--space-3)">Order Confirmed</div>
+          <h2 style="font-family:var(--font-serif);font-size:2rem;font-weight:400;text-align:center;margin-bottom:var(--space-4)">Thank you for your<br/><em style="font-weight:300">Véris order.</em></h2>
+          <p style="font-family:var(--font-sans);font-size:0.8125rem;font-weight:300;color:var(--secondary);text-align:center;max-width:480px;line-height:1.8">Your confirmation and IGI certification documents will be sent to your email. Our Surat atelier will begin crafting your piece within 24 hours.</p>
+        </div>
+        <div style="background:var(--surface-low);padding:var(--space-6) var(--space-8);min-width:320px">
+          <div style="display:flex;justify-content:space-between;margin-bottom:var(--space-2)">
+            <span style="font-family:var(--font-sans);font-size:0.45rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--secondary)">Order Number</span>
+            <span style="font-family:var(--font-serif);font-style:italic;font-size:0.875rem;color:var(--primary)">VRS-<span id="order-num"></span></span>
+          </div>
+          <div style="display:flex;justify-content:space-between">
+            <span style="font-family:var(--font-sans);font-size:0.45rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--secondary)">Estimated Arrival</span>
+            <span style="font-family:var(--font-sans);font-size:0.5625rem;font-weight:500">7–14 Business Days</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:var(--space-4);flex-wrap:wrap;justify-content:center">
+          <a href="collections.html" class="btn btn-ghost">Continue Shopping</a>
+          <a href="index.html" class="btn btn-primary">Return Home</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Nav -->
+<nav class="mobile-nav">
+  <a href="index.html" class="mobile-nav-item"><span class="icon">auto_awesome</span><span>Atelier</span></a>
+  <a href="collections.html" class="mobile-nav-item"><span class="icon">diamond</span><span>Shop</span></a>
+  <a href="ring-builder.html" class="mobile-nav-item"><span class="icon">settings_applications</span><span>Design</span></a>
+  <a href="our-story.html" class="mobile-nav-item"><span class="icon">eco</span><span>Story</span></a>
+  <a href="cart.html" class="mobile-nav-item active"><span class="icon">shopping_bag</span><span>Cart</span></a>
+</nav>
+
+<script src="js/app.js"></script>
+<script>
+  function renderCart() {
+    const items = Cart.get();
+    const emptyEl = document.getElementById('empty-cart');
+    const listEl = document.getElementById('cart-items-list');
+    const summaryEl = document.getElementById('order-summary');
+    const actionsEl = document.getElementById('cart-actions');
+    const countEl = document.getElementById('cart-item-count');
+    const totalQty = items.reduce((sum, i) => sum + i.qty, 0);
+
+    if (countEl) {
+      countEl.textContent = totalQty === 0 ? '' : totalQty === 1 ? '1 item' : totalQty + ' items';
+    }
+
+    if (items.length === 0) {
+      emptyEl.style.display = 'flex';
+      listEl.innerHTML = '';
+      summaryEl.style.display = 'none';
+      actionsEl.style.display = 'none';
+      return;
+    }
+    emptyEl.style.display = 'none';
+    summaryEl.style.display = 'block';
+    actionsEl.style.display = 'flex';
+
+    listEl.innerHTML = items.map(item => `
+      <div class="cart-item" id="item-${item.id}">
+        <div class="cart-item-image">
+          <img src="${item.img}" alt="${item.name}" style="width:100%;height:100%;object-fit:cover" />
+        </div>
+        <div>
+          <div style="font-family:var(--font-sans);font-size:0.5rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--secondary);margin-bottom:4px">Véris Atelier</div>
+          <div style="font-family:var(--font-sans);font-size:0.625rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:4px">${item.name}</div>
+          <div style="font-family:var(--font-serif);font-size:0.875rem;font-style:italic;color:var(--secondary);font-weight:300;margin-bottom:var(--space-2)">${item.variant}</div>
+          <div class="cart-qty">
+            <button class="cart-qty-btn" data-action="dec" data-id="${item.id}" data-variant="${item.variant}">−</button>
+            <span class="cart-qty-val">${item.qty}</span>
+            <button class="cart-qty-btn" data-action="inc" data-id="${item.id}" data-variant="${item.variant}">+</button>
+          </div>
+          <button class="cart-remove" data-action="remove" data-id="${item.id}" data-variant="${item.variant}">Remove</button>
+        </div>
+        <div style="text-align:right">
+          <div style="font-family:var(--font-serif);font-size:1.125rem;font-weight:300;color:var(--primary)">$${(item.price * item.qty).toLocaleString()}</div>
+          <div style="font-family:var(--font-sans);font-size:0.45rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--secondary);margin-top:4px">$${item.price.toLocaleString()} each</div>
+        </div>
+      </div>
+    `).join('');
+
+    updateSummary();
+  }
+
+  function updateSummary() {
+    const items = Cart.get();
+    const subtotal = Cart.total();
+    const tax = Math.round(subtotal * 0.08);
+    const total = subtotal + tax;
+    const elIds = ['s-subtotal','ck-subtotal'];
+    const taxIds = ['s-tax','ck-tax'];
+    const totIds = ['s-total','ck-total'];
+    elIds.forEach(id => { const el = document.getElementById(id); if (el) el.textContent = '$' + subtotal.toLocaleString(); });
+    taxIds.forEach(id => { const el = document.getElementById(id); if (el) el.textContent = '$' + tax.toLocaleString(); });
+    totIds.forEach(id => { const el = document.getElementById(id); if (el) el.textContent = '$' + total.toLocaleString(); });
+    const ptEl = document.getElementById('place-total');
+    if (ptEl) ptEl.textContent = '$' + total.toLocaleString();
+
+    // Mini summary for sidebar
+    const summaryItemsHtml = items.map(i => `
+      <div style="display:flex;gap:var(--space-3);margin-bottom:var(--space-4);align-items:center">
+        <div style="width:48px;height:48px;flex-shrink:0;overflow:hidden;position:relative">
+          <img src="${i.img}" style="width:100%;height:100%;object-fit:cover" />
+          <div style="position:absolute;top:-4px;right:-4px;width:18px;height:18px;background:var(--inverse-surface);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-sans);font-size:0.45rem;font-weight:700;color:var(--inverse-on-surface)">${i.qty}</div>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="font-family:var(--font-sans);font-size:0.5rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${i.name}</div>
+          <div style="font-family:var(--font-sans);font-size:0.5rem;font-weight:300;color:var(--secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${i.variant}</div>
+        </div>
+        <div style="font-family:var(--font-serif);font-size:0.875rem;font-style:italic;color:var(--primary);white-space:nowrap">$${(i.price*i.qty).toLocaleString()}</div>
+      </div>
+    `).join('');
+
+    ['summary-items','ck-summary-items'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = summaryItemsHtml;
+    });
+  }
+
+  // Delegated event handler for cart item buttons (avoids inline onclick string interpolation bugs)
+  document.getElementById('cart-items-list').addEventListener('click', function(e) {
+    const btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    const id = btn.dataset.id;
+    const variant = btn.dataset.variant;
+    const action = btn.dataset.action;
+    if (action === 'remove') {
+      Cart.remove(id, variant);
+      renderCart();
+      updateCartBadges();
+      Toast.show('Item removed from cart', 'remove_shopping_cart');
+    } else if (action === 'inc' || action === 'dec') {
+      const items = Cart.get();
+      const item = items.find(i => i.id == id && i.variant === variant);
+      if (item) {
+        const newQty = item.qty + (action === 'inc' ? 1 : -1);
+        if (newQty <= 0) { Cart.remove(id, variant); }
+        else { Cart.updateQty(id, variant, newQty); }
+        renderCart();
+        updateCartBadges();
+      }
+    }
+  });
+
+  let promoApplied = false;
+  function applyPromo() {
+    const code = document.getElementById('promo-input').value.trim().toUpperCase();
+    const resultEl = document.getElementById('promo-result');
+    if (code === 'VERIS10') {
+      resultEl.innerHTML = '<span style="color:var(--primary);font-family:var(--font-sans);font-size:0.5rem;font-weight:600;letter-spacing:0.15em">✓ 10% discount applied</span>';
+      Toast.show('Promo code VERIS10 applied — 10% off!', 'local_offer');
+    } else if (code === '') {
+      resultEl.innerHTML = '';
+    } else {
+      resultEl.innerHTML = '<span style="color:var(--error);font-family:var(--font-sans);font-size:0.5rem;font-weight:600;letter-spacing:0.15em">Invalid promo code</span>';
+    }
+  }
+
+  function beginCheckout() {
+    if (Cart.get().length === 0) return;
+    document.getElementById('cart-view').classList.remove('active');
+    document.getElementById('checkout-view').classList.add('active');
+    document.getElementById('page-label').textContent = 'Secure Checkout';
+    document.getElementById('page-title').textContent = 'Checkout';
+    updateSummary();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function backToCart() {
+    document.getElementById('checkout-view').classList.remove('active');
+    document.getElementById('cart-view').classList.add('active');
+    document.getElementById('page-label').textContent = 'Your Selections';
+    document.getElementById('page-title').textContent = 'Shopping Cart';
+  }
+
+  let currentStep = 1;
+  function nextStep(step) {
+    // Basic validation for step 1
+    if (currentStep === 1 && step === 2) {
+      const email = document.getElementById('email');
+      if (!email.value) { email.focus(); Toast.show('Please enter your email address', 'warning'); return; }
+    }
+    document.querySelectorAll('.checkout-step-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('ck-step-' + step).classList.add('active');
+    const crumbs = ['cart','contact','shipping','payment'];
+    ['ck-cart','ck-contact','ck-shipping','ck-payment'].forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.classList.remove('active','done');
+      if (i < step) el.classList.add('done');
+      else if (i === step - 1) el.classList.add('active');
+    });
+    currentStep = step;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function formatCard(input) {
+    let val = input.value.replace(/\D/g, '').slice(0, 16);
+    input.value = val.replace(/(\d{4})(?=\d)/g, '$1 ');
+  }
+
+  function placeOrder() {
+    // Basic card validation
+    const card = document.querySelector('#ck-step-3 input[type="text"]');
+    if (!card || card.value.replace(/\s/g,'').length < 16) {
+      Toast.show('Please enter a valid card number', 'warning');
+      return;
+    }
+    document.getElementById('checkout-view').classList.remove('active');
+    document.getElementById('confirm-view').classList.add('active');
+    document.getElementById('page-label').textContent = 'Order Placed';
+    document.getElementById('page-title').textContent = 'Thank You';
+    document.getElementById('order-num').textContent = Math.floor(100000 + Math.random() * 900000);
+    Cart.clear();
+    updateCartBadges();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  window.addEventListener('cart:update', () => { renderCart(); updateSummary(); });
+  document.addEventListener('DOMContentLoaded', () => { renderCart(); updateSummary(); });
+</script>
+</body>
+</html>

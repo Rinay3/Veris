@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design Your Ring — Véris Ring Builder</title>
+  <meta name="description" content="Create your bespoke Véris diamond ring. Choose your setting, diamond shape, carat, and metal. Custom CVD diamond rings handcrafted in Surat." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .builder-wrap {
+      display: grid;
+      grid-template-columns: 1fr 480px;
+      min-height: calc(100vh - 111px);
+    }
+    .preview-pane {
+      position: sticky;
+      top: 111px;
+      height: calc(100vh - 111px);
+      background: var(--surface-low);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-8);
+      padding: var(--space-8);
+    }
+    .ring-preview {
+      width: 280px;
+      height: 280px;
+      position: relative;
+    }
+    .ring-svg-outer {
+      width: 100%;
+      height: 100%;
+    }
+    .config-pane {
+      background: var(--surface-lowest);
+      padding: var(--space-10) var(--space-10);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+      overflow-y: auto;
+    }
+    .step-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid rgba(208,197,175,0.25);
+      margin-bottom: var(--space-2);
+    }
+    .step-tab {
+      flex: 1;
+      padding: var(--space-4) var(--space-3);
+      font-family: var(--font-sans);
+      font-size: 0.5rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      border-bottom: 2px solid transparent;
+      transition: all var(--transition-base);
+      text-align: center;
+      margin-bottom: -1px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-1);
+    }
+    .step-tab .step-num {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1px solid rgba(208,197,175,0.4);
+      font-size: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      transition: all var(--transition-base);
+    }
+    .step-tab.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+    .step-tab.active .step-num {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .step-tab.done { color: var(--primary-container); }
+    .step-tab.done .step-num { background: var(--primary-container); color: var(--on-primary-container); border-color: var(--primary-container); }
+    .step-panel { display: none; }
+    .step-panel.active { display: flex; flex-direction: column; gap: var(--space-6); }
+    .option-group { display: flex; flex-direction: column; gap: var(--space-3); }
+    .option-group-label {
+      font-family: var(--font-sans);
+      font-size: 0.5rem;
+      font-weight: 700;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--on-surface);
+      margin-bottom: var(--space-1);
+    }
+    .setting-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+    }
+    .setting-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-4) var(--space-2);
+      border: 1px solid rgba(208,197,175,0.3);
+      cursor: pointer;
+      transition: all var(--transition-base);
+      background: transparent;
+    }
+    .setting-option:hover { background: var(--surface-low); }
+    .setting-option.active {
+      border-color: var(--primary-container);
+      background: rgba(212,175,55,0.06);
+    }
+    .setting-icon {
+      font-family: 'Material Symbols Outlined';
+      font-size: 24px;
+      color: var(--secondary);
+      font-variation-settings: 'FILL' 0, 'wght' 200;
+      transition: color var(--transition-base);
+    }
+    .setting-option.active .setting-icon { color: var(--primary-container); }
+    .setting-name {
+      font-family: var(--font-sans);
+      font-size: 0.45rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      transition: color var(--transition-base);
+    }
+    .setting-option.active .setting-name { color: var(--primary); }
+    .shape-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+    }
+    .shape-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-2);
+      border: 1px solid rgba(208,197,175,0.3);
+      cursor: pointer;
+      transition: all var(--transition-base);
+      background: transparent;
+    }
+    .shape-option:hover { background: var(--surface-low); }
+    .shape-option.active { border-color: var(--primary-container); background: rgba(212,175,55,0.06); }
+    .shape-svg { width: 32px; height: 32px; }
+    .shape-name {
+      font-family: var(--font-sans);
+      font-size: 0.4rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      transition: color var(--transition-base);
+    }
+    .shape-option.active .shape-name { color: var(--primary); }
+    .carat-slider-wrap { padding: var(--space-4) 0; }
+    .carat-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 1px;
+      background: rgba(208,197,175,0.4);
+      outline: none;
+    }
+    .carat-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      background: var(--primary);
+      cursor: pointer;
+    }
+    .carat-ticks { display: flex; justify-content: space-between; margin-top: var(--space-2); }
+    .carat-tick { font-family: var(--font-sans); font-size: 0.4rem; font-weight: 600; letter-spacing: 0.1em; color: var(--secondary); }
+    .grade-row { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+    .grade-btn {
+      padding: 8px 14px;
+      font-family: var(--font-sans);
+      font-size: 0.45rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      border: 1px solid rgba(208,197,175,0.3);
+      cursor: pointer;
+      background: transparent;
+      transition: all var(--transition-base);
+    }
+    .grade-btn:hover { background: var(--surface-low); }
+    .grade-btn.active { background: var(--primary-container); border-color: var(--primary-container); color: var(--on-primary-container); }
+    .price-block {
+      background: var(--surface-low);
+      padding: var(--space-6);
+    }
+    .live-price {
+      font-family: var(--font-serif);
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-3);
+    }
+    .price-lines { border-top: 1px solid rgba(208,197,175,0.3); padding-top: var(--space-3); }
+    .price-row { display: flex; justify-content: space-between; padding: var(--space-2) 0; }
+    .price-row-key { font-family: var(--font-sans); font-size: 0.5625rem; color: var(--secondary); }
+    .price-row-val { font-family: var(--font-sans); font-size: 0.5625rem; font-weight: 500; }
+    .nav-btns { display: flex; gap: var(--space-3); }
+    .request-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(28,27,27,0.6);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-6);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-base);
+    }
+    .request-modal.open { opacity: 1; pointer-events: all; }
+    .request-panel {
+      background: var(--surface-lowest);
+      width: 100%;
+      max-width: 540px;
+      padding: var(--space-10);
+      box-shadow: var(--shadow-modal);
+      transform: translateY(20px);
+      transition: transform var(--transition-base);
+    }
+    .request-modal.open .request-panel { transform: translateY(0); }
+    @media (max-width: 900px) {
+      .builder-wrap { grid-template-columns: 1fr; }
+      .preview-pane { position: static; height: auto; min-height: 300px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="announcement-banner">
+  <div class="announcement-ticker">
+    <span>Custom rings crafted in 3–4 weeks <span class="dot-sep"></span> Complimentary design consultation <span class="dot-sep"></span> Free resizing within 30 days</span>
+    <span>Custom rings crafted in 3–4 weeks <span class="dot-sep"></span> Complimentary design consultation <span class="dot-sep"></span> Free resizing within 30 days</span>
+  </div>
+</div>
+
+<header class="site-nav">
+  <div class="nav-inner container">
+    <nav class="nav-left">
+      <a href="collections.html" class="nav-link">Collections</a>
+      <a href="our-story.html" class="nav-link">Our Story</a>
+      <a href="ring-builder.html" class="nav-link active">Design Yours</a>
+    </nav>
+    <a href="index.html" class="nav-logo">Véris</a>
+    <div class="nav-right">
+      <button class="nav-icon-btn" data-search-open aria-label="Search">
+        <span style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 200">search</span>
+      </button>
+      <a href="cart.html" class="nav-icon-btn" aria-label="Cart">
+        <span style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 200">shopping_bag</span>
+        <span class="cart-badge" id="cart-badge">0</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="search-overlay" id="search-overlay">
+  <div class="search-input-wrap">
+    <span style="font-family:'Material Symbols Outlined';font-size:24px;color:var(--outline);font-variation-settings:'FILL' 0,'wght' 200">search</span>
+    <input type="text" id="search-input" placeholder="Search diamonds, rings, bracelets…" autocomplete="off" />
+    <button class="search-close" data-search-close>Close</button>
+  </div>
+  <div class="search-results" id="search-results"></div>
+</div>
+
+<!-- Request Quote Modal -->
+<div class="request-modal" id="request-modal">
+  <div class="request-panel">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-6)">
+      <div>
+        <div style="font-family:var(--font-sans);font-size:0.45rem;font-weight:700;letter-spacing:0.35em;text-transform:uppercase;color:var(--primary);margin-bottom:4px">Bespoke Commission</div>
+        <h3 style="font-family:var(--font-serif);font-size:1.375rem;font-weight:400">Request Your Quote</h3>
+      </div>
+      <button onclick="closeRequestModal()" style="font-family:var(--font-sans);font-size:0.45rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--secondary);cursor:pointer;background:none;border:none">Close</button>
+    </div>
+    <div id="request-summary" style="background:var(--surface-low);padding:var(--space-4);margin-bottom:var(--space-6);font-family:var(--font-sans);font-size:0.6875rem;line-height:1.8;color:var(--secondary)"></div>
+    <form onsubmit="submitRequest(event)" style="display:flex;flex-direction:column;gap:var(--space-6)">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <input class="form-input" type="text" required placeholder="Your name" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          <input class="form-input" type="text" required placeholder="Surname" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input class="form-input" type="email" required placeholder="email@example.com" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone (Optional)</label>
+        <input class="form-input" type="tel" placeholder="+1 (555) 000-0000" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Additional Notes</label>
+        <textarea class="form-input" rows="3" placeholder="Any specific requests, timeline, occasion…" style="resize:none"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full" style="margin-top:var(--space-2)">Submit Quote Request</button>
+    </form>
+  </div>
+</div>
+
+<div class="builder-wrap">
+  <!-- Preview Pane -->
+  <div class="preview-pane">
+    <div style="font-family:var(--font-sans);font-size:0.45rem;font-weight:700;letter-spacing:0.35em;text-transform:uppercase;color:var(--secondary)">Live Preview</div>
+    <div class="ring-preview">
+      <svg class="ring-svg-outer" viewBox="0 0 280 280" id="ring-svg">
+        <!-- Ring Band -->
+        <ellipse cx="140" cy="200" rx="90" ry="18" fill="none" stroke-width="8" id="ring-band-bottom"/>
+        <rect x="50" y="105" width="180" height="95" rx="0" fill="none" id="ring-band-sides" style="display:none"/>
+        <line x1="50" y1="105" x2="50" y2="200" stroke-width="8" id="ring-left"/>
+        <line x1="230" y1="105" x2="230" y2="200" stroke-width="8" id="ring-right"/>
+        <!-- Setting prongs -->
+        <g id="ring-prongs">
+          <line x1="110" y1="80" x2="127" y2="105" stroke-width="4"/>
+          <line x1="170" y1="80" x2="153" y2="105" stroke-width="4"/>
+          <line x1="95" y1="108" x2="118" y2="108" stroke-width="4"/>
+          <line x1="185" y1="108" x2="162" y2="108" stroke-width="4"/>
+        </g>
+        <!-- Diamond shape -->
+        <polygon id="diamond-shape" points="140,32 170,82 140,108 110,82" fill="#e8f4fd" stroke-width="1.5"/>
+        <!-- Shimmer lines -->
+        <g id="diamond-shimmer" opacity="0.4">
+          <line x1="140" y1="32" x2="140" y2="108" stroke="#ffffff" stroke-width="0.8"/>
+          <line x1="110" y1="82" x2="170" y2="82" stroke="#ffffff" stroke-width="0.8"/>
+          <line x1="140" y1="32" x2="155" y2="70" stroke="#ffffff" stroke-width="0.5"/>
+          <line x1="140" y1="32" x2="125" y2="70" stroke="#ffffff" stroke-width="0.5"/>
+        </g>
+      </svg>
+    </div>
+    <!-- Config summary -->
+    <div style="width:100%;max-width:280px;display:flex;flex-direction:column;gap:var(--space-2)">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-family:var(--font-sans);font-size:0.45rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--secondary)">Estimated Price</span>
+      </div>
+      <div id="preview-price" style="font-family:var(--font-serif);font-size:2.5rem;font-weight:300;color:var(--primary);letter-spacing:-0.02em">$2,400</div>
+      <div style="font-family:var(--font-sans);font-size:0.45rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--secondary)">Finalized at consultation</div>
+    </div>
+    <div id="preview-summary" style="width:100%;max-width:280px;font-family:var(--font-sans);font-size:0.5625rem;line-height:1.8;color:var(--secondary)"></div>
+  </div>
+
+  <!-- Config Pane -->
+  <div class="config-pane">
+    <div>
+      <div class="section-eyebrow" style="margin-bottom:var(--space-2)">Véris Bespoke</div>
+      <h1 style="font-family:var(--font-serif);font-size:1.75rem;font-weight:400;letter-spacing:-0.01em">Design Your Ring</h1>
+    </div>
+
+    <!-- Step Tabs -->
+    <div class="step-tabs">
+      <button class="step-tab active" onclick="goToStep(0)" id="tab-0">
+        <span class="step-num">1</span>
+        Setting
+      </button>
+      <button class="step-tab" onclick="goToStep(1)" id="tab-1">
+        <span class="step-num">2</span>
+        Diamond
+      </button>
+      <button class="step-tab" onclick="goToStep(2)" id="tab-2">
+        <span class="step-num">3</span>
+        Review
+      </button>
+    </div>
+
+    <!-- Step 1: Setting -->
+    <div class="step-panel active" id="step-0">
+      <div class="option-group">
+        <div class="option-group-label">Setting Style</div>
+        <div class="setting-grid">
+          <button class="setting-option active" data-setting="Solitaire" data-price-base="1800" onclick="selectSetting(this)">
+            <span class="setting-icon">radio_button_unchecked</span>
+            <span class="setting-name">Solitaire</span>
+          </button>
+          <button class="setting-option" data-setting="Pavé" data-price-base="2200" onclick="selectSetting(this)">
+            <span class="setting-icon">grid_on</span>
+            <span class="setting-name">Pavé</span>
+          </button>
+          <button class="setting-option" data-setting="Halo" data-price-base="2400" onclick="selectSetting(this)">
+            <span class="setting-icon">toll</span>
+            <span class="setting-name">Halo</span>
+          </button>
+          <button class="setting-option" data-setting="Trilogy" data-price-base="3200" onclick="selectSetting(this)">
+            <span class="setting-icon">more_horiz</span>
+            <span class="setting-name">Trilogy</span>
+          </button>
+          <button class="setting-option" data-setting="Bezel" data-price-base="2100" onclick="selectSetting(this)">
+            <span class="setting-icon">panorama_fish_eye</span>
+            <span class="setting-name">Bezel</span>
+          </button>
+          <button class="setting-option" data-setting="Cathedral" data-price-base="2600" onclick="selectSetting(this)">
+            <span class="setting-icon">account_balance</span>
+            <span class="setting-name">Cathedral</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="option-group">
+        <div class="option-group-label">Metal</div>
+        <div class="chips-row" style="display:flex;flex-wrap:wrap;gap:var(--space-2)">
+          <button class="metal-chip active" data-metal="18K Yellow Gold" data-metal-add="0" onclick="selectMetal(this)" style="padding:10px 14px;font-size:0.5rem">Yellow Gold</button>
+          <button class="metal-chip" data-metal="18K White Gold" data-metal-add="120" onclick="selectMetal(this)" style="padding:10px 14px;font-size:0.5rem">White Gold</button>
+          <button class="metal-chip" data-metal="18K Rose Gold" data-metal-add="80" onclick="selectMetal(this)" style="padding:10px 14px;font-size:0.5rem">Rose Gold</button>
+          <button class="metal-chip" data-metal="Platinum" data-metal-add="500" onclick="selectMetal(this)" style="padding:10px 14px;font-size:0.5rem">Platinum</button>
+        </div>
+      </div>
+
+      <div class="option-group">
+        <div class="option-group-label">Band Width</div>
+        <div class="chips-row" style="display:flex;flex-wrap:wrap;gap:var(--space-2)">
+          <button class="metal-chip active" data-width="1.5mm" onclick="selectBand(this)" style="padding:10px 14px;font-size:0.5rem">1.5mm Delicate</button>
+          <button class="metal-chip" data-width="2.0mm" onclick="selectBand(this)" style="padding:10px 14px;font-size:0.5rem">2.0mm Classic</button>
+          <button class="metal-chip" data-width="2.5mm" onclick="selectBand(this)" style="padding:10px 14px;font-size:0.5rem">2.5mm Bold</button>
+          <button class="metal-chip" data-width="3.0mm" onclick="selectBand(this)" style="padding:10px 14px;font-size:0.5rem">3.0mm Statement</button>
+        </div>
+      </div>
+
+      <div class="option-group">
+        <div class="option-group-label">Ring Size (US)</div>
+        <div class="chips-row" style="display:flex;flex-wrap:wrap;gap:var(--space-2)">
+          <button class="metal-chip" onclick="selectRingSize(this)" style="padding:8px 12px;font-size:0.45rem">4</button>
+          <button class="metal-chip" onclick="selectRingSize(this)" style="padding:8px 12px;font-size:0.45rem">4.5</button>
+          <button class="metal-chip" onclick="selectRingSize(this)" style="padding:8px 12px;font-size:0.45rem">5</button>
+          <button class="metal-chip" onclick="selectRingSize(this)" style="padding:8px 12px;font-size:0.45rem">5.5</button>
+          <button class="metal-chip active" onclick="selectRingSize(this)" style="padding:8px 12px;font-size:0.45rem">6</button>
+          <button class="metal-chip" onclick="selectRingSize(this)" style="padding:8px 12px;font-size:0.45rem">6.5</button>
+          <button class="metal-chip" onclick="selectRingSize(this)" style="padding:8px 12px;font-size:0.45rem">7</button>
+          <button class="metal-chip" onclick="selectRingSize(this)" style="padding:8px 12px;font-size:0.45rem">7.5</button>
+          <button class="metal-chip" onclick="selectRingSize(this)" style="padding:8px 12px;font-size:0.45rem">8</button>
+        </div>
+      </div>
+
+      <div class="nav-btns" style="margin-top:var(--space-4)">
+        <button class="btn btn-primary" onclick="goToStep(1)" style="flex:1">Next: Choose Diamond →</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Diamond -->
+    <div class="step-panel" id="step-1">
+      <div class="option-group">
+        <div class="option-group-label">Diamond Shape</div>
+        <div class="shape-grid">
+          <button class="shape-option active" data-shape="Round" data-shape-add="0" onclick="selectShape(this)">
+            <svg class="shape-svg" viewBox="0 0 32 32"><circle cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="4" x2="16" y2="28" stroke="currentColor" stroke-width="0.8" opacity="0.3"/><line x1="4" y1="16" x2="28" y2="16" stroke="currentColor" stroke-width="0.8" opacity="0.3"/></svg>
+            <span class="shape-name">Round</span>
+          </button>
+          <button class="shape-option" data-shape="Oval" data-shape-add="150" onclick="selectShape(this)">
+            <svg class="shape-svg" viewBox="0 0 32 32"><ellipse cx="16" cy="16" rx="9" ry="13" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+            <span class="shape-name">Oval</span>
+          </button>
+          <button class="shape-option" data-shape="Princess" data-shape-add="-100" onclick="selectShape(this)">
+            <svg class="shape-svg" viewBox="0 0 32 32"><rect x="7" y="7" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="7" y1="7" x2="25" y2="25" stroke="currentColor" stroke-width="0.8" opacity="0.3"/><line x1="25" y1="7" x2="7" y2="25" stroke="currentColor" stroke-width="0.8" opacity="0.3"/></svg>
+            <span class="shape-name">Princess</span>
+          </button>
+          <button class="shape-option" data-shape="Cushion" data-shape-add="-50" onclick="selectShape(this)">
+            <svg class="shape-svg" viewBox="0 0 32 32"><rect x="7" y="7" width="18" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+            <span class="shape-name">Cushion</span>
+          </button>
+          <button class="shape-option" data-shape="Emerald" data-shape-add="200" onclick="selectShape(this)">
+            <svg class="shape-svg" viewBox="0 0 32 32"><polygon points="11,5 21,5 27,10 27,22 21,27 11,27 5,22 5,10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+            <span class="shape-name">Emerald</span>
+          </button>
+          <button class="shape-option" data-shape="Pear" data-shape-add="100" onclick="selectShape(this)">
+            <svg class="shape-svg" viewBox="0 0 32 32"><path d="M16,4 C22,4 27,9 27,15 C27,21 22,27 16,28 C10,27 5,21 5,15 C5,9 10,4 16,4Z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+            <span class="shape-name">Pear</span>
+          </button>
+          <button class="shape-option" data-shape="Marquise" data-shape-add="50" onclick="selectShape(this)">
+            <svg class="shape-svg" viewBox="0 0 32 32"><ellipse cx="16" cy="16" rx="13" ry="8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+            <span class="shape-name">Marquise</span>
+          </button>
+          <button class="shape-option" data-shape="Heart" data-shape-add="300" onclick="selectShape(this)">
+            <svg class="shape-svg" viewBox="0 0 32 32"><path d="M16,26 C16,26 4,18 4,11 C4,7 7,5 11,5 C13,5 15,6 16,8 C17,6 19,5 21,5 C25,5 28,7 28,11 C28,18 16,26 16,26Z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+            <span class="shape-name">Heart</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="option-group">
+        <div class="option-group-label" style="display:flex;justify-content:space-between">
+          Carat Weight
+          <span style="font-family:var(--font-serif);font-style:italic;font-weight:300;font-size:0.875rem;color:var(--primary);letter-spacing:0;text-transform:none" id="carat-display">2.0 CT</span>
+        </div>
+        <div class="carat-slider-wrap">
+          <input type="range" class="carat-slider" min="0.5" max="5" step="0.25" value="2.0" oninput="updateCarat(this.value)" />
+        </div>
+        <div class="carat-ticks">
+          <span class="carat-tick">0.5</span>
+          <span class="carat-tick">1.0</span>
+          <span class="carat-tick">2.0</span>
+          <span class="carat-tick">3.0</span>
+          <span class="carat-tick">4.0</span>
+          <span class="carat-tick">5.0</span>
+        </div>
+      </div>
+
+      <div class="option-group">
+        <div class="option-group-label">Cut Grade</div>
+        <div class="grade-row">
+          <button class="grade-btn active" data-grade="Cut" data-grade-add="0" onclick="selectGrade('cut',this)">Ideal</button>
+          <button class="grade-btn" data-grade="Cut" data-grade-add="-200" onclick="selectGrade('cut',this)">Excellent</button>
+          <button class="grade-btn" data-grade="Cut" data-grade-add="-400" onclick="selectGrade('cut',this)">Very Good</button>
+        </div>
+      </div>
+      <div class="option-group">
+        <div class="option-group-label">Color Grade</div>
+        <div class="grade-row">
+          <button class="grade-btn active" data-grade-add="0" onclick="selectGrade('color',this)">D (Colorless)</button>
+          <button class="grade-btn" data-grade-add="-150" onclick="selectGrade('color',this)">E–F</button>
+          <button class="grade-btn" data-grade-add="-300" onclick="selectGrade('color',this)">G–H</button>
+          <button class="grade-btn" data-grade-add="-500" onclick="selectGrade('color',this)">I–J</button>
+        </div>
+      </div>
+      <div class="option-group">
+        <div class="option-group-label">Clarity Grade</div>
+        <div class="grade-row">
+          <button class="grade-btn active" data-grade-add="0" onclick="selectGrade('clarity',this)">VVS1–VVS2</button>
+          <button class="grade-btn" data-grade-add="-200" onclick="selectGrade('clarity',this)">VS1–VS2</button>
+          <button class="grade-btn" data-grade-add="-400" onclick="selectGrade('clarity',this)">SI1–SI2</button>
+        </div>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn btn-ghost" onclick="goToStep(0)" style="flex:0 0 auto">← Back</button>
+        <button class="btn btn-primary" onclick="goToStep(2)" style="flex:1">Review Design →</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Review -->
+    <div class="step-panel" id="step-2">
+      <div style="display:flex;flex-direction:column;gap:var(--space-4)">
+        <div style="font-family:var(--font-sans);font-size:0.45rem;font-weight:700;letter-spacing:0.35em;text-transform:uppercase;color:var(--primary)">Your Bespoke Configuration</div>
+        <div id="review-details" style="display:flex;flex-direction:column;gap:0"></div>
+      </div>
+
+      <div style="background:var(--surface-low);padding:var(--space-6)">
+        <div style="font-family:var(--font-sans);font-size:0.45rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--secondary);margin-bottom:var(--space-3)">Estimated Investment</div>
+        <div id="review-price" style="font-family:var(--font-serif);font-size:2.5rem;font-weight:300;color:var(--primary);letter-spacing:-0.02em">$2,400</div>
+        <p style="font-family:var(--font-sans);font-size:0.5625rem;font-weight:300;color:var(--secondary);margin-top:var(--space-3);line-height:1.7">Final price confirmed at consultation. No obligation. Our design team will contact you within 24 hours to finalize specifications.</p>
+      </div>
+
+      <div style="background:rgba(212,175,55,0.08);padding:var(--space-4);border-left:2px solid var(--primary-container)">
+        <p style="font-family:var(--font-sans);font-size:0.5625rem;font-weight:300;color:var(--on-surface);line-height:1.7"><strong style="font-weight:600">Complimentary services included:</strong> IGI Certification · Signature Véris presentation box · Insured worldwide shipping · 30-day free resize · Certificate of authenticity</p>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn btn-ghost" onclick="goToStep(1)" style="flex:0 0 auto">← Revise</button>
+        <button class="btn btn-primary" onclick="openRequestModal()" style="flex:1">Request Quote</button>
+      </div>
+      <button class="btn btn-primary btn-full" onclick="addCustomToCart()" style="margin-top:var(--space-2)">
+        <span style="font-family:'Material Symbols Outlined';font-size:16px;font-variation-settings:'FILL' 0,'wght' 200">shopping_bag</span>
+        Add Commission to Cart
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Nav -->
+<nav class="mobile-nav">
+  <a href="index.html" class="mobile-nav-item"><span class="icon">auto_awesome</span><span>Atelier</span></a>
+  <a href="collections.html" class="mobile-nav-item"><span class="icon">diamond</span><span>Shop</span></a>
+  <a href="ring-builder.html" class="mobile-nav-item active"><span class="icon">settings_applications</span><span>Design</span></a>
+  <a href="our-story.html" class="mobile-nav-item"><span class="icon">eco</span><span>Story</span></a>
+  <a href="cart.html" class="mobile-nav-item"><span class="icon">shopping_bag</span><span>Cart</span></a>
+</nav>
+
+<script src="js/app.js"></script>
+<script>
+  // ─── Ring Builder State ─────────────────────────────────
+  const config = {
+    setting: 'Solitaire', settingBase: 1800,
+    metal: '18K Yellow Gold', metalAdd: 0,
+    width: '1.5mm', size: '6',
+    shape: 'Round', shapeAdd: 0,
+    carat: 2.0, caratMult: 1200,
+    cutAdd: 0, colorAdd: 0, clarityAdd: 0
+  };
+
+  function getTotal() {
+    const caratPrice = Math.round(config.carat * config.caratMult);
+    return config.settingBase + config.metalAdd + config.shapeAdd + config.cutAdd + config.colorAdd + config.clarityAdd + caratPrice;
+  }
+
+  function updateUI() {
+    const total = getTotal();
+    document.getElementById('preview-price').textContent = '$' + total.toLocaleString();
+    document.getElementById('preview-summary').innerHTML = `
+      <strong style="color:var(--on-surface)">${config.setting}</strong> setting · ${config.metal}<br/>
+      ${config.carat}CT ${config.shape} · Cut: Ideal · Color: ${['D','E–F','G–H','I–J'][Math.round(-config.colorAdd/150)]||'D'}<br/>
+      Ring Size ${config.size}
+    `;
+    updateReviewDetails();
+    updateRingSVG();
+  }
+
+  function updateReviewDetails() {
+    const rows = [
+      ['Setting', config.setting],
+      ['Metal', config.metal],
+      ['Band Width', config.width],
+      ['Ring Size', config.size + ' (US)'],
+      ['Diamond Shape', config.shape],
+      ['Carat Weight', config.carat + ' CT'],
+      ['Origin', 'CVD Lab-Grown · IGI Certified'],
+    ];
+    const el = document.getElementById('review-details');
+    if (el) {
+      el.innerHTML = rows.map(([k, v]) => `
+        <div style="display:flex;justify-content:space-between;padding:var(--space-3) 0;border-bottom:1px solid rgba(208,197,175,0.2)">
+          <span style="font-family:var(--font-sans);font-size:0.45rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--secondary)">${k}</span>
+          <span style="font-family:var(--font-sans);font-size:0.5625rem">${v}</span>
+        </div>
+      `).join('');
+    }
+    const rp = document.getElementById('review-price');
+    if (rp) rp.textContent = '$' + getTotal().toLocaleString();
+  }
+
+  function updateRingSVG() {
+    // Update band color
+    const metalColors = {
+      '18K Yellow Gold': '#c5a028',
+      '18K White Gold': '#a8a8b0',
+      '18K Rose Gold': '#c47c6a',
+      'Platinum': '#8c8c96'
+    };
+    const col = metalColors[config.metal] || '#c5a028';
+    ['ring-band-bottom','ring-left','ring-right'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) { el.setAttribute('stroke', col); }
+    });
+    document.querySelectorAll('#ring-prongs line').forEach(l => l.setAttribute('stroke', col));
+    // Diamond shape color hints
+    const shapeColors = { Round:'#ddeeff', Princess:'#e8f4fd', Oval:'#ddeeff', Cushion:'#e0f0e8', Emerald:'#f0e8d8', Pear:'#e8d8f0', Marquise:'#f0f0d8', Heart:'#ffe8e8' };
+    const dColor = shapeColors[config.shape] || '#ddeeff';
+    document.getElementById('diamond-shape').setAttribute('fill', dColor);
+    document.getElementById('diamond-shape').setAttribute('stroke', col);
+  }
+
+  function goToStep(step) {
+    [0,1,2].forEach(i => {
+      document.getElementById('step-' + i).classList.toggle('active', i === step);
+      const tab = document.getElementById('tab-' + i);
+      tab.classList.remove('active','done');
+      if (i === step) tab.classList.add('active');
+      else if (i < step) tab.classList.add('done');
+    });
+    if (step === 2) updateReviewDetails();
+  }
+
+  function selectSetting(btn) {
+    document.querySelectorAll('.setting-option').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    config.setting = btn.dataset.setting;
+    config.settingBase = parseInt(btn.dataset.priceBase) || 1800;
+    updateUI();
+  }
+  function selectMetal(btn) {
+    btn.closest('.chips-row').querySelectorAll('.metal-chip').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    config.metal = btn.dataset.metal;
+    config.metalAdd = parseInt(btn.dataset.metalAdd) || 0;
+    updateUI();
+  }
+  function selectBand(btn) {
+    btn.closest('.chips-row').querySelectorAll('.metal-chip').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    config.width = btn.dataset.width;
+  }
+  function selectRingSize(btn) {
+    btn.closest('.chips-row').querySelectorAll('.metal-chip').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    config.size = btn.textContent.trim();
+  }
+  function selectShape(btn) {
+    document.querySelectorAll('.shape-option').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    config.shape = btn.dataset.shape;
+    config.shapeAdd = parseInt(btn.dataset.shapeAdd) || 0;
+    updateUI();
+  }
+  function updateCarat(val) {
+    config.carat = parseFloat(val);
+    document.getElementById('carat-display').textContent = parseFloat(val).toFixed(2) + ' CT';
+    updateUI();
+  }
+  function selectGrade(type, btn) {
+    btn.closest('.grade-row').querySelectorAll('.grade-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    config[type + 'Add'] = parseInt(btn.dataset.gradeAdd) || 0;
+    updateUI();
+  }
+
+  function openRequestModal() {
+    const modal = document.getElementById('request-modal');
+    const summary = document.getElementById('request-summary');
+    summary.innerHTML = `
+      <strong>Your Design:</strong><br/>
+      ${config.setting} · ${config.metal} · ${config.width}<br/>
+      ${config.carat}CT ${config.shape} Round Brilliant<br/>
+      Size ${config.size} · Estimated: $${getTotal().toLocaleString()}
+    `;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeRequestModal() {
+    document.getElementById('request-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function submitRequest(e) {
+    e.preventDefault();
+    closeRequestModal();
+    Toast.show('Quote request submitted! We\'ll contact you within 24 hours.', 'check_circle', 5000);
+  }
+  function addCustomToCart() {
+    Cart.add({
+      id: 'custom-' + Date.now(),
+      name: 'Bespoke Ring Commission',
+      variant: `${config.carat}CT ${config.shape} · ${config.setting} · ${config.metal} · Size ${config.size}`,
+      price: getTotal(),
+      qty: 1,
+      img: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=900&q=80&auto=format'
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => { updateUI(); });
+</script>
+</body>
+</html>

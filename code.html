@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@200;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#e9c349",
+                        "on-tertiary-fixed-variant": "#27438a",
+                        "tertiary-fixed-dim": "#b4c5ff",
+                        "surface-container-high": "#ebe7e7",
+                        "primary-fixed": "#ffe088",
+                        "on-tertiary-container": "#254188",
+                        "primary-container": "#d4af37",
+                        "on-error": "#ffffff",
+                        "surface": "#fcf9f8",
+                        "tertiary-container": "#97b0ff",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "secondary": "#5f5e5e",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#1c1b1b",
+                        "on-primary-fixed-variant": "#574500",
+                        "surface-variant": "#e5e2e1",
+                        "on-secondary-fixed-variant": "#474746",
+                        "surface-container-low": "#f6f3f2",
+                        "inverse-on-surface": "#f3f0ef",
+                        "on-secondary-container": "#636262",
+                        "error-container": "#ffdad6",
+                        "outline": "#7f7663",
+                        "primary": "#735c00",
+                        "background": "#fcf9f8",
+                        "surface-container-highest": "#e5e2e1",
+                        "inverse-surface": "#313030",
+                        "on-background": "#1c1b1b",
+                        "tertiary": "#415ba4",
+                        "secondary-fixed": "#e5e2e1",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#4d4635",
+                        "surface-bright": "#fcf9f8",
+                        "surface-container": "#f0edec",
+                        "surface-tint": "#735c00",
+                        "on-tertiary-fixed": "#00174b",
+                        "on-primary-fixed": "#241a00",
+                        "inverse-primary": "#e9c349",
+                        "on-primary-container": "#554300",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "secondary-container": "#e2dfde",
+                        "surface-dim": "#dcd9d9",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#d0c5af",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "tertiary-fixed": "#dbe1ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+        }
+        .noto-serif-bold { font-family: 'Noto Serif', serif; font-weight: 700; }
+        .manrope { font-family: 'Manrope', sans-serif; }
+        .pb-safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface manrope selection:bg-primary-container/30">
+<!-- Global Shipping Banner -->
+<div class="bg-inverse-surface text-inverse-on-surface py-2 px-6 flex justify-center items-center gap-4 text-[10px] tracking-[0.2em] uppercase font-medium">
+<span>Complimentary Global Shipping on all Atelier orders</span>
+<span class="w-1 h-1 bg-primary-container rounded-full"></span>
+<span>IGI Certified Brilliance</span>
+</div>
+<!-- TopAppBar -->
+<header class="sticky top-0 z-50 bg-stone-50/80 dark:bg-stone-950/80 backdrop-blur-xl flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<button class="text-[#735c00] hover:opacity-70 transition-opacity duration-300">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</div>
+<h1 class="noto-serif text-2xl font-bold tracking-widest text-stone-900 dark:text-stone-100">Zenvé</h1>
+<div class="flex items-center gap-4">
+<button class="text-[#735c00] hover:opacity-70 transition-opacity duration-300">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+</button>
+</div>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative h-[795px] w-full flex items-center justify-center overflow-hidden bg-surface-container-low">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover brightness-[0.85]" data-alt="Elegant close-up of a model wearing a high-end diamond necklace against a soft, neutral studio background with dramatic high-fashion lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-3F9BMEwmmg8SvHcPLy9otscLsVO7pbDyfiI22FimnNDQ2qz-5wGe0FEs3UIlakX1JO6KB4nDEjUxn-rOtrM-wN8hvOui-BiR99aX1nqPuqmkRmeCe1sG0vjZKNaXBdh8VOGwjm5DcwoNQPmYrLDa2kV2DLO2wM25e7ds0inTliOKRNNifAYLLMFJUHHmTkb_bQ086nXDeT3h19rssRSOLouEMitHEgmnL-NTJjFgtZLJMynz2oI33w8iQhSPNh4LTE1l_K8wYhsM"/>
+<div class="absolute inset-0 bg-gradient-to-r from-stone-900/40 via-transparent to-transparent"></div>
+</div>
+<div class="relative z-10 container mx-auto px-6 flex flex-col items-start gap-8">
+<div class="max-w-2xl">
+<h2 class="noto-serif-bold text-5xl md:text-7xl lg:text-8xl text-white tracking-tighter leading-none mb-6">
+                        Engineered Diamonds. <br/>
+<span class="italic font-light">Timeless Luxury.</span>
+</h2>
+<p class="manrope font-light text-white/80 text-sm md:text-base tracking-widest uppercase mb-10 max-w-md">
+                        Redefining the heritage of fine jewelry through sustainable innovation and master craftsmanship.
+                    </p>
+<a class="inline-block bg-primary px-10 py-5 text-on-primary font-medium tracking-[0.2em] uppercase text-xs hover:bg-primary-container transition-colors duration-500 ease-out" href="#">
+                        Shop Collection
+                    </a>
+</div>
+</div>
+</section>
+<!-- Trust Section -->
+<section class="py-16 bg-surface border-y border-outline-variant/10">
+<div class="container mx-auto px-6">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+<div class="flex flex-col items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="verified">verified</span>
+<h3 class="manrope text-[11px] tracking-[0.2em] uppercase font-semibold text-on-surface">IGI Certified</h3>
+<p class="text-xs text-secondary font-light max-w-[200px]">Each stone carries a world-standard certification of authenticity.</p>
+</div>
+<div class="flex flex-col items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="precision_manufacturing">precision_manufacturing</span>
+<h3 class="manrope text-[11px] tracking-[0.2em] uppercase font-semibold text-on-surface">Handcrafted in Surat</h3>
+<p class="text-xs text-secondary font-light max-w-[200px]">Meticulously cut and polished by heritage master artisans.</p>
+</div>
+<div class="flex flex-col items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="eco">eco</span>
+<h3 class="manrope text-[11px] tracking-[0.2em] uppercase font-semibold text-on-surface">100% Ethical</h3>
+<p class="text-xs text-secondary font-light max-w-[200px]">Zero mining. Sustainable sourcing. Conscience-free brilliance.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Bestseller Carousel (Grid) -->
+<section class="py-24 bg-surface-container-low">
+<div class="container mx-auto px-6">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+<div class="max-w-xl">
+<span class="manrope text-[10px] tracking-[0.3em] uppercase text-primary font-bold">The Boutique</span>
+<h2 class="noto-serif-bold text-4xl mt-2 tracking-tight">Our Signature Icons</h2>
+</div>
+<a class="manrope text-[10px] tracking-[0.2em] uppercase border-b border-primary text-primary pb-1 hover:opacity-70 transition-opacity" href="#">View All Collections</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0.5 bg-outline-variant/20">
+<!-- Product 1 -->
+<div class="bg-surface p-8 group cursor-pointer">
+<div class="relative overflow-hidden aspect-[4/5] mb-8 bg-surface-container">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Exquisite 2-carat solitaire CVD diamond ring on a gold band, shot with soft macro focus on white marble background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBicyo_swLOZGHrFJUnmnMHvkKYzuyT_jtXZsBr4uVlYEa2dZsKriPWmQN-ksguVkDgqfo6PiM1_i5i1tSoUUX-gVSHOhKmTal9pIbfKg4AzFaWgcRfxx1BFCa5wTToSmOeWuG-uciwNd75qWJuCokjd1vQpj1CdD1xD4qFUSzF1Ta0vmYLVfjAFM0IOzehPiq0YmDhGnbsmCZZbhStN0SJGLM69LAqqrjS_YPn5faLHPgEHn4CaLDxypxx-K7WUUNas1znmltQ8y8O"/>
+<div class="absolute top-4 left-4 bg-primary-container text-[9px] px-2 py-1 tracking-widest text-on-primary-container uppercase">Solitaire</div>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="manrope text-xs tracking-wider uppercase font-medium">The Aura Ring</h3>
+<p class="noto-serif text-lg font-light text-primary italic">2.5 CT CVD Solitaire</p>
+<p class="manrope text-[10px] tracking-widest text-secondary mt-2">FROM $2,400</p>
+</div>
+</div>
+<!-- Product 2 -->
+<div class="bg-surface p-8 group cursor-pointer">
+<div class="relative overflow-hidden aspect-[4/5] mb-8 bg-surface-container">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="High-end tennis bracelet featuring continuous laboratory grown diamonds set in white gold, draped over a silk cushion" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYfD0nhD9r2mRz2gNHF-LFwY_DRGmdzynbuYPn5lKLERl4r0f1gY-2pzgqwfn7efBjiJIr2lhWN3uB8LukToTmugOn8D3NSOxS8LiuyXmg6-PPi3PosiSa-VoTZYj4s_inoL3jUzawYsHmlHoW7m77kQjXzkyYFOyyab26DaLluH6ohilBRM-HKoINp_3K74Hj9kiF8KduoLeCIJ07j29JooI1QFuByy7EodOHPta3FhWCxuHk0TUrQzKGynorzvwY-semqngNg9ng"/>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="manrope text-xs tracking-wider uppercase font-medium">Eternal Strand</h3>
+<p class="noto-serif text-lg font-light text-primary italic">5.0 CT Tennis Bracelet</p>
+<p class="manrope text-[10px] tracking-widest text-secondary mt-2">FROM $4,850</p>
+</div>
+</div>
+<!-- Product 3 -->
+<div class="bg-surface p-8 group cursor-pointer">
+<div class="relative overflow-hidden aspect-[4/5] mb-8 bg-surface-container">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Modern geometric diamond pendant necklace on a delicate gold chain, minimalist luxury photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWH5QNlbDTGXYAbBe4yoSIH9-ZdhawtXLpzK79lIHjleJL8ny5huh2T0VzFqimTTkKe9gIXG2HAWjaf8hd8P_cGRV5SCL4Ar4tijFIL_SKtOKSnvXjMNgniqmY6rM_mAQT0ijoX3TxRZXwK7Nk-eX_XORzwAGrcxCt62onGtav4QmWG70dmPlE1Ili6eL75UNk3ga9VkXUxuOEEgbDqNMnmvdh-Yxj3Dj9P4VExZl8hf-h816vHyd92Qk6ChgOgOEYYvKakrEKP2P2"/>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="manrope text-xs tracking-wider uppercase font-medium">Lumière Pendant</h3>
+<p class="noto-serif text-lg font-light text-primary italic">1.0 CT Halo Drop</p>
+<p class="manrope text-[10px] tracking-widest text-secondary mt-2">FROM $1,150</p>
+</div>
+</div>
+<!-- Product 4 -->
+<div class="bg-surface p-8 group cursor-pointer">
+<div class="relative overflow-hidden aspect-[4/5] mb-8 bg-surface-container">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Classic diamond stud earrings in a four-prong setting, reflecting light with high brilliance on a dark velvet background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLRQWNUVNJBYwuNOTRY4j-nbfYf1N_7ZJZYGLkVeaz22mHZBo1BtYlNqtclV0BEjfRt61YBbHUBo7ue5lWu1C2C1Lc6zU4MVodpq-11XQtE2RrL33uWW5nuxQj57aJg28NT6ESKCweOALwRHv3XKXNRYJuWXVOKZ0AnvzOhkSxnapJRo5ivL1I-YoJdTXxn8pWzyZ-afLL0IS_DdUefzlSwY8fzesqNhjRWXJdbljmgEDDlKtTmLk_rtDC-loPDE8twEAWNfE0_haE"/>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="manrope text-xs tracking-wider uppercase font-medium">Stella Studs</h3>
+<p class="noto-serif text-lg font-light text-primary italic">2.0 CT TW Round Cut</p>
+<p class="manrope text-[10px] tracking-widest text-secondary mt-2">FROM $1,800</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Why CVD Diamonds Section -->
+<section class="py-24 bg-surface">
+<div class="container mx-auto px-6">
+<div class="grid grid-cols-1 lg:grid-cols-2 items-center gap-16 lg:gap-24">
+<div class="relative order-2 lg:order-1">
+<div class="absolute -top-10 -left-10 w-64 h-64 bg-surface-container-high/50 z-0"></div>
+<img class="relative z-10 w-full h-[600px] object-cover grayscale-[0.3]" data-alt="A macro shot of a loose rough diamond being inspected by a jeweler under a loupe with clinical lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDa4O8gbUYFgcsSuAxmJMV8TLoAORizmILKLus1Qu91Ceawruiypq9AP3XaEI3-8IvGKoebBzp3lDRL6IQRJpASqRIgydsUHPBraaxLvESObbXAWNaf3zYIUyvik44EvRjgf3l29Z5hVXMMm066l6UJblXwPwk_696vKpuU9GgFES8XDdIcmbQQXSLKuD0eiz6orUNUo9A3T186sC3AmR0-0V_vzwxHTUaYmyt3lFo8OH01ECsn5ldM_fzbw39zLqXPFzOQuKiwCmf2"/>
+<div class="absolute bottom-10 right-10 z-20 bg-stone-900 text-white p-8 max-w-[240px]">
+<p class="manrope text-[9px] tracking-[0.3em] uppercase mb-4 text-primary-container">The Science</p>
+<p class="noto-serif italic text-sm">"Identical atom-for-atom to mined diamonds, without the cost to Earth."</p>
+</div>
+</div>
+<div class="order-1 lg:order-2 flex flex-col gap-8">
+<span class="manrope text-[10px] tracking-[0.4em] uppercase text-primary font-bold">Innovation</span>
+<h2 class="noto-serif-bold text-4xl md:text-5xl tracking-tighter">Why CVD Diamonds?</h2>
+<div class="flex flex-col gap-10 mt-4">
+<div class="flex gap-6">
+<span class="manrope text-primary-container font-light text-3xl">01</span>
+<div class="flex flex-col gap-2">
+<h4 class="manrope font-bold text-xs tracking-widest uppercase">Unmatched Price</h4>
+<p class="text-sm text-secondary font-light leading-relaxed">Save up to 40% compared to mined diamonds of the same quality. Own a larger, more brilliant stone for the same investment.</p>
+</div>
+</div>
+<div class="flex gap-6">
+<span class="manrope text-primary-container font-light text-3xl">02</span>
+<div class="flex flex-col gap-2">
+<h4 class="manrope font-bold text-xs tracking-widest uppercase">Pure Brilliance</h4>
+<p class="text-sm text-secondary font-light leading-relaxed">Lab-grown diamonds are Type IIa, the purest form of diamond found in only 2% of the Earth's mined stones.</p>
+</div>
+</div>
+<div class="flex gap-6">
+<span class="manrope text-primary-container font-light text-3xl">03</span>
+<div class="flex flex-col gap-2">
+<h4 class="manrope font-bold text-xs tracking-widest uppercase">Conscious Luxury</h4>
+<p class="text-sm text-secondary font-light leading-relaxed">By choosing CVD, you support a future of zero-conflict, zero-mining, and a significantly reduced carbon footprint.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Reviews/UGC Section -->
+<section class="py-24 bg-surface-container-low border-t border-outline-variant/10">
+<div class="container mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="noto-serif-bold text-4xl tracking-tighter mb-4">Voices of Zenvé</h2>
+<p class="manrope text-[10px] tracking-[0.3em] uppercase text-secondary">Verified Purchases &amp; Testimonials</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="bg-surface p-10 flex flex-col gap-6 relative">
+<div class="flex gap-1 text-primary-container">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="noto-serif italic text-lg leading-relaxed text-on-surface">"The brilliance of my tennis bracelet is beyond words. I was hesitant about lab-grown at first, but the certification and the sparkle convinced me. Truly sustainable luxury."</p>
+<div class="flex items-center gap-4 mt-auto pt-6 border-t border-outline-variant/20">
+<div class="w-10 h-10 bg-surface-container-high rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a young woman in soft lighting, testimonial avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_3C5owd5YSPW9cBRt28SMmXeRsSvBxLFe88hJaz65gCyZ3zZg-vFa17mf5kaMtm-MbQ-sy0QfturHK2azVzlbhI4r0TcRxKgGCIo3hBYcnkpNf7aMPMq0Z5rjZLw0UC3NCYAOfmb6ZBDIzOHKFmLTV5akJLwSaeSuCbNsWlLMPp-tOrYmx9tW4e6wLYF05YeDXVZonMPn7jRybZDeC6DBs5ryuvnGXLaPSFZa_jo1b5DHb7ZBWO7XwuZl5LaUlJ-tpIt8buHc9UEf"/>
+</div>
+<div class="flex flex-col">
+<span class="manrope font-bold text-[10px] tracking-widest uppercase">Eleanor Thorne</span>
+<span class="manrope text-[9px] text-secondary">London, UK</span>
+</div>
+</div>
+</div>
+<div class="bg-stone-900 text-stone-100 p-10 flex flex-col gap-6 relative md:scale-110 z-10">
+<div class="flex gap-1 text-primary-container">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="noto-serif italic text-lg leading-relaxed">"The craftsmanship from Surat is evident in every facet. My engagement ring is a masterpiece. Zenvé is leading the way in ethical jewelry."</p>
+<div class="flex items-center gap-4 mt-auto pt-6 border-t border-stone-800">
+<div class="w-10 h-10 bg-stone-800 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a gentleman, testimonial avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUUA6rHCQXemJw5LMl11plutM7EY2jaOlsuxXlgnxoYq1xMJ_FYjTL55mNsDtKVEJuqGX05AF7n17NHa5F2ojmGlAupmTl5Dt57eA_IIx_nv-xMEzMWbXG2RNqfEHY-VU3eWhYthuMTfyJVCmRz776Mbx2NOH19ssh0lzNVzcB_aDd2t1-yBL7hYoyFdFY3jL9Z2-bke-JqfSvU1tLqSa1TGHm-8-OIxtF_DIQCU2ZRyg1JewWPWrGLd4G1c1pJaeqY3_rEG5biKcT"/>
+</div>
+<div class="flex flex-col">
+<span class="manrope font-bold text-[10px] tracking-widest uppercase">James Sutherland</span>
+<span class="manrope text-[9px] text-stone-400">New York, NY</span>
+</div>
+</div>
+</div>
+<div class="bg-surface p-10 flex flex-col gap-6 relative">
+<div class="flex gap-1 text-primary-container">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="noto-serif italic text-lg leading-relaxed text-on-surface">"Better price, same brilliance, and no guilt. I couldn't ask for more. The packaging itself was a work of art."</p>
+<div class="flex items-center gap-4 mt-auto pt-6 border-t border-outline-variant/20">
+<div class="w-10 h-10 bg-surface-container-high rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a young woman, testimonial avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAn08GylMQdWNAr7Ujhq9VySQCd-7JQMie-H_Lyjm8kMJXdJr8NJvf7GP8M2hRtecW8waoWz4W-RLKH4738NyH9ALAZFBQViBLmfctBvhyOo4rxwS2AHy6iJj9bP4c0GBSCzdTJkMy6SWCryPkDNAoanGVxNbbirhwsEhI5AO21R5kCLn-o9smZcF2tHCZCLnX9gU7qW8zks3D86MKgGd-ibPPekTMb95gCAhdRzNo8Sfav9ACV7c9fL7RrrRnRB212Mjn5Vi-spyLp"/>
+</div>
+<div class="flex flex-col">
+<span class="manrope font-bold text-[10px] tracking-widest uppercase">Sophia Chen</span>
+<span class="manrope text-[9px] text-secondary">Singapore</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-24 bg-surface text-center px-6">
+<div class="max-w-3xl mx-auto flex flex-col items-center gap-8">
+<span class="manrope text-[10px] tracking-[0.5em] uppercase text-primary font-bold">Experience the Future</span>
+<h2 class="noto-serif-bold text-4xl md:text-6xl tracking-tighter leading-tight">Elevate Your Story with <br/>Ethical Sparkle.</h2>
+<div class="flex flex-col sm:flex-row gap-4 mt-6">
+<a class="bg-primary text-on-primary px-12 py-5 text-[10px] tracking-[0.3em] uppercase font-bold hover:bg-stone-900 transition-colors" href="#">Start Designing</a>
+<a class="border border-outline-variant text-on-surface px-12 py-5 text-[10px] tracking-[0.3em] uppercase font-bold hover:bg-surface-container transition-colors" href="#">Speak to an Expert</a>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low py-20 px-6 border-t border-outline-variant/10">
+<div class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+<div class="flex flex-col gap-6">
+<h3 class="noto-serif text-2xl font-bold tracking-widest text-[#735c00]">Zenvé</h3>
+<p class="text-xs text-secondary font-light leading-relaxed max-w-xs">A modern house of high jewelry, pioneering the future of ethical diamonds through scientific precision and heritage artistry.</p>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="manrope font-bold text-[10px] tracking-[0.3em] uppercase">Collections</h4>
+<ul class="flex flex-col gap-2 text-xs text-secondary font-light">
+<li><a class="hover:text-primary transition-colors" href="#">Solitaire Rings</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Tennis Bracelets</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Eternal Pendants</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">The Atelier Series</a></li>
+</ul>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="manrope font-bold text-[10px] tracking-[0.3em] uppercase">Information</h4>
+<ul class="flex flex-col gap-2 text-xs text-secondary font-light">
+<li><a class="hover:text-primary transition-colors" href="#">The CVD Process</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Ethical Sourcing</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">IGI Certification</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Shipping &amp; Returns</a></li>
+</ul>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="manrope font-bold text-[10px] tracking-[0.3em] uppercase">Newsletter</h4>
+<p class="text-[10px] text-secondary font-light">Join the circle of curated elegance.</p>
+<div class="flex mt-2">
+<input class="bg-transparent border-b border-outline-variant py-2 text-[10px] tracking-widest w-full focus:outline-none focus:border-primary" placeholder="YOUR EMAIL" type="email"/>
+<button class="ml-4 material-symbols-outlined text-primary" data-icon="arrow_forward">arrow_forward</button>
+</div>
+</div>
+</div>
+<div class="container mx-auto mt-20 pt-8 border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center gap-6">
+<p class="text-[9px] tracking-widest uppercase text-secondary">© 2024 Zenvé Diamonds. All Rights Reserved.</p>
+<div class="flex gap-8">
+<a class="text-[9px] tracking-widest uppercase text-secondary hover:text-primary" href="#">Privacy</a>
+<a class="text-[9px] tracking-widest uppercase text-secondary hover:text-primary" href="#">Terms</a>
+<a class="text-[9px] tracking-widest uppercase text-secondary hover:text-primary" href="#">Instagram</a>
+</div>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 flex justify-around items-center px-4 pt-3 pb-safe-bottom bg-stone-50/90 dark:bg-stone-950/90 backdrop-blur-2xl">
+<a class="flex flex-col items-center justify-center text-[#735c00] dark:text-[#d4af37] scale-105 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="manrope text-[10px] font-medium tracking-[0.05em] uppercase">Atelier</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 hover:text-stone-900 dark:hover:text-stone-100 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="diamond">diamond</span>
+<span class="manrope text-[10px] font-medium tracking-[0.05em] uppercase">Collections</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 hover:text-stone-900 dark:hover:text-stone-100 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="light_mode">light_mode</span>
+<span class="manrope text-[10px] font-medium tracking-[0.05em] uppercase">Curated</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 hover:text-stone-900 dark:hover:text-stone-100 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="manrope text-[10px] font-medium tracking-[0.05em] uppercase">Account</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Véris Diamonds — Engineered Diamonds. Timeless Luxury.</title>
+  <meta name="description" content="Véris offers IGI-certified CVD lab-grown diamonds handcrafted in Surat. Discover solitaire rings, tennis bracelets, and bespoke fine jewelry at up to 40% less than mined diamonds." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* ─── Hero Section ─────────────────────────────── */
+    .hero {
+      position: relative;
+      height: 100svh;
+      min-height: 600px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 80px;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .hero-bg img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(20,20,30,0.62) 0%, rgba(20,20,30,0.25) 55%, rgba(20,20,30,0.05) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      padding: 0 var(--space-12) 0 var(--space-12);
+    }
+    .hero-eyebrow {
+      font-family: var(--font-sans);
+      font-size: 0.5625rem;
+      font-weight: 600;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--primary-container);
+      margin-bottom: var(--space-4);
+    }
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(3.2rem, 8vw, 6.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 0.93;
+      color: #ffffff;
+      margin-bottom: var(--space-8);
+    }
+    .hero-title em {
+      font-style: italic;
+      font-weight: 300;
+      display: block;
+    }
+    .hero-sub {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.72);
+      margin-bottom: var(--space-10);
+      max-width: 380px;
+      line-height: 1.8;
+    }
+    .hero-actions { display: flex; gap: var(--space-4); flex-wrap: wrap; }
+    .hero-scroll {
+      position: absolute;
+      bottom: var(--space-8);
+      right: var(--space-10);
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-2);
+      color: rgba(255,255,255,0.5);
+    }
+    .hero-scroll-line {
+      width: 1px;
+      height: 48px;
+      background: rgba(255,255,255,0.3);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+    .hero-scroll-label {
+      font-family: var(--font-sans);
+      font-size: 0.45rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      writing-mode: vertical-lr;
+    }
+    @keyframes scrollLine {
+      0%, 100% { opacity: 0.3; transform: scaleY(0.5); transform-origin: top; }
+      50% { opacity: 1; transform: scaleY(1); }
+    }
+
+    /* ─── Trust Pillars ────────────────────────────── */
+    .trust-section {
+      background: var(--surface-lowest);
+      padding: var(--space-12) 0;
+    }
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+      padding: var(--space-6) var(--space-8);
+      border-right: 1px solid rgba(208,197,175,0.2);
+    }
+    .trust-item:last-child { border-right: none; }
+    .trust-icon {
+      font-family: 'Material Symbols Outlined';
+      font-size: 28px;
+      color: var(--primary-container);
+      font-variation-settings: 'FILL' 0, 'wght' 200;
+      flex-shrink: 0;
+    }
+    .trust-title {
+      font-family: var(--font-sans);
+      font-size: 0.5625rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .trust-desc {
+      font-family: var(--font-sans);
+      font-size: 0.6875rem;
+      font-weight: 300;
+      color: var(--secondary);
+      line-height: 1.5;
+    }
+
+    /* ─── Bestsellers ──────────────────────────────── */
+    .bestseller-section {
+      background: var(--surface-low);
+      padding: var(--space-24) 0;
+    }
+    .section-head-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: var(--space-12);
+    }
+    .view-all-link {
+      font-family: var(--font-sans);
+      font-size: 0.5rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--primary);
+      border-bottom: 1px solid var(--primary);
+      padding-bottom: 2px;
+      transition: opacity var(--transition-base);
+    }
+    .view-all-link:hover { opacity: 0.6; }
+
+    /* ─── CVD Editorial ────────────────────────────── */
+    .editorial-section { background: var(--surface); padding: var(--space-24) 0; }
+    .editorial-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .editorial-image-side {
+      position: relative;
+      min-height: 650px;
+    }
+    .editorial-image-side img { width: 100%; height: 100%; object-fit: cover; }
+    .editorial-quote-card {
+      position: absolute;
+      bottom: var(--space-10);
+      right: calc(-1 * var(--space-8));
+      z-index: 2;
+      background: var(--inverse-surface);
+      color: var(--inverse-on-surface);
+      padding: var(--space-8);
+      max-width: 260px;
+    }
+    .editorial-text-side {
+      padding: var(--space-16) var(--space-12) var(--space-16) var(--space-16);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: var(--space-8);
+    }
+    .cvd-point { display: flex; gap: var(--space-6); }
+    .cvd-num {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--primary-container);
+      opacity: 0.7;
+      font-style: italic;
+      flex-shrink: 0;
+      width: 48px;
+    }
+    .cvd-title {
+      font-family: var(--font-sans);
+      font-size: 0.5625rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-2);
+    }
+    .cvd-text {
+      font-family: var(--font-sans);
+      font-size: 0.8125rem;
+      font-weight: 300;
+      color: var(--secondary);
+      line-height: 1.8;
+    }
+
+    /* ─── Stats Strip ───────────────────────────────── */
+    .stats-section {
+      background: var(--inverse-surface);
+      padding: var(--space-12) 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      text-align: center;
+    }
+    .stats-item {
+      padding: var(--space-8);
+      border-right: 1px solid rgba(243,240,239,0.08);
+    }
+    .stats-item:last-child { border-right: none; }
+
+    /* ─── Testimonials ──────────────────────────────── */
+    .testimonials-section { background: var(--surface-low); padding: var(--space-24) 0; }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(208,197,175,0.15);
+    }
+    .review-card { background: var(--surface-lowest); padding: var(--space-10); }
+    .review-card.featured {
+      background: var(--inverse-surface);
+      color: var(--inverse-on-surface);
+      transform: scale(1.04);
+      position: relative;
+      z-index: 2;
+    }
+    .stars { display: flex; gap: 3px; margin-bottom: var(--space-4); }
+    .star {
+      font-family: 'Material Symbols Outlined';
+      font-size: 13px;
+      color: var(--primary-container);
+      font-variation-settings: 'FILL' 1, 'wght' 300;
+    }
+    .review-text {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1rem;
+      line-height: 1.75;
+      margin-bottom: var(--space-8);
+    }
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding-top: var(--space-6);
+      border-top: 1px solid rgba(208,197,175,0.25);
+    }
+    .review-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .review-name {
+      font-family: var(--font-sans);
+      font-size: 0.5rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+    }
+    .review-location { font-family: var(--font-sans); font-size: 0.5625rem; color: var(--secondary); margin-top: 2px; }
+    .review-card.featured .review-location { color: rgba(243,240,239,0.5); }
+    .review-card.featured .review-author { border-color: rgba(243,240,239,0.1); }
+
+    /* ─── Collections Strip ─────────────────────────── */
+    .collections-strip { background: var(--surface-lowest); padding: var(--space-24) 0; }
+    .collections-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(208,197,175,0.15); }
+    .collection-tile {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      cursor: pointer;
+    }
+    .collection-tile img { transition: transform var(--transition-cinematic); }
+    .collection-tile:hover img { transform: scale(1.07); }
+    .collection-tile-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(28,27,27,0.7) 0%, transparent 60%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: var(--space-8);
+    }
+    .collection-tile-tag {
+      font-family: var(--font-sans);
+      font-size: 0.45rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--primary-container);
+      margin-bottom: var(--space-2);
+    }
+    .collection-tile-name {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.01em;
+    }
+    .collection-tile-sub {
+      font-family: var(--font-sans);
+      font-size: 0.5rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-top: var(--space-1);
+    }
+
+    /* ─── Newsletter ────────────────────────────────── */
+    .newsletter-section { background: var(--surface); padding: var(--space-24) 0; }
+    .newsletter-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-16);
+      align-items: center;
+    }
+    .newsletter-form { display: flex; gap: 0; }
+    .newsletter-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(208,197,175,0.5);
+      padding: 14px 0;
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      color: var(--on-surface);
+      outline: none;
+    }
+    .newsletter-input::placeholder { color: var(--secondary); }
+    .newsletter-input:focus { border-color: var(--primary); }
+    .newsletter-btn {
+      background: var(--primary);
+      color: var(--on-primary);
+      border: none;
+      padding: 14px 24px;
+      font-family: var(--font-sans);
+      font-size: 0.5rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background var(--transition-base);
+    }
+    .newsletter-btn:hover { background: var(--inverse-surface); }
+
+    /* ─── CTA Section ───────────────────────────────── */
+    .cta-section { background: var(--surface-low); padding: var(--space-24) var(--space-6); text-align: center; }
+
+    /* ─── Footer ────────────────────────────────────── */
+    .site-footer { background: var(--inverse-surface); color: var(--inverse-on-surface); padding: var(--space-20) 0 var(--space-8); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: var(--space-12); margin-bottom: var(--space-16); }
+    .footer-logo {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--primary-container);
+      margin-bottom: var(--space-4);
+    }
+    .footer-desc { font-family: var(--font-sans); font-size: 0.6875rem; font-weight: 300; line-height: 1.8; color: rgba(243,240,239,0.5); max-width: 260px; }
+    .footer-col-title {
+      font-family: var(--font-sans);
+      font-size: 0.5rem;
+      font-weight: 700;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--primary-container);
+      margin-bottom: var(--space-6);
+    }
+    .footer-links { display: flex; flex-direction: column; gap: var(--space-3); }
+    .footer-link {
+      font-family: var(--font-sans);
+      font-size: 0.6875rem;
+      font-weight: 300;
+      color: rgba(243,240,239,0.55);
+      transition: color var(--transition-base);
+    }
+    .footer-link:hover { color: var(--primary-container); }
+    .footer-bottom {
+      border-top: 1px solid rgba(243,240,239,0.1);
+      padding-top: var(--space-6);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+    .footer-copy {
+      font-family: var(--font-sans);
+      font-size: 0.45rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(243,240,239,0.3);
+    }
+    .footer-socials { display: flex; gap: var(--space-6); }
+    .footer-social {
+      font-family: var(--font-sans);
+      font-size: 0.45rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(243,240,239,0.4);
+      transition: color var(--transition-base);
+    }
+    .footer-social:hover { color: var(--primary-container); }
+    .footer-newsletter-form { display: flex; gap: 0; margin-top: var(--space-4); }
+    .footer-newsletter-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(243,240,239,0.2);
+      padding: 10px 0;
+      font-family: var(--font-sans);
+      font-size: 0.5625rem;
+      letter-spacing: 0.1em;
+      color: var(--inverse-on-surface);
+      outline: none;
+    }
+    .footer-newsletter-input::placeholder { color: rgba(243,240,239,0.3); }
+    .footer-newsletter-input:focus { border-color: var(--primary-container); }
+    .footer-newsletter-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0 0 0 var(--space-4);
+      font-family: 'Material Symbols Outlined';
+      font-size: 18px;
+      color: var(--primary-container);
+      font-variation-settings: 'FILL' 0, 'wght' 200;
+      transition: opacity var(--transition-base);
+    }
+    .footer-newsletter-btn:hover { opacity: 0.7; }
+
+    @media (max-width: 1024px) {
+      .editorial-grid { grid-template-columns: 1fr; }
+      .editorial-image-side { min-height: 400px; }
+      .editorial-quote-card { right: var(--space-4); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .trust-grid { grid-template-columns: 1fr; }
+      .trust-item { border-right: none; border-bottom: 1px solid rgba(208,197,175,0.2); }
+      .trust-item:last-child { border-bottom: none; }
+      .newsletter-inner { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .collections-row { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .hero-content { padding: 0 var(--space-6); }
+      .section-head-row { flex-direction: column; align-items: flex-start; gap: var(--space-4); }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .editorial-text-side { padding: var(--space-8) var(--space-6); }
+      .collections-row { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .review-card.featured { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── Announcement Banner ──────────────────────────────── -->
+<div class="announcement-banner">
+  <div class="announcement-ticker" id="ticker">
+    <span>Complimentary global shipping on all Atelier orders <span class="dot-sep"></span> IGI Certified Brilliance <span class="dot-sep"></span> Up to 40% more diamond for your budget <span class="dot-sep"></span> Free resizing within 30 days</span>
+    <span>Complimentary global shipping on all Atelier orders <span class="dot-sep"></span> IGI Certified Brilliance <span class="dot-sep"></span> Up to 40% more diamond for your budget <span class="dot-sep"></span> Free resizing within 30 days</span>
+  </div>
+</div>
+
+<!-- ─── Navigation ───────────────────────────────────────── -->
+<header class="site-nav">
+  <div class="nav-inner container">
+    <nav class="nav-left">
+      <a href="collections.html" class="nav-link">Collections</a>
+      <a href="our-story.html" class="nav-link">Our Story</a>
+      <a href="ring-builder.html" class="nav-link">Design Yours</a>
+    </nav>
+    <a href="index.html" class="nav-logo">Véris</a>
+    <div class="nav-right">
+      <button class="nav-icon-btn" data-search-open aria-label="Search">
+        <span style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 200">search</span>
+      </button>
+      <a href="cart.html" class="nav-icon-btn" aria-label="Cart">
+        <span style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 200">shopping_bag</span>
+        <span class="cart-badge" id="cart-badge">0</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ─── Search Overlay ───────────────────────────────────── -->
+<div class="search-overlay" id="search-overlay" role="dialog" aria-label="Search">
+  <div class="search-input-wrap">
+    <span style="font-family:'Material Symbols Outlined';font-size:24px;color:var(--outline);font-variation-settings:'FILL' 0,'wght' 200">search</span>
+    <input type="text" id="search-input" placeholder="Search diamonds, rings, bracelets…" autocomplete="off" />
+    <button class="search-close" data-search-close>Close</button>
+  </div>
+  <div class="search-results" id="search-results"></div>
+</div>
+
+<!-- ─── Quick View Modal ─────────────────────────────────── -->
+<div class="modal-overlay" id="quickview-overlay">
+  <div class="modal-panel">
+    <div class="modal-image loupe-container" id="qv-loupe">
+      <img id="qv-img" src="" alt="" style="width:100%;height:100%;object-fit:cover;" />
+    </div>
+    <div class="modal-body">
+      <button class="modal-close" data-quickview-close>✕ Close</button>
+      <div style="padding-top:var(--space-8);">
+        <div style="font-family:var(--font-sans);font-size:0.45rem;font-weight:700;letter-spacing:0.35em;text-transform:uppercase;color:var(--primary);margin-bottom:var(--space-2)">Véris Atelier</div>
+        <div id="qv-name" style="font-family:var(--font-sans);font-size:0.75rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:var(--space-2)"></div>
+        <div id="qv-sub" style="font-family:var(--font-serif);font-size:1.25rem;font-style:italic;color:var(--primary);font-weight:300;margin-bottom:var(--space-4)"></div>
+        <div id="qv-price" style="font-family:var(--font-sans);font-size:0.5625rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:var(--secondary)"></div>
+      </div>
+      <p id="qv-desc" style="font-family:var(--font-sans);font-size:0.8125rem;font-weight:300;line-height:1.8;color:var(--secondary)"></p>
+      <div style="display:flex;flex-direction:column;gap:var(--space-3);margin-top:auto">
+        <a id="qv-link" href="#" class="btn btn-primary btn-full">View Full Details</a>
+        <button class="btn btn-ghost btn-full btn-sm" onclick="QuickView.close()">Continue Browsing</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Hero ─────────────────────────────────────────────── -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <img class="hero-parallax-img" src="assets/hero-model.jpg" alt="Model wearing Véris diamond jewelry" style="object-position: center top;" />
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="hero-content animate-fade-up">
+    <p class="hero-eyebrow">IGI Certified · Handcrafted in Surat · 100% Ethical</p>
+    <h1 class="hero-title">
+      Engineered<br/>Diamonds.
+      <em>Timeless Luxury.</em>
+    </h1>
+    <p class="hero-sub">Redefining fine jewelry through sustainable innovation and master craftsmanship from Surat.</p>
+    <div class="hero-actions">
+      <a href="collections.html" class="btn btn-primary btn-lg" id="hero-shop-btn">Shop Collections</a>
+      <a href="ring-builder.html" class="btn btn-ghost btn-lg" id="hero-design-btn" style="color:#fff;border-color:rgba(255,255,255,0.4)">Design Yours</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span class="hero-scroll-label">Scroll</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- ─── Trust Pillars ────────────────────────────────────── -->
+<section class="trust-section reveal">
+  <div class="container">
+    <div class="trust-grid">
+      <div class="trust-item">
+        <span class="trust-icon">verified</span>
+        <div>
+          <div class="trust-title">IGI Certified</div>
+          <div class="trust-desc">Every stone carries a world-standard<br/>certification of authenticity</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">precision_manufacturing</span>
+        <div>
+          <div class="trust-title">Handcrafted in Surat</div>
+          <div class="trust-desc">Meticulously cut and polished by<br/>heritage master artisans</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">eco</span>
+        <div>
+          <div class="trust-title">100% Ethical</div>
+          <div class="trust-desc">Zero mining · Sustainable sourcing<br/>Conscience-free brilliance</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Bestsellers ──────────────────────────────────────── -->
+<section class="bestseller-section">
+  <div class="container">
+    <div class="section-head-row reveal">
+      <div>
+        <div class="section-eyebrow">The Boutique</div>
+        <h2 class="section-title" style="font-size:clamp(1.8rem,3.5vw,2.5rem)">Our Signature Icons</h2>
+      </div>
+      <a href="collections.html" class="view-all-link">View All Collections</a>
+    </div>
+    <div class="product-grid-4 reveal" id="bestseller-grid">
+      <!-- Cards injected by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ─── Collections Strip ───────────────────────────────── -->
+<section class="collections-strip">
+  <div class="container">
+    <div class="section-head-row reveal" style="margin-bottom:var(--space-8)">
+      <div>
+        <div class="section-eyebrow">Explore</div>
+        <h2 class="section-title" style="font-size:clamp(1.8rem,3.5vw,2.5rem)">Shop by Category</h2>
+      </div>
+    </div>
+    <div class="collections-row reveal">
+      <a href="collections.html?cat=rings" class="collection-tile">
+        <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=900&q=80&auto=format" alt="Rings collection" />
+        <div class="collection-tile-overlay">
+          <div class="collection-tile-tag">The Atelier</div>
+          <div class="collection-tile-name">Rings</div>
+          <div class="collection-tile-sub">14 Styles from $900</div>
+        </div>
+      </a>
+      <a href="collections.html?cat=bracelets" class="collection-tile">
+        <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=900&q=80&auto=format" alt="Bracelets collection" />
+        <div class="collection-tile-overlay">
+          <div class="collection-tile-tag">Best Sellers</div>
+          <div class="collection-tile-name">Bracelets</div>
+          <div class="collection-tile-sub">8 Styles from $1,800</div>
+        </div>
+      </a>
+      <a href="collections.html?cat=necklaces" class="collection-tile">
+        <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=1400&q=80&auto=format" alt="Necklaces & Pendants" />
+        <div class="collection-tile-overlay">
+          <div class="collection-tile-tag">New Arrivals</div>
+          <div class="collection-tile-name">Pendants</div>
+          <div class="collection-tile-sub">11 Styles from $650</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CVD Editorial ─────────────────────────────────────── -->
+<section class="editorial-section">
+  <div class="container">
+    <div class="editorial-grid reveal">
+      <div class="editorial-image-side">
+        <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=1400&q=80&auto=format" alt="Diamond inspection macro shot" style="filter:grayscale(0.25)" />
+        <div class="editorial-quote-card">
+          <div style="font-family:var(--font-sans);font-size:0.45rem;font-weight:700;letter-spacing:0.35em;text-transform:uppercase;color:var(--primary-container);margin-bottom:var(--space-3)">The Science</div>
+          <p style="font-family:var(--font-serif);font-style:italic;font-size:0.8125rem;line-height:1.7">"Identical atom-for-atom to mined diamonds, without the cost to Earth."</p>
+        </div>
+      </div>
+      <div class="editorial-text-side">
+        <div>
+          <div class="section-eyebrow">Innovation</div>
+          <h2 class="section-title">Why CVD<br/>Diamonds?</h2>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:var(--space-10)">
+          <div class="cvd-point">
+            <div class="cvd-num">01</div>
+            <div>
+              <div class="cvd-title">Unmatched Price</div>
+              <p class="cvd-text">Save up to 40% compared to mined diamonds of the same quality. Own a larger, more brilliant stone for the same investment.</p>
+            </div>
+          </div>
+          <div class="cvd-point">
+            <div class="cvd-num">02</div>
+            <div>
+              <div class="cvd-title">Pure Brilliance</div>
+              <p class="cvd-text">Lab-grown diamonds are Type IIa — the purest form found in only 2% of Earth's mined stones.</p>
+            </div>
+          </div>
+          <div class="cvd-point">
+            <div class="cvd-num">03</div>
+            <div>
+              <div class="cvd-title">Conscious Luxury</div>
+              <p class="cvd-text">By choosing CVD, you support a future of zero-conflict, zero-mining, and a significantly reduced carbon footprint.</p>
+            </div>
+          </div>
+        </div>
+        <a href="our-story.html" class="btn btn-ghost" style="align-self:flex-start">Learn the Process</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Stats ─────────────────────────────────────────────── -->
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stats-item reveal">
+        <div class="stat-number" data-counter="12000" data-suffix="+">0</div>
+        <div class="stat-label">Diamonds Crafted</div>
+      </div>
+      <div class="stats-item reveal delay-1">
+        <div class="stat-number" data-counter="4.9" data-suffix="★">0</div>
+        <div class="stat-label">Average Rating</div>
+      </div>
+      <div class="stats-item reveal delay-2">
+        <div class="stat-number" data-counter="40" data-suffix="%" data-prefix="Up to ">0</div>
+        <div class="stat-label">More Diamond for Budget</div>
+      </div>
+      <div class="stats-item reveal delay-3">
+        <div class="stat-number" data-counter="28" data-suffix=" Countries">0</div>
+        <div class="stat-label">Global Deliveries</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Testimonials ─────────────────────────────────────── -->
+<section class="testimonials-section">
+  <div class="container">
+    <div class="section-head-row reveal" style="justify-content:center;flex-direction:column;align-items:center;text-align:center;margin-bottom:var(--space-12)">
+      <div class="section-eyebrow">Client Stories</div>
+      <h2 class="section-title">Voices of Véris</h2>
+      <p style="font-family:var(--font-sans);font-size:0.5625rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--secondary);margin-top:var(--space-2)">Verified Purchases & Testimonials</p>
+    </div>
+    <div class="testimonials-grid reveal">
+      <div class="review-card">
+        <div class="stars">
+          <span class="star">star</span><span class="star">star</span><span class="star">star</span><span class="star">star</span><span class="star">star</span>
+        </div>
+        <p class="review-text">"The brilliance of my tennis bracelet is beyond words. I was hesitant about lab-grown at first, but the certification and the sparkle convinced me. Truly sustainable luxury."</p>
+        <div class="review-author">
+          <div class="review-avatar"><img src="https://images.unsplash.com/photo-1618077360395-f3068be8e001?w=900&q=80&auto=format" alt="Eleanor Thorne" /></div>
+          <div>
+            <div class="review-name">Eleanor Thorne</div>
+            <div class="review-location">London, UK</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card featured">
+        <div class="stars">
+          <span class="star">star</span><span class="star">star</span><span class="star">star</span><span class="star">star</span><span class="star">star</span>
+        </div>
+        <p class="review-text">"The craftsmanship from Surat is evident in every facet. My engagement ring is a masterpiece. Véris is leading the way in ethical jewelry."</p>
+        <div class="review-author">
+          <div class="review-avatar"><img src="https://images.unsplash.com/photo-1472289065668-ce650ac443d2?w=900&q=80&auto=format" alt="James Sutherland" /></div>
+          <div>
+            <div class="review-name">James Sutherland</div>
+            <div class="review-location">New York, NY</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="stars">
+          <span class="star">star</span><span class="star">star</span><span class="star">star</span><span class="star">star</span><span class="star">star</span>
+        </div>
+        <p class="review-text">"Better price, same brilliance, and no guilt. I couldn't ask for more from an engagement ring. The packaging itself was a work of art."</p>
+        <div class="review-author">
+          <div class="review-avatar"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80&auto=format&fit=crop&face" alt="Sophia Chen" /></div>
+          <div>
+            <div class="review-name">Sophia Chen</div>
+            <div class="review-location">Singapore</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA Section ───────────────────────────────────────── -->
+<section class="cta-section">
+  <div class="container">
+    <div style="max-width:740px;margin:0 auto;" class="reveal">
+      <div class="section-eyebrow" style="text-align:center;margin-bottom:var(--space-4)">Experience the Future</div>
+      <h2 style="font-family:var(--font-serif);font-size:clamp(2.2rem,5vw,3.8rem);font-weight:700;letter-spacing:-0.025em;line-height:1.05;text-align:center;margin-bottom:var(--space-8)">Elevate Your Story<br/>with Ethical Sparkle.</h2>
+      <div style="display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap">
+        <a href="ring-builder.html" class="btn btn-primary btn-lg" id="cta-design-btn">Start Designing</a>
+        <a href="our-story.html" class="btn btn-ghost btn-lg">Speak to an Expert</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Footer ─────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Véris</div>
+        <p class="footer-desc">A modern house of high jewelry, pioneering the future of ethical diamonds through scientific precision and heritage artistry from Surat.</p>
+        <div style="display:flex;gap:var(--space-4);margin-top:var(--space-6)">
+          <a href="#" style="font-family:'Material Symbols Outlined';font-size:20px;color:rgba(243,240,239,0.4);font-variation-settings:'FILL' 0,'wght' 200;transition:color 300ms ease-out" onmouseover="this.style.color='var(--primary-container)'" onmouseout="this.style.color='rgba(243,240,239,0.4)'">photo_camera</a>
+          <a href="#" style="font-family:'Material Symbols Outlined';font-size:20px;color:rgba(243,240,239,0.4);font-variation-settings:'FILL' 0,'wght' 200;transition:color 300ms ease-out" onmouseover="this.style.color='var(--primary-container)'" onmouseout="this.style.color='rgba(243,240,239,0.4)'">alternate_email</a>
+          <a href="#" style="font-family:'Material Symbols Outlined';font-size:20px;color:rgba(243,240,239,0.4);font-variation-settings:'FILL' 0,'wght' 200;transition:color 300ms ease-out" onmouseover="this.style.color='var(--primary-container)'" onmouseout="this.style.color='rgba(243,240,239,0.4)'">play_circle</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Collections</div>
+        <div class="footer-links">
+          <a href="collections.html?cat=rings" class="footer-link">Solitaire Rings</a>
+          <a href="collections.html?cat=bracelets" class="footer-link">Tennis Bracelets</a>
+          <a href="collections.html?cat=necklaces" class="footer-link">Eternal Pendants</a>
+          <a href="collections.html?cat=earrings" class="footer-link">Diamond Studs</a>
+          <a href="ring-builder.html" class="footer-link">The Atelier Series</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Information</div>
+        <div class="footer-links">
+          <a href="our-story.html" class="footer-link">The CVD Process</a>
+          <a href="our-story.html#ethics" class="footer-link">Ethical Sourcing</a>
+          <a href="our-story.html#certification" class="footer-link">IGI Certification</a>
+          <a href="#" class="footer-link">Shipping & Returns</a>
+          <a href="#" class="footer-link">Sizing Guide</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Newsletter</div>
+        <p style="font-family:var(--font-sans);font-size:0.6875rem;font-weight:300;color:rgba(243,240,239,0.5);line-height:1.7;margin-bottom:var(--space-4)">Join the circle of curated elegance. Be first for new collections and exclusive offers.</p>
+        <form class="footer-newsletter-form" data-newsletter-form>
+          <input type="email" class="footer-newsletter-input" placeholder="YOUR EMAIL" required />
+          <button class="footer-newsletter-btn" type="submit" aria-label="Subscribe">arrow_forward</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Véris Diamonds. All Rights Reserved. Crafted in Surat, India.</div>
+      <div class="footer-socials">
+        <a href="#" class="footer-social">Privacy</a>
+        <a href="#" class="footer-social">Terms</a>
+        <a href="#" class="footer-social">Instagram</a>
+        <a href="#" class="footer-social">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── Mobile Bottom Nav ──────────────────────────────────── -->
+<nav class="mobile-nav" aria-label="Main navigation">
+  <a href="index.html" class="mobile-nav-item active">
+    <span class="icon">auto_awesome</span>
+    <span>Atelier</span>
+  </a>
+  <a href="collections.html" class="mobile-nav-item">
+    <span class="icon">diamond</span>
+    <span>Shop</span>
+  </a>
+  <a href="ring-builder.html" class="mobile-nav-item">
+    <span class="icon">settings_applications</span>
+    <span>Design</span>
+  </a>
+  <a href="our-story.html" class="mobile-nav-item">
+    <span class="icon">eco</span>
+    <span>Story</span>
+  </a>
+  <a href="cart.html" class="mobile-nav-item">
+    <span class="icon">shopping_bag</span>
+    <span>Cart</span>
+  </a>
+</nav>
+
+<script src="js/app.js"></script>
+<script>
+  // ─── Bestseller Products Data ─────────────────────────────
+  const PRODUCTS = [
+    {
+      id: 1, name: 'The Aura Ring', sub: '2.5 CT CVD Solitaire', price: 2400, tag: 'Solitaire',
+      img: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=900&q=80&auto=format',
+      href: 'product.html?id=1',
+      desc: 'A timeless 2.5 carat CVD solitaire ring set in 18K gold. IGI certified for cut, color, and clarity.'
+    },
+    {
+      id: 2, name: 'Eternal Strand', sub: '5.0 CT Tennis Bracelet', price: 4850, tag: 'Bracelet',
+      img: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=900&q=80&auto=format',
+      href: 'product.html?id=2',
+      desc: 'Five carats of continuous lab-grown brilliance set in 18K white gold. Handcrafted heritage of Surat.'
+    },
+    {
+      id: 3, name: 'Lumière Pendant', sub: '1.0 CT Halo Drop', price: 1150, tag: 'Pendant',
+      img: 'https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=1400&q=80&auto=format',
+      href: 'product.html?id=3',
+      desc: 'A sculptural halo pendant in geometric form. 1.0 carat center stone with pavé diamonds.'
+    },
+    {
+      id: 4, name: 'Stella Studs', sub: '2.0 CT TW Round Cut', price: 1800, tag: 'Earrings',
+      img: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=900&q=80&auto=format',
+      href: 'product.html?id=4',
+      desc: 'Classic four-prong stud earrings. 2.0 CTW round brilliant cut CVD diamonds in 18K white gold.'
+    }
+  ];
+
+  function renderBestsellers() {
+    const grid = document.getElementById('bestseller-grid');
+    if (!grid) return;
+    grid.innerHTML = PRODUCTS.map(p => `
+      <div class="product-card" onclick="QuickView.open(${JSON.stringify(p).replace(/"/g, '&quot;')})">
+        <div class="product-card-image">
+          <img src="${p.img}" alt="${p.name}" loading="lazy" />
+          <div class="product-card-tag">${p.tag}</div>
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-name">${p.name}</div>
+          <div class="product-card-sub">${p.sub}</div>
+          <div class="product-card-price">From $${p.price.toLocaleString()}</div>
+        </div>
+        <div class="product-card-cta">Quick View</div>
+      </div>
+    `).join('');
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    renderBestsellers();
+  });
+</script>
+</body>
+</html>
