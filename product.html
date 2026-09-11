@@ -146,6 +146,45 @@
       .pdp-main-image { height: 60vw; }
       .pdp-info { padding: var(--space-8) var(--space-6); }
     }
+    @media (max-width: 680px) {
+      .pdp-gallery {
+        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .pdp-main-image {
+        width: 100%;
+        height: 85vw;
+        max-height: 420px;
+        order: 1;
+      }
+      .pdp-thumbnails {
+        order: 2;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: var(--space-3) var(--space-4);
+        gap: var(--space-2);
+        -webkit-overflow-scrolling: touch;
+      }
+      .pdp-thumb {
+        width: 60px;
+        height: 60px;
+        flex-shrink: 0;
+      }
+      .pdp-info {
+        padding: var(--space-6) var(--space-4) calc(var(--space-12) + 20px);
+      }
+      .chips-row {
+        gap: var(--space-2);
+      }
+      .metal-chip, .size-chip {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
   </style>
 </head>
 <body>
@@ -205,7 +244,7 @@
       </div>
     </div>
     <!-- Main Image with Loupe -->
-    <div class="pdp-main-image" id="pdp-main" onmousemove="moveLoup(event)" onmouseleave="hideLoup()">
+    <div class="pdp-main-image" id="pdp-main" onmousemove="moveLoup(event)" onmouseleave="hideLoup()" ontouchmove="moveLoup(event)" ontouchend="hideLoup()" ontouchcancel="hideLoup()">
       <img id="main-img" src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=900&q=80&auto=format" alt="The Aura Ring — 2.5 CT CVD Solitaire" />
       <div class="loupe-ring" id="loupe">
         <img id="loupe-img" src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=900&q=80&auto=format" alt="" />
@@ -475,10 +514,12 @@
     const loupeImg = document.getElementById('loupe-img');
     const container = document.getElementById('pdp-main');
     const rect = container.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const pctX = x / rect.width;
-    const pctY = y / rect.height;
+    const clientX = (e.touches && e.touches.length) ? e.touches[0].clientX : e.clientX;
+    const clientY = (e.touches && e.touches.length) ? e.touches[0].clientY : e.clientY;
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
+    const pctX = Math.max(0, Math.min(1, x / rect.width));
+    const pctY = Math.max(0, Math.min(1, y / rect.height));
     loupe.style.left = x + 'px';
     loupe.style.top = y + 'px';
     loupeImg.style.left = (-pctX * 300 + 80) + 'px';

@@ -182,6 +182,7 @@
       border: none;
       padding: 0 0 var(--space-6);
     }
+    .mobile-filter-apply-bar { display: none; }
     @media(max-width: 900px) {
       .collections-layout { grid-template-columns: 1fr; }
       .filter-panel {
@@ -190,14 +191,50 @@
         inset: 0;
         z-index: 200;
         background: var(--surface-lowest);
-        padding: var(--space-8);
+        padding: var(--space-8) var(--space-6) 100px;
         overflow-y: auto;
         top: 0;
       }
       .filter-panel.mobile-open { display: block; }
-      .mobile-filter-close { display: block; }
-      .mobile-filter-toggle { display: inline-flex; }
+      .mobile-filter-close { display: block; font-size: 0.6rem; min-height: 44px; }
+      .mobile-filter-toggle { display: inline-flex; min-height: 44px; font-size: 0.6rem; }
       .products-panel { padding: var(--space-6) 0; }
+      .mobile-filter-apply-bar {
+        display: block;
+        position: sticky;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--surface-lowest);
+        padding: var(--space-4) 0 calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
+        margin-top: var(--space-8);
+        border-top: 1px solid rgba(208, 197, 175, 0.25);
+      }
+      .wishlist-btn {
+        opacity: 1 !important;
+        transform: scale(1) !important;
+        width: 38px;
+        height: 38px;
+      }
+    }
+    @media (max-width: 600px) {
+      .sort-bar {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: var(--space-3);
+      }
+      .sort-select {
+        min-height: 44px;
+        font-size: 0.65rem;
+      }
+      .result-count {
+        width: 100%;
+        order: 3;
+        font-size: 0.625rem;
+        margin-top: var(--space-1);
+      }
     }
   </style>
 </head>
@@ -305,6 +342,12 @@
         <label class="filter-option"><input type="checkbox" value="princess" onchange="applyFilter('shape',this.value,this.checked)" /> Princess Cut</label>
         <label class="filter-option"><input type="checkbox" value="emerald" onchange="applyFilter('shape',this.value,this.checked)" /> Emerald Cut</label>
         <label class="filter-option"><input type="checkbox" value="cushion" onchange="applyFilter('shape',this.value,this.checked)" /> Cushion</label>
+      </div>
+
+      <div class="mobile-filter-apply-bar">
+        <button class="btn btn-primary btn-full btn-lg" onclick="document.getElementById('filter-panel').classList.remove('mobile-open')">
+          Apply Filters
+        </button>
       </div>
     </aside>
 

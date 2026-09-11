@@ -249,9 +249,45 @@
       transition: transform var(--transition-base);
     }
     .request-modal.open .request-panel { transform: translateY(0); }
+    .mobile-builder-bar { display: none; }
     @media (max-width: 900px) {
       .builder-wrap { grid-template-columns: 1fr; }
-      .preview-pane { position: static; height: auto; min-height: 300px; }
+      .preview-pane { position: static; height: auto; min-height: 280px; padding: var(--space-6) var(--space-4); }
+      .ring-preview { width: 220px; height: 220px; }
+      .config-pane { padding: var(--space-6) var(--space-4) calc(var(--space-12) + 40px); }
+      .mobile-builder-bar {
+        display: flex;
+        position: sticky;
+        top: 61px;
+        z-index: 90;
+        background: rgba(252, 249, 248, 0.95);
+        backdrop-filter: blur(20px);
+        padding: var(--space-3) var(--space-4);
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(208, 197, 175, 0.3);
+      }
+      .mobile-builder-label {
+        font-family: var(--font-sans);
+        font-size: 0.5rem;
+        font-weight: 700;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--primary-container);
+        margin-bottom: 2px;
+      }
+      .mobile-builder-summary {
+        font-family: var(--font-sans);
+        font-size: 0.6875rem;
+        font-weight: 500;
+        color: var(--on-surface);
+      }
+      .mobile-builder-price {
+        font-family: var(--font-serif);
+        font-size: 1.25rem;
+        font-weight: 400;
+        color: var(--primary);
+      }
     }
   </style>
 </head>
@@ -330,6 +366,14 @@
       <button type="submit" class="btn btn-primary btn-full" style="margin-top:var(--space-2)">Submit Quote Request</button>
     </form>
   </div>
+</div>
+
+<div class="mobile-builder-bar">
+  <div>
+    <div class="mobile-builder-label">Custom Creation</div>
+    <div class="mobile-builder-summary" id="mob-summary">Solitaire · 18K Yellow Gold · 1.50 CT Round</div>
+  </div>
+  <div class="mobile-builder-price" id="mob-price">$2,250</div>
 </div>
 
 <div class="builder-wrap">
@@ -620,6 +664,10 @@
       ${config.carat}CT ${config.shape} · Cut: Ideal · Color: ${['D','E–F','G–H','I–J'][Math.round(-config.colorAdd/150)]||'D'}<br/>
       Ring Size ${config.size}
     `;
+    const mobPrice = document.getElementById('mob-price');
+    const mobSummary = document.getElementById('mob-summary');
+    if (mobPrice) mobPrice.textContent = '$' + total.toLocaleString();
+    if (mobSummary) mobSummary.textContent = `${config.setting} · ${config.metal} · ${config.carat}CT ${config.shape}`;
     updateReviewDetails();
     updateRingSVG();
   }

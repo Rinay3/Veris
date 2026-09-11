@@ -1,5 +1,5 @@
 /* ============================================================
-   ZENVÉ — Global Application JavaScript
+   VÉRIS — Global Application JavaScript
    Cart state, search overlay, nav, utils
    ============================================================ */
 

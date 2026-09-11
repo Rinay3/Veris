@@ -1,5 +1,5 @@
 /* ============================================================
-   ZENVÉ DIAMONDS — Global Design System
+   VÉRIS DIAMONDS — Global Design System
    Follows DESIGN.md: Architectural Clarity & Refraction
    ============================================================ */
 
@@ -862,7 +862,7 @@ input, textarea, select { font-family: inherit; }
 @media (max-width: 768px) {
   .nav-link { display: none; }
   .mobile-nav { display: flex; }
-  body { padding-bottom: 72px; }
+  body { padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
   .nav-inner { padding: 16px var(--space-4); }
   .nav-logo { font-size: 1.25rem; }
   .search-results { grid-template-columns: 1fr; }
@@ -870,8 +870,8 @@ input, textarea, select { font-family: inherit; }
   .product-grid-3 { grid-template-columns: 1fr; }
   .section { padding: var(--space-16) 0; }
   .section-lg { padding: var(--space-20) 0; }
-  .btn { padding: 16px 28px; }
-  .btn-lg { padding: 18px 36px; }
+  .btn { padding: 14px 24px; min-height: 44px; }
+  .btn-lg { padding: 16px 28px; min-height: 48px; }
 }
 
 @media (max-width: 480px) {

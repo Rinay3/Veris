@@ -188,11 +188,24 @@
       color: var(--primary-container);
       font-variation-settings: 'FILL' 0, 'wght' 100;
     }
+    .checkout-outer {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 0;
+      align-items: start;
+    }
+    .checkout-left {
+      padding: var(--space-10) var(--space-6) var(--space-10) 0;
+    }
     @media (max-width: 900px) {
-      .cart-outer { grid-template-columns: 1fr; min-height: auto; }
+      .cart-outer, .checkout-outer { grid-template-columns: 1fr !important; min-height: auto; }
       .cart-main { padding: var(--space-8) 0; border-right: none; border-bottom: 1px solid rgba(208,197,175,0.2); }
+      .checkout-left { padding: var(--space-6) 0; }
       .order-summary { position: static; border-left: none; padding: var(--space-8) 0; background: transparent; }
       .cart-hero-inner { flex-direction: column; gap: var(--space-1); }
+      .form-grid { grid-template-columns: 1fr; gap: var(--space-4); }
+      .form-grid-3 { grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+      .form-grid-3 > div:last-child { grid-column: span 2; }
     }
   </style>
 </head>
@@ -306,8 +319,8 @@
 
     <!-- Checkout View -->
     <div id="checkout-view" class="checkout-view">
-      <div style="display:grid;grid-template-columns:1fr 380px;gap:0;align-items:start" class="cart-outer">
-        <div style="padding:var(--space-10) var(--space-6) var(--space-10) 0">
+      <div class="cart-outer checkout-outer">
+        <div class="checkout-left">
           <!-- Progress -->
           <div class="checkout-progress">
             <span class="ck-crumb done" id="ck-cart" onclick="backToCart()" style="cursor:pointer">Cart</span>
@@ -427,7 +440,7 @@
                 <label class="form-label">Name on Card</label>
                 <input class="form-input" type="text" placeholder="As it appears on card" />
               </div>
-              <div class="form-grid-3" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--space-6)">
+              <div class="form-grid-3">
                 <div class="form-group" style="grid-column:span 1">
                   <label class="form-label">Expiry Month</label>
                   <input class="form-input" type="text" placeholder="MM" maxlength="2" />
