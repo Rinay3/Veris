@@ -27,7 +27,7 @@
       z-index: 0;
       overflow: hidden;
     }
-    .hero-bg img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: 75% 10%; }
     .hero-overlay {
       position: absolute;
       inset: 0;
@@ -223,27 +223,32 @@
     .stats-section {
       background: var(--inverse-surface);
       padding: var(--space-12) 0;
+      overflow: hidden;
     }
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       text-align: center;
+      width: 100%;
     }
     .stats-item {
       padding: var(--space-8);
       border-right: 1px solid rgba(243,240,239,0.08);
+      min-width: 0;
+      overflow: hidden;
     }
     .stats-item:last-child { border-right: none; }
 
     /* ─── Testimonials ──────────────────────────────── */
-    .testimonials-section { background: var(--surface-low); padding: var(--space-24) 0; }
+    .testimonials-section { background: var(--surface-low); padding: var(--space-24) 0; overflow: hidden; }
     .testimonials-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 1px;
       background: rgba(208,197,175,0.15);
+      width: 100%;
     }
-    .review-card { background: var(--surface-lowest); padding: var(--space-10); }
+    .review-card { background: var(--surface-lowest); padding: var(--space-10); min-width: 0; }
     .review-card.featured {
       background: var(--inverse-surface);
       color: var(--inverse-on-surface);
@@ -432,9 +437,10 @@
       transition: color var(--transition-base);
     }
     .footer-social:hover { color: var(--primary-container); }
-    .footer-newsletter-form { display: flex; gap: 0; margin-top: var(--space-4); }
+    .footer-newsletter-form { display: flex; gap: 0; margin-top: var(--space-4); max-width: 100%; }
     .footer-newsletter-input {
       flex: 1;
+      min-width: 0;
       background: transparent;
       border: none;
       border-bottom: 1px solid rgba(243,240,239,0.2);
@@ -464,27 +470,82 @@
       .editorial-grid { grid-template-columns: 1fr; }
       .editorial-image-side { min-height: 400px; }
       .editorial-quote-card { right: var(--space-4); }
-      .footer-grid { grid-template-columns: 1fr 1fr; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-8); }
+      .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4) 0; }
+      .stats-item { padding: var(--space-6) var(--space-4); }
+      .stats-item:nth-child(2n) { border-right: none; }
       .trust-grid { grid-template-columns: 1fr; }
       .trust-item { border-right: none; border-bottom: 1px solid rgba(208,197,175,0.2); }
       .trust-item:last-child { border-bottom: none; }
       .newsletter-inner { grid-template-columns: 1fr; }
-      .testimonials-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: minmax(0, 1fr); }
+      .review-card.featured { transform: none; }
       .collections-row { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 768px) {
-      .hero-content { padding: 0 var(--space-6); }
-      .hero-actions { width: 100%; }
+      .hero {
+        height: 100svh;
+        min-height: 560px;
+        align-items: flex-end;
+        padding-bottom: 36px;
+      }
+      .hero-bg img {
+        object-position: 76% 8% !important;
+      }
+      .hero-overlay {
+        background: linear-gradient(
+          to bottom,
+          rgba(15, 15, 22, 0.1) 0%,
+          rgba(15, 15, 22, 0.2) 40%,
+          rgba(15, 15, 22, 0.72) 68%,
+          rgba(15, 15, 22, 0.95) 100%
+        );
+      }
+      .hero-content {
+        padding: 0 var(--space-6);
+        max-width: 100%;
+      }
+      .hero-eyebrow {
+        font-size: 0.55rem;
+        letter-spacing: 0.22em;
+        margin-bottom: var(--space-2);
+      }
+      .hero-title {
+        font-size: clamp(2rem, 6.8vw, 2.75rem);
+        line-height: 1.05;
+        margin-bottom: var(--space-4);
+      }
+      .hero-sub {
+        font-size: 0.72rem;
+        line-height: 1.6;
+        margin-bottom: var(--space-6);
+        max-width: 330px;
+      }
+      .hero-actions { width: 100%; gap: var(--space-3); }
       .hero-actions .btn { width: 100%; justify-content: center; }
+      .hero-scroll { display: none; }
       .section-head-row { flex-direction: column; align-items: flex-start; gap: var(--space-4); }
-      .footer-grid { grid-template-columns: 1fr; }
-      .footer-bottom { flex-direction: column; text-align: center; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-8); }
+      .footer-bottom { flex-direction: column; text-align: center; gap: var(--space-4); }
+      .footer-socials { justify-content: center; flex-wrap: wrap; }
+      .footer-copy { word-break: break-word; max-width: 100%; }
+      .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4) 0; }
+      .stats-item { padding: var(--space-5) var(--space-2); }
+      .stats-item:nth-child(2n) { border-right: none; }
+      .stat-number { font-size: clamp(1.35rem, 5vw, 2rem); }
+      .stat-label { font-size: 0.5rem; letter-spacing: 0.18em; }
       .editorial-text-side { padding: var(--space-8) var(--space-6); }
       .collections-row { grid-template-columns: 1fr; }
-      .testimonials-grid { grid-template-columns: 1fr; }
-      .review-card.featured { transform: scale(1); }
+      .testimonials-grid { grid-template-columns: minmax(0, 1fr); }
+      .review-card { padding: var(--space-6); }
+      .review-card.featured { transform: none; }
+    }
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4) var(--space-1); }
+      .stats-item { padding: var(--space-4) var(--space-1); }
+      .stat-number { font-size: clamp(1.15rem, 4.5vw, 1.5rem); }
+      .stat-label { font-size: 0.45rem; letter-spacing: 0.12em; }
+      .footer-desc { max-width: 100%; }
     }
   </style>
 </head>
@@ -555,7 +616,7 @@
 <!-- ─── Hero ─────────────────────────────────────────────── -->
 <section class="hero" id="hero">
   <div class="hero-bg">
-    <img class="hero-parallax-img" src="assets/hero-model.jpg" alt="Model wearing Véris diamond jewelry" style="object-position: center top;" />
+    <img class="hero-parallax-img" src="assets/hero-model.jpg" alt="Model wearing Véris diamond jewelry" />
     <div class="hero-overlay"></div>
   </div>
   <div class="hero-content animate-fade-up">
