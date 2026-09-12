@@ -14,12 +14,12 @@
     .builder-wrap {
       display: grid;
       grid-template-columns: 1fr 480px;
-      min-height: calc(100vh - 111px);
+      min-height: calc(100vh - var(--header-height, 78px));
     }
     .preview-pane {
       position: sticky;
-      top: 111px;
-      height: calc(100vh - 111px);
+      top: var(--header-height, 78px);
+      height: calc(100vh - var(--header-height, 78px));
       background: var(--surface-low);
       display: flex;
       flex-direction: column;

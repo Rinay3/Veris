@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="css/styles.css" />
   <style>
     .cart-page {
-      min-height: calc(100vh - 111px);
+      min-height: calc(100vh - var(--header-height, 78px));
       background: var(--surface);
     }
     .cart-hero {
@@ -48,7 +48,7 @@
       padding: var(--space-10) var(--space-8);
       background: var(--surface-lowest);
       position: sticky;
-      top: 111px;
+      top: var(--header-height, 78px);
     }
     .empty-cart {
       text-align: center;

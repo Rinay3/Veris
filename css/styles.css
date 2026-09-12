@@ -41,6 +41,7 @@
   --on-error:             #ffffff;
 
   /* Spacing */
+  --header-height:        78px;
   --space-1:  4px;
   --space-2:  8px;
   --space-3:  12px;
@@ -288,7 +289,7 @@ input, textarea, select { font-family: inherit; }
 .announcement-banner {
   background: var(--inverse-surface);
   color: var(--inverse-on-surface);
-  padding: 9px var(--space-6);
+  padding: 7px var(--space-6);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -340,7 +341,7 @@ input, textarea, select { font-family: inherit; }
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  padding: 20px var(--space-6);
+  padding: 12px var(--space-6);
 }
 .nav-left, .nav-right {
   display: flex;
