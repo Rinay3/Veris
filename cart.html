@@ -230,6 +230,10 @@
       <button class="nav-icon-btn" data-search-open aria-label="Search">
         <span style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 200">search</span>
       </button>
+      <button class="nav-icon-btn" data-wishlist-open aria-label="Wishlist">
+        <span style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 200">favorite</span>
+        <span class="wishlist-badge" id="wishlist-badge">0</span>
+      </button>
       <a href="cart.html" class="nav-icon-btn" aria-label="Cart">
         <span style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 200">shopping_bag</span>
         <span class="cart-badge visible" id="cart-badge">0</span>
@@ -290,12 +294,13 @@
           <div id="summary-items"></div>
           <div style="margin-top:var(--space-4)">
             <div class="summary-row"><span class="summary-key">Subtotal</span><span class="summary-val" id="s-subtotal">$0</span></div>
+            <div class="summary-row" id="s-discount-row" style="display:none"><span class="summary-key" id="s-discount-label">Discount</span><span class="summary-val" id="s-discount" style="color:var(--primary)">-$0</span></div>
             <div class="summary-row"><span class="summary-key">Shipping</span><span class="summary-val" style="color:var(--primary)">Complimentary</span></div>
             <div class="summary-row"><span class="summary-key">Insurance</span><span class="summary-val" style="color:var(--primary)">Included</span></div>
-            <div class="summary-row"><span class="summary-key">Estimated Tax</span><span class="summary-val" id="s-tax">$0</span></div>
+            <div class="summary-row"><span class="summary-key">Estimated Tax (8%)</span><span class="summary-val" id="s-tax">$0</span></div>
           </div>
           <div class="promo-wrap">
-            <input class="promo-input" placeholder="PROMO CODE" type="text" id="promo-input" />
+            <input class="promo-input" placeholder="TRY: VERIS10" type="text" id="promo-input" />
             <button class="promo-btn" onclick="applyPromo()">Apply</button>
           </div>
           <div id="promo-result" style="font-family:var(--font-sans);font-size:0.525rem;height:16px;margin-bottom:var(--space-2)"></div>
@@ -365,31 +370,31 @@
             <h2 style="font-family:var(--font-serif);font-size:1.375rem;font-weight:400;margin-bottom:var(--space-8)">Shipping Address</h2>
             <div style="display:flex;flex-direction:column;gap:var(--space-8)">
               <div class="form-group">
-                <label class="form-label">Street Address</label>
-                <input class="form-input" type="text" placeholder="123 Luxury Avenue" />
+                <label class="form-label" for="ship-street">Street Address *</label>
+                <input class="form-input" type="text" id="ship-street" placeholder="123 Luxury Avenue" required />
               </div>
               <div class="form-group">
-                <label class="form-label">Apartment, Suite, etc. (optional)</label>
-                <input class="form-input" type="text" placeholder="Apt 4B" />
+                <label class="form-label" for="ship-apt">Apartment, Suite, etc. (optional)</label>
+                <input class="form-input" type="text" id="ship-apt" placeholder="Apt 4B" />
               </div>
               <div class="form-grid">
                 <div class="form-group">
-                  <label class="form-label">City</label>
-                  <input class="form-input" type="text" placeholder="New York" />
+                  <label class="form-label" for="ship-city">City *</label>
+                  <input class="form-input" type="text" id="ship-city" placeholder="New York" required />
                 </div>
                 <div class="form-group">
-                  <label class="form-label">State / Province</label>
-                  <input class="form-input" type="text" placeholder="NY" />
+                  <label class="form-label" for="ship-state">State / Province *</label>
+                  <input class="form-input" type="text" id="ship-state" placeholder="NY" required />
                 </div>
               </div>
               <div class="form-grid">
                 <div class="form-group">
-                  <label class="form-label">ZIP / Postal Code</label>
-                  <input class="form-input" type="text" placeholder="10001" />
+                  <label class="form-label" for="ship-zip">ZIP / Postal Code *</label>
+                  <input class="form-input" type="text" id="ship-zip" placeholder="10001" required />
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Country</label>
-                  <input class="form-input" type="text" value="United States" />
+                  <label class="form-label" for="ship-country">Country *</label>
+                  <input class="form-input" type="text" id="ship-country" value="United States" required />
                 </div>
               </div>
               <!-- Shipping method -->
@@ -397,15 +402,15 @@
                 <div style="font-family:var(--font-sans);font-size:0.5rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;margin-bottom:var(--space-4)">Shipping Method</div>
                 <div style="display:flex;flex-direction:column;gap:var(--space-3)">
                   <label style="display:flex;align-items:center;gap:var(--space-4);padding:var(--space-4);border:1px solid var(--primary-container);cursor:pointer;background:rgba(212,175,55,0.04)">
-                    <input type="radio" name="shipping" value="express" checked style="accent-color:var(--primary)" />
+                    <input type="radio" name="shipping" value="0" checked onchange="updateShipping(0)" style="accent-color:var(--primary)" />
                     <div>
                       <div style="font-family:var(--font-sans);font-size:0.5625rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase">Complimentary Insured Express</div>
-                      <div style="font-family:var(--font-sans);font-size:0.5625rem;font-weight:300;color:var(--secondary);margin-top:2px">7–14 business days · Included</div>
+                      <div style="font-family:var(--font-sans);font-size:0.5625rem;font-weight:300;color:var(--secondary);margin-top:2px">7–14 business days · Armored courier</div>
                     </div>
                     <span style="margin-left:auto;font-family:var(--font-serif);font-size:0.875rem;font-style:italic;color:var(--primary)">Free</span>
                   </label>
                   <label style="display:flex;align-items:center;gap:var(--space-4);padding:var(--space-4);border:1px solid rgba(208,197,175,0.3);cursor:pointer">
-                    <input type="radio" name="shipping" value="priority" style="accent-color:var(--primary)" />
+                    <input type="radio" name="shipping" value="95" onchange="updateShipping(95)" style="accent-color:var(--primary)" />
                     <div>
                       <div style="font-family:var(--font-sans);font-size:0.5625rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase">White Glove Priority</div>
                       <div style="font-family:var(--font-sans);font-size:0.5625rem;font-weight:300;color:var(--secondary);margin-top:2px">3–5 business days · Hand-delivered</div>
@@ -433,25 +438,25 @@
                 <div style="padding:6px 10px;border:1px solid rgba(208,197,175,0.3);font-family:var(--font-sans);font-size:0.45rem;font-weight:700;letter-spacing:0.15em">PayPal</div>
               </div>
               <div class="form-group">
-                <label class="form-label">Card Number</label>
-                <input class="form-input" type="text" placeholder="4242 4242 4242 4242" maxlength="19" oninput="formatCard(this)" />
+                <label class="form-label" for="pay-card">Card Number *</label>
+                <input class="form-input" type="text" id="pay-card" placeholder="4242 4242 4242 4242" maxlength="19" oninput="formatCard(this)" required />
               </div>
               <div class="form-group">
-                <label class="form-label">Name on Card</label>
-                <input class="form-input" type="text" placeholder="As it appears on card" />
+                <label class="form-label" for="pay-name">Name on Card *</label>
+                <input class="form-input" type="text" id="pay-name" placeholder="As it appears on card" required />
               </div>
               <div class="form-grid-3">
                 <div class="form-group" style="grid-column:span 1">
-                  <label class="form-label">Expiry Month</label>
-                  <input class="form-input" type="text" placeholder="MM" maxlength="2" />
+                  <label class="form-label" for="pay-exp-m">Expiry Month *</label>
+                  <input class="form-input" type="text" id="pay-exp-m" placeholder="MM" maxlength="2" required />
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Expiry Year</label>
-                  <input class="form-input" type="text" placeholder="YY" maxlength="2" />
+                  <label class="form-label" for="pay-exp-y">Expiry Year *</label>
+                  <input class="form-input" type="text" id="pay-exp-y" placeholder="YY" maxlength="2" required />
                 </div>
                 <div class="form-group">
-                  <label class="form-label">CVV</label>
-                  <input class="form-input" type="text" placeholder="•••" maxlength="4" />
+                  <label class="form-label" for="pay-cvv">CVV *</label>
+                  <input class="form-input" type="password" id="pay-cvv" placeholder="•••" maxlength="4" required />
                 </div>
               </div>
               <div style="background:var(--surface-low);padding:var(--space-4);display:flex;align-items:center;gap:var(--space-3)">
@@ -474,7 +479,8 @@
           <div id="ck-summary-items"></div>
           <div style="margin-top:var(--space-4)">
             <div class="summary-row"><span class="summary-key">Subtotal</span><span class="summary-val" id="ck-subtotal">$0</span></div>
-            <div class="summary-row"><span class="summary-key">Shipping</span><span class="summary-val" style="color:var(--primary)">Complimentary</span></div>
+            <div class="summary-row" id="ck-discount-row" style="display:none"><span class="summary-key" id="ck-discount-label">Discount</span><span class="summary-val" id="ck-discount" style="color:var(--primary)">-$0</span></div>
+            <div class="summary-row"><span class="summary-key">Shipping</span><span class="summary-val" id="ck-shipping-label" style="color:var(--primary)">Complimentary</span></div>
             <div class="summary-row"><span class="summary-key">Tax (8%)</span><span class="summary-val" id="ck-tax">$0</span></div>
           </div>
           <div class="summary-total">
@@ -492,28 +498,104 @@
           <span class="confirm-icon">check</span>
         </div>
         <div>
-          <div class="section-eyebrow" style="text-align:center;margin-bottom:var(--space-3)">Order Confirmed</div>
+          <div class="section-eyebrow" style="text-align:center;margin-bottom:var(--space-3)">Commission Confirmed</div>
           <h2 style="font-family:var(--font-serif);font-size:2rem;font-weight:400;text-align:center;margin-bottom:var(--space-4)">Thank you for your<br/><em style="font-weight:300">Véris order.</em></h2>
-          <p style="font-family:var(--font-sans);font-size:0.8125rem;font-weight:300;color:var(--secondary);text-align:center;max-width:480px;line-height:1.8">Your confirmation and IGI certification documents will be sent to your email. Our Surat atelier will begin crafting your piece within 24 hours.</p>
+          <p style="font-family:var(--font-sans);font-size:0.8125rem;font-weight:300;color:var(--secondary);text-align:center;max-width:480px;line-height:1.8">Your confirmation and IGI certification documents have been dispatched to your email. Our master artisans in Surat will begin crafting your piece within 24 hours.</p>
         </div>
+
         <div style="background:var(--surface-low);padding:var(--space-6) var(--space-8);min-width:320px">
           <div style="display:flex;justify-content:space-between;margin-bottom:var(--space-2)">
-            <span style="font-family:var(--font-sans);font-size:0.45rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--secondary)">Order Number</span>
+            <span style="font-family:var(--font-sans);font-size:0.45rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--secondary)">Order Reference</span>
             <span style="font-family:var(--font-serif);font-style:italic;font-size:0.875rem;color:var(--primary)">VRS-<span id="order-num"></span></span>
           </div>
           <div style="display:flex;justify-content:space-between">
-            <span style="font-family:var(--font-sans);font-size:0.45rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--secondary)">Estimated Arrival</span>
-            <span style="font-family:var(--font-sans);font-size:0.5625rem;font-weight:500">7–14 Business Days</span>
+            <span style="font-family:var(--font-sans);font-size:0.45rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--secondary)">Estimated Delivery</span>
+            <span style="font-family:var(--font-sans);font-size:0.5625rem;font-weight:500" id="order-est-arrival">7–14 Business Days</span>
           </div>
         </div>
-        <div style="display:flex;gap:var(--space-4);flex-wrap:wrap;justify-content:center">
+
+        <!-- Itemized Printable Order Receipt Card -->
+        <div class="order-receipt-card" id="order-receipt-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-4)">
+            <div>
+              <div style="font-family:var(--font-serif);font-size:1.125rem;font-weight:400">Official Atelier Receipt</div>
+              <div style="font-family:var(--font-sans);font-size:0.5625rem;color:var(--secondary);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px" id="receipt-date"></div>
+            </div>
+            <button onclick="window.print()" class="btn btn-ghost btn-sm" style="padding:6px 14px;font-size:0.5625rem">Print / PDF 🖨</button>
+          </div>
+          <div class="receipt-divider"></div>
+          <div id="receipt-items-list"></div>
+          <div class="receipt-divider"></div>
+          <div class="receipt-row"><span class="summary-key">Subtotal</span><span id="rc-subtotal">$0</span></div>
+          <div class="receipt-row" id="rc-discount-row" style="display:none"><span class="summary-key" id="rc-discount-label">Privilege Discount</span><span id="rc-discount" style="color:var(--primary)">-$0</span></div>
+          <div class="receipt-row"><span class="summary-key">Shipping & Armed Transit</span><span id="rc-shipping">Included</span></div>
+          <div class="receipt-row"><span class="summary-key">Estimated Tax (8%)</span><span id="rc-tax">$0</span></div>
+          <div class="receipt-divider"></div>
+          <div class="receipt-row" style="font-weight:700;font-size:0.875rem"><span class="total-label">Total Charged</span><span id="rc-total" style="font-family:var(--font-serif);color:var(--primary)">$0</span></div>
+        </div>
+
+        <div style="display:flex;gap:var(--space-4);flex-wrap:wrap;justify-content:center;margin-top:var(--space-4)">
           <a href="collections.html" class="btn btn-ghost">Continue Shopping</a>
-          <a href="index.html" class="btn btn-primary">Return Home</a>
+          <a href="index.html" class="btn btn-primary">Return to Atelier</a>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<!-- ─── Footer ─────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Véris</div>
+        <p class="footer-desc">A modern house of high jewelry, pioneering the future of ethical diamonds through scientific precision and heritage artistry from Surat.</p>
+        <div class="footer-social-icons">
+          <a href="#" class="footer-social-icon" aria-label="Camera">photo_camera</a>
+          <a href="#" class="footer-social-icon" aria-label="Email">alternate_email</a>
+          <a href="#" class="footer-social-icon" aria-label="Video">play_circle</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Collections</div>
+        <div class="footer-links">
+          <a href="collections.html?cat=rings" class="footer-link">Solitaire Rings</a>
+          <a href="collections.html?cat=bracelets" class="footer-link">Tennis Bracelets</a>
+          <a href="collections.html?cat=necklaces" class="footer-link">Eternal Pendants</a>
+          <a href="collections.html?cat=earrings" class="footer-link">Diamond Studs</a>
+          <a href="ring-builder.html" class="footer-link">The Atelier Series</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Information</div>
+        <div class="footer-links">
+          <a href="our-story.html" class="footer-link">The CVD Process</a>
+          <a href="our-story.html#ethics" class="footer-link">Ethical Sourcing</a>
+          <a href="our-story.html#certification" class="footer-link">IGI Certification</a>
+          <a href="#" class="footer-link" data-policy="shipping">Shipping & Returns</a>
+          <a href="#" class="footer-link" data-sizeguide-open>Sizing Guide</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Newsletter</div>
+        <p style="font-family:var(--font-sans);font-size:0.6875rem;font-weight:300;color:rgba(243,240,239,0.5);line-height:1.7;margin-bottom:var(--space-4)">Join the circle of curated elegance. Be first for new collections and exclusive offers.</p>
+        <form class="footer-newsletter-form" data-newsletter-form>
+          <input type="email" class="footer-newsletter-input" placeholder="YOUR EMAIL" required />
+          <button class="footer-newsletter-btn" type="submit" aria-label="Subscribe">arrow_forward</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Véris Diamonds. All Rights Reserved. Crafted in Surat, India.</div>
+      <div class="footer-socials">
+        <a href="#" class="footer-social" data-policy="privacy">Privacy</a>
+        <a href="#" class="footer-social" data-policy="terms">Terms</a>
+        <a href="#" class="footer-social">Instagram</a>
+        <a href="#" class="footer-social" data-policy="contact">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
 
 <!-- Mobile Nav -->
 <nav class="mobile-nav">
@@ -524,8 +606,29 @@
   <a href="cart.html" class="mobile-nav-item active"><span class="icon">shopping_bag</span><span>Cart</span></a>
 </nav>
 
+<script src="js/products.js"></script>
 <script src="js/app.js"></script>
 <script>
+  let discountRate = 0;
+  let fixedDiscount = 0;
+  let appliedCode = '';
+  let shippingCost = 0;
+  let lastOrderData = null;
+
+  function updateShipping(cost) {
+    shippingCost = cost;
+    const label = document.getElementById('ck-shipping-label');
+    if (label) {
+      label.textContent = cost === 0 ? 'Complimentary' : `$${cost}`;
+      label.style.color = cost === 0 ? 'var(--primary)' : 'var(--on-surface)';
+    }
+    const estArrival = document.getElementById('order-est-arrival');
+    if (estArrival) {
+      estArrival.textContent = cost === 0 ? '7–14 Business Days (Armored Express)' : '3–5 Business Days (White Glove Priority)';
+    }
+    updateSummary();
+  }
+
   function renderCart() {
     const items = Cart.get();
     const emptyEl = document.getElementById('empty-cart');
@@ -560,9 +663,9 @@
           <div style="font-family:var(--font-sans);font-size:0.625rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:4px">${item.name}</div>
           <div style="font-family:var(--font-serif);font-size:0.875rem;font-style:italic;color:var(--secondary);font-weight:300;margin-bottom:var(--space-2)">${item.variant}</div>
           <div class="cart-qty">
-            <button class="cart-qty-btn" data-action="dec" data-id="${item.id}" data-variant="${item.variant}">−</button>
+            <button class="cart-qty-btn" data-action="dec" data-id="${item.id}" data-variant="${item.variant}" aria-label="Decrease quantity">−</button>
             <span class="cart-qty-val">${item.qty}</span>
-            <button class="cart-qty-btn" data-action="inc" data-id="${item.id}" data-variant="${item.variant}">+</button>
+            <button class="cart-qty-btn" data-action="inc" data-id="${item.id}" data-variant="${item.variant}" aria-label="Increase quantity">+</button>
           </div>
           <button class="cart-remove" data-action="remove" data-id="${item.id}" data-variant="${item.variant}">Remove</button>
         </div>
@@ -579,18 +682,52 @@
   function updateSummary() {
     const items = Cart.get();
     const subtotal = Cart.total();
-    const tax = Math.round(subtotal * 0.08);
-    const total = subtotal + tax;
-    const elIds = ['s-subtotal','ck-subtotal'];
-    const taxIds = ['s-tax','ck-tax'];
-    const totIds = ['s-total','ck-total'];
-    elIds.forEach(id => { const el = document.getElementById(id); if (el) el.textContent = '$' + subtotal.toLocaleString(); });
-    taxIds.forEach(id => { const el = document.getElementById(id); if (el) el.textContent = '$' + tax.toLocaleString(); });
-    totIds.forEach(id => { const el = document.getElementById(id); if (el) el.textContent = '$' + total.toLocaleString(); });
-    const ptEl = document.getElementById('place-total');
-    if (ptEl) ptEl.textContent = '$' + total.toLocaleString();
+    
+    // Calculate discount
+    let discount = 0;
+    if (discountRate > 0) discount += Math.round(subtotal * discountRate);
+    if (fixedDiscount > 0) discount += fixedDiscount;
+    discount = Math.min(discount, subtotal);
 
-    // Mini summary for sidebar
+    const taxable = Math.max(0, subtotal - discount);
+    const tax = Math.round(taxable * 0.08);
+    const total = taxable + tax + shippingCost;
+
+    // Subtotal
+    ['s-subtotal','ck-subtotal'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = `$${subtotal.toLocaleString()}`;
+    });
+
+    // Discount rows
+    ['s-discount-row', 'ck-discount-row'].forEach(rowId => {
+      const row = document.getElementById(rowId);
+      if (row) {
+        row.style.display = discount > 0 ? 'flex' : 'none';
+      }
+    });
+    ['s-discount', 'ck-discount'].forEach(valId => {
+      const el = document.getElementById(valId);
+      if (el) el.textContent = `-$${discount.toLocaleString()}`;
+    });
+    ['s-discount-label', 'ck-discount-label'].forEach(lblId => {
+      const el = document.getElementById(lblId);
+      if (el && appliedCode) el.textContent = `Privilege (${appliedCode})`;
+    });
+
+    // Tax & Totals
+    ['s-tax','ck-tax'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = `$${tax.toLocaleString()}`;
+    });
+    ['s-total','ck-total'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = `$${total.toLocaleString()}`;
+    });
+    const ptEl = document.getElementById('place-total');
+    if (ptEl) ptEl.textContent = `$${total.toLocaleString()}`;
+
+    // Mini summary for checkout sidebar
     const summaryItemsHtml = items.map(i => `
       <div style="display:flex;gap:var(--space-3);margin-bottom:var(--space-4);align-items:center">
         <div style="width:48px;height:48px;flex-shrink:0;overflow:hidden;position:relative">
@@ -611,7 +748,7 @@
     });
   }
 
-  // Delegated event handler for cart item buttons (avoids inline onclick string interpolation bugs)
+  // Delegated event handler for cart item buttons
   document.getElementById('cart-items-list').addEventListener('click', function(e) {
     const btn = e.target.closest('[data-action]');
     if (!btn) return;
@@ -636,17 +773,31 @@
     }
   });
 
-  let promoApplied = false;
   function applyPromo() {
     const code = document.getElementById('promo-input').value.trim().toUpperCase();
     const resultEl = document.getElementById('promo-result');
     if (code === 'VERIS10') {
-      resultEl.innerHTML = '<span style="color:var(--primary);font-family:var(--font-sans);font-size:0.5rem;font-weight:600;letter-spacing:0.15em">✓ 10% discount applied</span>';
-      Toast.show('Promo code VERIS10 applied — 10% off!', 'local_offer');
+      discountRate = 0.10;
+      fixedDiscount = 0;
+      appliedCode = 'VERIS10';
+      resultEl.innerHTML = '<span style="color:var(--primary);font-family:var(--font-sans);font-size:0.5rem;font-weight:600;letter-spacing:0.15em">✓ 10% privilege discount applied</span>';
+      Toast.show('Promo code VERIS10 applied — 10% deducted!', 'local_offer');
+      updateSummary();
+    } else if (code === 'ATELIER50') {
+      discountRate = 0;
+      fixedDiscount = 50;
+      appliedCode = 'ATELIER50';
+      resultEl.innerHTML = '<span style="color:var(--primary);font-family:var(--font-sans);font-size:0.5rem;font-weight:600;letter-spacing:0.15em">✓ $50 atelier credit applied</span>';
+      Toast.show('Promo code ATELIER50 applied — $50 deducted!', 'local_offer');
+      updateSummary();
     } else if (code === '') {
+      discountRate = 0;
+      fixedDiscount = 0;
+      appliedCode = '';
       resultEl.innerHTML = '';
+      updateSummary();
     } else {
-      resultEl.innerHTML = '<span style="color:var(--error);font-family:var(--font-sans);font-size:0.5rem;font-weight:600;letter-spacing:0.15em">Invalid promo code</span>';
+      resultEl.innerHTML = '<span style="color:var(--error);font-family:var(--font-sans);font-size:0.5rem;font-weight:600;letter-spacing:0.15em">Invalid code. Try "VERIS10"</span>';
     }
   }
 
@@ -669,11 +820,59 @@
 
   let currentStep = 1;
   function nextStep(step) {
-    // Basic validation for step 1
+    // Validation Step 1: Contact
     if (currentStep === 1 && step === 2) {
+      const fn = document.getElementById('fn');
+      const ln = document.getElementById('ln');
       const email = document.getElementById('email');
-      if (!email.value) { email.focus(); Toast.show('Please enter your email address', 'warning'); return; }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!fn.value.trim()) {
+        fn.focus();
+        Toast.show('Please provide your first name', 'warning');
+        return;
+      }
+      if (!ln.value.trim()) {
+        ln.focus();
+        Toast.show('Please provide your last name', 'warning');
+        return;
+      }
+      if (!email.value.trim() || !emailRegex.test(email.value.trim())) {
+        email.focus();
+        Toast.show('Please enter a valid email address for IGI certificates', 'warning');
+        return;
+      }
     }
+
+    // Validation Step 2: Shipping
+    if (currentStep === 2 && step === 3) {
+      const street = document.getElementById('ship-street');
+      const city = document.getElementById('ship-city');
+      const state = document.getElementById('ship-state');
+      const zip = document.getElementById('ship-zip');
+
+      if (!street.value.trim()) {
+        street.focus();
+        Toast.show('Please provide delivery street address', 'warning');
+        return;
+      }
+      if (!city.value.trim()) {
+        city.focus();
+        Toast.show('Please provide destination city', 'warning');
+        return;
+      }
+      if (!state.value.trim()) {
+        state.focus();
+        Toast.show('Please provide state / province', 'warning');
+        return;
+      }
+      if (!zip.value.trim()) {
+        zip.focus();
+        Toast.show('Please provide postal / ZIP code', 'warning');
+        return;
+      }
+    }
+
     document.querySelectorAll('.checkout-step-panel').forEach(p => p.classList.remove('active'));
     document.getElementById('ck-step-' + step).classList.add('active');
     const crumbs = ['cart','contact','shipping','payment'];
@@ -694,17 +893,87 @@
   }
 
   function placeOrder() {
-    // Basic card validation
-    const card = document.querySelector('#ck-step-3 input[type="text"]');
-    if (!card || card.value.replace(/\s/g,'').length < 16) {
-      Toast.show('Please enter a valid card number', 'warning');
+    const cardInput = document.getElementById('pay-card');
+    const cardName = document.getElementById('pay-name');
+    const expM = document.getElementById('pay-exp-m');
+    const expY = document.getElementById('pay-exp-y');
+    const cvv = document.getElementById('pay-cvv');
+
+    const cleanCard = cardInput.value.replace(/\s/g, '');
+    if (cleanCard.length < 16) {
+      cardInput.focus();
+      Toast.show('Please enter a valid 16-digit card number', 'warning');
       return;
     }
+    if (!cardName.value.trim()) {
+      cardName.focus();
+      Toast.show('Please enter the name on the card', 'warning');
+      return;
+    }
+    const month = parseInt(expM.value, 10);
+    if (isNaN(month) || month < 1 || month > 12) {
+      expM.focus();
+      Toast.show('Please enter a valid expiry month (01–12)', 'warning');
+      return;
+    }
+    const year = parseInt(expY.value, 10);
+    if (isNaN(year) || year < 24) {
+      expY.focus();
+      Toast.show('Please enter a valid card expiry year', 'warning');
+      return;
+    }
+    if (!cvv.value.trim() || cvv.value.trim().length < 3) {
+      cvv.focus();
+      Toast.show('Please enter a valid 3 or 4-digit CVV security code', 'warning');
+      return;
+    }
+
+    // Capture receipt details before clearing Cart
+    const items = [...Cart.get()];
+    const subtotal = Cart.total();
+    let discount = 0;
+    if (discountRate > 0) discount += Math.round(subtotal * discountRate);
+    if (fixedDiscount > 0) discount += fixedDiscount;
+    discount = Math.min(discount, subtotal);
+    const taxable = Math.max(0, subtotal - discount);
+    const tax = Math.round(taxable * 0.08);
+    const total = taxable + tax + shippingCost;
+    const orderNum = Math.floor(100000 + Math.random() * 900000);
+
+    // Populate Itemized Receipt
+    const now = new Date();
+    document.getElementById('receipt-date').textContent = now.toLocaleDateString('en-US', {
+      year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'
+    });
+    document.getElementById('order-num').textContent = orderNum;
+
+    const receiptListEl = document.getElementById('receipt-items-list');
+    receiptListEl.innerHTML = items.map(item => `
+      <div class="receipt-row" style="margin-bottom:var(--space-2)">
+        <div>
+          <div style="font-weight:600">${item.name} × ${item.qty}</div>
+          <div style="font-size:0.5625rem;color:var(--secondary)">${item.variant}</div>
+        </div>
+        <div style="font-family:var(--font-serif);font-size:0.875rem">$${(item.price * item.qty).toLocaleString()}</div>
+      </div>
+    `).join('');
+
+    document.getElementById('rc-subtotal').textContent = `$${subtotal.toLocaleString()}`;
+    if (discount > 0) {
+      document.getElementById('rc-discount-row').style.display = 'flex';
+      document.getElementById('rc-discount').textContent = `-$${discount.toLocaleString()}`;
+    }
+    document.getElementById('rc-shipping').textContent = shippingCost === 0 ? 'Complimentary Armored Express' : '$95 White Glove Priority';
+    document.getElementById('rc-tax').textContent = `$${tax.toLocaleString()}`;
+    document.getElementById('rc-total').textContent = `$${total.toLocaleString()}`;
+
+    // Switch to confirmation view
     document.getElementById('checkout-view').classList.remove('active');
     document.getElementById('confirm-view').classList.add('active');
-    document.getElementById('page-label').textContent = 'Order Placed';
+    document.getElementById('page-label').textContent = 'Commission Confirmed';
     document.getElementById('page-title').textContent = 'Thank You';
-    document.getElementById('order-num').textContent = Math.floor(100000 + Math.random() * 900000);
+
+    // Clear cart and update badges
     Cart.clear();
     updateCartBadges();
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -715,3 +984,4 @@
 </script>
 </body>
 </html>
+

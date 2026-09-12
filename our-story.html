@@ -168,6 +168,10 @@
       <button class="nav-icon-btn" data-search-open aria-label="Search">
         <span style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 200">search</span>
       </button>
+      <button class="nav-icon-btn" data-wishlist-open aria-label="Wishlist">
+        <span style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 200">favorite</span>
+        <span class="wishlist-badge" id="wishlist-badge">0</span>
+      </button>
       <a href="cart.html" class="nav-icon-btn" aria-label="Cart">
         <span style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 200">shopping_bag</span>
         <span class="cart-badge" id="cart-badge">0</span>
@@ -188,7 +192,7 @@
 <!-- Hero -->
 <section class="story-hero">
   <div class="story-hero-bg">
-    <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=1600&q=90&auto=format&fit=crop&fp-y=0.4" alt="Luxury diamond jewelry" />
+    <img src="assets/hero-model.jpg" alt="Luxury diamond jewelry" />
     <div class="story-hero-overlay"></div>
   </div>
   <div class="story-hero-content">
@@ -203,7 +207,7 @@
   <div class="container">
     <div class="story-intro-grid reveal">
       <div class="story-intro-img">
-        <img src="https://images.unsplash.com/photo-1603974372039-adc49044b6bd?w=900&q=80&auto=format&fit=crop" alt="Véris jewelry" style="filter:grayscale(0.15)" />
+        <img src="assets/craftsman-surat.jpg" alt="Master artisan in Surat atelier" style="filter:grayscale(0.15)" />
         <div style="position:absolute;bottom:var(--space-6);left:var(--space-6);right:var(--space-6);background:var(--surface-lowest);padding:var(--space-6)">
           <p style="font-family:var(--font-serif);font-style:italic;font-size:0.9375rem;line-height:1.7;color:var(--on-surface)">"We didn't disrupt fine jewelry. We evolved it — honoring the craft of Surat while freeing it from the burden of the mine."</p>
           <div style="margin-top:var(--space-4);font-family:var(--font-sans);font-size:0.45rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--primary)">Priya Mehta, Founder</div>
@@ -262,7 +266,7 @@
       </div>
       <div class="process-inner">
         <div class="process-image">
-          <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=1400&q=80&auto=format" alt="CVD diamond process" />
+          <img src="assets/cvd-process.jpg" alt="CVD diamond synthesis plasma reactor" />
         </div>
         <div class="process-steps">
           <div class="process-step reveal">
@@ -409,6 +413,60 @@
   </div>
 </section>
 
+<!-- ─── Footer ─────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Véris</div>
+        <p class="footer-desc">A modern house of high jewelry, pioneering the future of ethical diamonds through scientific precision and heritage artistry from Surat.</p>
+        <div class="footer-social-icons">
+          <a href="#" class="footer-social-icon" aria-label="Camera">photo_camera</a>
+          <a href="#" class="footer-social-icon" aria-label="Email">alternate_email</a>
+          <a href="#" class="footer-social-icon" aria-label="Video">play_circle</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Collections</div>
+        <div class="footer-links">
+          <a href="collections.html?cat=rings" class="footer-link">Solitaire Rings</a>
+          <a href="collections.html?cat=bracelets" class="footer-link">Tennis Bracelets</a>
+          <a href="collections.html?cat=necklaces" class="footer-link">Eternal Pendants</a>
+          <a href="collections.html?cat=earrings" class="footer-link">Diamond Studs</a>
+          <a href="ring-builder.html" class="footer-link">The Atelier Series</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Information</div>
+        <div class="footer-links">
+          <a href="our-story.html" class="footer-link">The CVD Process</a>
+          <a href="our-story.html#ethics" class="footer-link">Ethical Sourcing</a>
+          <a href="our-story.html#certification" class="footer-link">IGI Certification</a>
+          <a href="#" class="footer-link" data-policy="shipping">Shipping & Returns</a>
+          <a href="#" class="footer-link" data-sizeguide-open>Sizing Guide</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Newsletter</div>
+        <p style="font-family:var(--font-sans);font-size:0.6875rem;font-weight:300;color:rgba(243,240,239,0.5);line-height:1.7;margin-bottom:var(--space-4)">Join the circle of curated elegance. Be first for new collections and exclusive offers.</p>
+        <form class="footer-newsletter-form" data-newsletter-form>
+          <input type="email" class="footer-newsletter-input" placeholder="YOUR EMAIL" required />
+          <button class="footer-newsletter-btn" type="submit" aria-label="Subscribe">arrow_forward</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Véris Diamonds. All Rights Reserved. Crafted in Surat, India.</div>
+      <div class="footer-socials">
+        <a href="#" class="footer-social" data-policy="privacy">Privacy</a>
+        <a href="#" class="footer-social" data-policy="terms">Terms</a>
+        <a href="#" class="footer-social">Instagram</a>
+        <a href="#" class="footer-social" data-policy="contact">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
 <!-- Mobile Nav -->
 <nav class="mobile-nav">
   <a href="index.html" class="mobile-nav-item"><span class="icon">auto_awesome</span><span>Atelier</span></a>
@@ -418,6 +476,7 @@
   <a href="cart.html" class="mobile-nav-item"><span class="icon">shopping_bag</span><span>Cart</span></a>
 </nav>
 
+<script src="js/products.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

@@ -572,6 +572,10 @@
       <button class="nav-icon-btn" data-search-open aria-label="Search">
         <span style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 200">search</span>
       </button>
+      <button class="nav-icon-btn" data-wishlist-open aria-label="Wishlist">
+        <span style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 200">favorite</span>
+        <span class="wishlist-badge" id="wishlist-badge">0</span>
+      </button>
       <a href="cart.html" class="nav-icon-btn" aria-label="Cart">
         <span style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 200">shopping_bag</span>
         <span class="cart-badge" id="cart-badge">0</span>
@@ -693,7 +697,7 @@
     </div>
     <div class="collections-row reveal">
       <a href="collections.html?cat=rings" class="collection-tile">
-        <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=900&q=80&auto=format" alt="Rings collection" />
+        <img src="assets/banner-rings.jpg" alt="Rings collection" />
         <div class="collection-tile-overlay">
           <div class="collection-tile-tag">The Atelier</div>
           <div class="collection-tile-name">Rings</div>
@@ -701,7 +705,7 @@
         </div>
       </a>
       <a href="collections.html?cat=bracelets" class="collection-tile">
-        <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=900&q=80&auto=format" alt="Bracelets collection" />
+        <img src="assets/banner-bracelets.jpg" alt="Bracelets collection" />
         <div class="collection-tile-overlay">
           <div class="collection-tile-tag">Best Sellers</div>
           <div class="collection-tile-name">Bracelets</div>
@@ -709,7 +713,7 @@
         </div>
       </a>
       <a href="collections.html?cat=necklaces" class="collection-tile">
-        <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=1400&q=80&auto=format" alt="Necklaces & Pendants" />
+        <img src="assets/banner-pendants.jpg" alt="Necklaces & Pendants" />
         <div class="collection-tile-overlay">
           <div class="collection-tile-tag">New Arrivals</div>
           <div class="collection-tile-name">Pendants</div>
@@ -725,7 +729,7 @@
   <div class="container">
     <div class="editorial-grid reveal">
       <div class="editorial-image-side">
-        <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=1400&q=80&auto=format" alt="Diamond inspection macro shot" style="filter:grayscale(0.25)" />
+        <img src="assets/cvd-process.jpg" alt="CVD Diamond Synthesis Reactor" />
         <div class="editorial-quote-card">
           <div style="font-family:var(--font-sans);font-size:0.45rem;font-weight:700;letter-spacing:0.35em;text-transform:uppercase;color:var(--primary-container);margin-bottom:var(--space-3)">The Science</div>
           <p style="font-family:var(--font-serif);font-style:italic;font-size:0.8125rem;line-height:1.7">"Identical atom-for-atom to mined diamonds, without the cost to Earth."</p>
@@ -862,10 +866,10 @@
       <div>
         <div class="footer-logo">Véris</div>
         <p class="footer-desc">A modern house of high jewelry, pioneering the future of ethical diamonds through scientific precision and heritage artistry from Surat.</p>
-        <div style="display:flex;gap:var(--space-4);margin-top:var(--space-6)">
-          <a href="#" style="font-family:'Material Symbols Outlined';font-size:20px;color:rgba(243,240,239,0.4);font-variation-settings:'FILL' 0,'wght' 200;transition:color 300ms ease-out" onmouseover="this.style.color='var(--primary-container)'" onmouseout="this.style.color='rgba(243,240,239,0.4)'">photo_camera</a>
-          <a href="#" style="font-family:'Material Symbols Outlined';font-size:20px;color:rgba(243,240,239,0.4);font-variation-settings:'FILL' 0,'wght' 200;transition:color 300ms ease-out" onmouseover="this.style.color='var(--primary-container)'" onmouseout="this.style.color='rgba(243,240,239,0.4)'">alternate_email</a>
-          <a href="#" style="font-family:'Material Symbols Outlined';font-size:20px;color:rgba(243,240,239,0.4);font-variation-settings:'FILL' 0,'wght' 200;transition:color 300ms ease-out" onmouseover="this.style.color='var(--primary-container)'" onmouseout="this.style.color='rgba(243,240,239,0.4)'">play_circle</a>
+        <div class="footer-social-icons">
+          <a href="#" class="footer-social-icon" aria-label="Camera">photo_camera</a>
+          <a href="#" class="footer-social-icon" aria-label="Email">alternate_email</a>
+          <a href="#" class="footer-social-icon" aria-label="Video">play_circle</a>
         </div>
       </div>
       <div>
@@ -884,8 +888,8 @@
           <a href="our-story.html" class="footer-link">The CVD Process</a>
           <a href="our-story.html#ethics" class="footer-link">Ethical Sourcing</a>
           <a href="our-story.html#certification" class="footer-link">IGI Certification</a>
-          <a href="#" class="footer-link">Shipping & Returns</a>
-          <a href="#" class="footer-link">Sizing Guide</a>
+          <a href="#" class="footer-link" data-policy="shipping">Shipping & Returns</a>
+          <a href="#" class="footer-link" data-sizeguide-open>Sizing Guide</a>
         </div>
       </div>
       <div>
@@ -900,10 +904,10 @@
     <div class="footer-bottom">
       <div class="footer-copy">© 2026 Véris Diamonds. All Rights Reserved. Crafted in Surat, India.</div>
       <div class="footer-socials">
-        <a href="#" class="footer-social">Privacy</a>
-        <a href="#" class="footer-social">Terms</a>
+        <a href="#" class="footer-social" data-policy="privacy">Privacy</a>
+        <a href="#" class="footer-social" data-policy="terms">Terms</a>
         <a href="#" class="footer-social">Instagram</a>
-        <a href="#" class="footer-social">Contact</a>
+        <a href="#" class="footer-social" data-policy="contact">Contact</a>
       </div>
     </div>
   </div>
@@ -933,44 +937,18 @@
   </a>
 </nav>
 
+<script src="js/products.js"></script>
 <script src="js/app.js"></script>
 <script>
-  // ─── Bestseller Products Data ─────────────────────────────
-  const PRODUCTS = [
-    {
-      id: 1, name: 'The Aura Ring', sub: '2.5 CT CVD Solitaire', price: 2400, tag: 'Solitaire',
-      img: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=900&q=80&auto=format',
-      href: 'product.html?id=1',
-      desc: 'A timeless 2.5 carat CVD solitaire ring set in 18K gold. IGI certified for cut, color, and clarity.'
-    },
-    {
-      id: 2, name: 'Eternal Strand', sub: '5.0 CT Tennis Bracelet', price: 4850, tag: 'Bracelet',
-      img: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=900&q=80&auto=format',
-      href: 'product.html?id=2',
-      desc: 'Five carats of continuous lab-grown brilliance set in 18K white gold. Handcrafted heritage of Surat.'
-    },
-    {
-      id: 3, name: 'Lumière Pendant', sub: '1.0 CT Halo Drop', price: 1150, tag: 'Pendant',
-      img: 'https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=1400&q=80&auto=format',
-      href: 'product.html?id=3',
-      desc: 'A sculptural halo pendant in geometric form. 1.0 carat center stone with pavé diamonds.'
-    },
-    {
-      id: 4, name: 'Stella Studs', sub: '2.0 CT TW Round Cut', price: 1800, tag: 'Earrings',
-      img: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=900&q=80&auto=format',
-      href: 'product.html?id=4',
-      desc: 'Classic four-prong stud earrings. 2.0 CTW round brilliant cut CVD diamonds in 18K white gold.'
-    }
-  ];
-
   function renderBestsellers() {
     const grid = document.getElementById('bestseller-grid');
     if (!grid) return;
-    grid.innerHTML = PRODUCTS.map(p => `
+    const items = (window.PRODUCTS && window.PRODUCTS.length) ? window.PRODUCTS.slice(0, 4) : [];
+    grid.innerHTML = items.map(p => `
       <div class="product-card" onclick="QuickView.open(${JSON.stringify(p).replace(/"/g, '&quot;')})">
         <div class="product-card-image">
           <img src="${p.img}" alt="${p.name}" loading="lazy" />
-          <div class="product-card-tag">${p.tag}</div>
+          <div class="product-card-tag">${p.tag || p.cat}</div>
         </div>
         <div class="product-card-body">
           <div class="product-card-name">${p.name}</div>

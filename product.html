@@ -208,6 +208,10 @@
       <button class="nav-icon-btn" data-search-open aria-label="Search">
         <span style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 200">search</span>
       </button>
+      <button class="nav-icon-btn" data-wishlist-open aria-label="Wishlist">
+        <span style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 200">favorite</span>
+        <span class="wishlist-badge" id="wishlist-badge">0</span>
+      </button>
       <a href="cart.html" class="nav-icon-btn" aria-label="Cart">
         <span style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 200">shopping_bag</span>
         <span class="cart-badge" id="cart-badge">0</span>
@@ -229,25 +233,14 @@
 <div class="pdp-layout">
   <!-- Gallery -->
   <div class="pdp-gallery">
-    <div class="pdp-thumbnails">
-      <div class="pdp-thumb active" onclick="switchImage(0)">
-        <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=900&q=80&auto=format" alt="Ring view 1" />
-      </div>
-      <div class="pdp-thumb" onclick="switchImage(1)">
-        <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=1400&q=80&auto=format" alt="Ring view 2" />
-      </div>
-      <div class="pdp-thumb" onclick="switchImage(2)">
-        <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=1400&q=80&auto=format" alt="Ring view 3" />
-      </div>
-      <div class="pdp-thumb" onclick="switchImage(3)">
-        <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=900&q=80&auto=format" alt="Ring view 4" />
-      </div>
+    <div class="pdp-thumbnails" id="pdp-thumbs">
+      <!-- Injected by JS -->
     </div>
     <!-- Main Image with Loupe -->
     <div class="pdp-main-image" id="pdp-main" onmousemove="moveLoup(event)" onmouseleave="hideLoup()" ontouchmove="moveLoup(event)" ontouchend="hideLoup()" ontouchcancel="hideLoup()">
-      <img id="main-img" src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=900&q=80&auto=format" alt="The Aura Ring — 2.5 CT CVD Solitaire" />
+      <img id="main-img" src="" alt="" />
       <div class="loupe-ring" id="loupe">
-        <img id="loupe-img" src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=900&q=80&auto=format" alt="" />
+        <img id="loupe-img" src="" alt="" />
       </div>
     </div>
   </div>
@@ -255,80 +248,60 @@
   <!-- Info Panel -->
   <div class="pdp-info">
     <div>
-      <div class="breadcrumb">
-        <a href="index.html">Home</a>
-        <span style="font-family:'Material Symbols Outlined';font-size:12px;font-variation-settings:'FILL' 0,'wght' 200">chevron_right</span>
-        <a href="collections.html?cat=rings">Rings</a>
-        <span style="font-family:'Material Symbols Outlined';font-size:12px;font-variation-settings:'FILL' 0,'wght' 200">chevron_right</span>
-        <span style="color:var(--on-surface)">The Aura Ring</span>
+      <div class="breadcrumb" id="pdp-breadcrumb">
+        <!-- Injected by JS -->
       </div>
     </div>
 
     <div>
-      <div class="pdp-name" style="margin-bottom:var(--space-2)">Véris Atelier · Solitaire Collection</div>
-      <h1 class="pdp-title" style="margin-bottom:var(--space-3)">The Aura Ring</h1>
+      <div class="pdp-name" id="pdp-tag-eyebrow" style="margin-bottom:var(--space-2)">Véris Atelier</div>
+      <h1 class="pdp-title" id="pdp-title" style="margin-bottom:var(--space-3)">Product Name</h1>
       <div style="display:flex;align-items:center;gap:var(--space-4)">
-        <div class="stars" style="display:flex;gap:3px">
-          <span style="font-family:'Material Symbols Outlined';font-size:14px;color:var(--primary-container);font-variation-settings:'FILL' 1,'wght' 300">star</span>
-          <span style="font-family:'Material Symbols Outlined';font-size:14px;color:var(--primary-container);font-variation-settings:'FILL' 1,'wght' 300">star</span>
-          <span style="font-family:'Material Symbols Outlined';font-size:14px;color:var(--primary-container);font-variation-settings:'FILL' 1,'wght' 300">star</span>
-          <span style="font-family:'Material Symbols Outlined';font-size:14px;color:var(--primary-container);font-variation-settings:'FILL' 1,'wght' 300">star</span>
-          <span style="font-family:'Material Symbols Outlined';font-size:14px;color:var(--primary-container);font-variation-settings:'FILL' 1,'wght' 300">star</span>
+        <div class="stars" id="pdp-stars" style="display:flex;gap:3px">
+          <!-- Injected by JS -->
         </div>
-        <span style="font-family:var(--font-sans);font-size:0.5rem;font-weight:600;letter-spacing:0.15em;color:var(--secondary)">48 Reviews</span>
+        <span style="font-family:var(--font-sans);font-size:0.5625rem;font-weight:600;letter-spacing:0.15em;color:var(--secondary)" id="pdp-review-count"></span>
       </div>
     </div>
 
     <div style="border-top:1px solid rgba(208,197,175,0.25);border-bottom:1px solid rgba(208,197,175,0.25);padding:var(--space-4) 0">
-      <div class="pdp-price" id="displayed-price">From $2,400</div>
-      <div class="pdp-price-note">Price updates with your selection</div>
+      <div class="pdp-price" id="displayed-price">$0</div>
+      <div class="pdp-price-note">Complimentary IGI Diamond Certification Included</div>
     </div>
 
+    <!-- Description -->
+    <p id="pdp-desc" style="font-family:var(--font-sans);font-size:0.8125rem;font-weight:300;color:var(--secondary);line-height:1.8"></p>
+
     <!-- Metal Selector -->
-    <div>
+    <div id="metal-section">
       <div class="option-label">
-        Metal
+        Metal Selection
         <span style="font-family:var(--font-serif);font-style:italic;font-weight:300;letter-spacing:0;text-transform:none;font-size:0.75rem;color:var(--primary)" id="metal-label">18K Yellow Gold</span>
       </div>
-      <div class="chips-row">
-        <button class="metal-chip active" data-metal="yellow-gold" data-price-add="0" onclick="selectMetal(this)">Yellow Gold</button>
-        <button class="metal-chip" data-metal="white-gold" data-price-add="100" onclick="selectMetal(this)">White Gold</button>
-        <button class="metal-chip" data-metal="rose-gold" data-price-add="50" onclick="selectMetal(this)">Rose Gold</button>
-        <button class="metal-chip" data-metal="platinum" data-price-add="400" onclick="selectMetal(this)">Platinum</button>
+      <div class="chips-row" id="metal-chips">
+        <!-- Injected by JS -->
       </div>
     </div>
 
     <!-- Carat Selector -->
-    <div>
+    <div id="carat-section">
       <div class="option-label">
         Carat Weight
-        <span style="font-family:var(--font-serif);font-style:italic;font-weight:300;letter-spacing:0;text-transform:none;font-size:0.75rem;color:var(--primary)" id="carat-label">2.5 CT</span>
+        <span style="font-family:var(--font-serif);font-style:italic;font-weight:300;letter-spacing:0;text-transform:none;font-size:0.75rem;color:var(--primary)" id="carat-label"></span>
       </div>
-      <div class="chips-row">
-        <button class="size-chip" data-carat="1.5" data-price="1650" onclick="selectCarat(this)">1.5 CT</button>
-        <button class="size-chip" data-carat="2.0" data-price="2100" onclick="selectCarat(this)">2.0 CT</button>
-        <button class="size-chip active" data-carat="2.5" data-price="2400" onclick="selectCarat(this)">2.5 CT</button>
-        <button class="size-chip" data-carat="3.0" data-price="3200" onclick="selectCarat(this)">3.0 CT</button>
-        <button class="size-chip" data-carat="4.0" data-price="4800" onclick="selectCarat(this)">4.0 CT</button>
+      <div class="chips-row" id="carat-chips">
+        <!-- Injected by JS -->
       </div>
     </div>
 
-    <!-- Ring Size Selector -->
-    <div>
+    <!-- Size / Length Selector -->
+    <div id="size-section">
       <div class="option-label">
-        Ring Size (US)
-        <a href="#sizing" style="font-family:var(--font-sans);font-size:0.45rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--primary);font-style:normal;border-bottom:1px solid var(--primary);padding-bottom:1px">Size Guide</a>
+        <span id="size-type-label">Ring Size (US)</span>
+        <button data-sizeguide-open style="font-family:var(--font-sans);font-size:0.45rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--primary);font-style:normal;border-bottom:1px solid var(--primary);padding-bottom:1px;background:none;border-top:none;border-left:none;border-right:none;cursor:pointer">Sizing Guide</button>
       </div>
-      <div class="chips-row">
-        <button class="size-chip" onclick="selectSize(this)">4</button>
-        <button class="size-chip" onclick="selectSize(this)">4.5</button>
-        <button class="size-chip" onclick="selectSize(this)">5</button>
-        <button class="size-chip" onclick="selectSize(this)">5.5</button>
-        <button class="size-chip active" onclick="selectSize(this)">6</button>
-        <button class="size-chip" onclick="selectSize(this)">6.5</button>
-        <button class="size-chip" onclick="selectSize(this)">7</button>
-        <button class="size-chip" onclick="selectSize(this)">7.5</button>
-        <button class="size-chip" onclick="selectSize(this)">8</button>
+      <div class="chips-row" id="size-chips">
+        <!-- Injected by JS -->
       </div>
     </div>
 
@@ -348,48 +321,39 @@
     <div style="display:flex;gap:var(--space-2);flex-wrap:wrap">
       <div class="certification-badge">
         <span class="cert-icon">verified</span>
-        IGI Certified
+        IGI Certified Diamond
       </div>
       <div class="certification-badge">
         <span class="cert-icon">local_shipping</span>
-        Free Shipping
+        Insured Armored Shipping
       </div>
       <div class="certification-badge">
         <span class="cert-icon">autorenew</span>
-        30-Day Returns
+        30-Day Resizing & Returns
       </div>
     </div>
 
     <!-- Diamond Specs -->
     <div>
-      <div style="font-family:var(--font-sans);font-size:0.5rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;margin-bottom:var(--space-4)">Diamond Specifications</div>
-      <div class="spec-grid">
-        <div class="spec-cell"><div class="spec-key">Cut Grade</div><div class="spec-val">Excellent</div></div>
-        <div class="spec-cell"><div class="spec-key">Color</div><div class="spec-val">D–F (Colorless)</div></div>
-        <div class="spec-cell"><div class="spec-key">Clarity</div><div class="spec-val">VS1–VS2</div></div>
-        <div class="spec-cell"><div class="spec-key">Shape</div><div class="spec-val">Round Brilliant</div></div>
-        <div class="spec-cell"><div class="spec-key">Origin</div><div class="spec-val">CVD Lab-Grown</div></div>
-        <div class="spec-cell"><div class="spec-key">Certification</div><div class="spec-val">IGI Graded</div></div>
+      <div style="font-family:var(--font-sans);font-size:0.5rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;margin-bottom:var(--space-4)">Atelier Specifications</div>
+      <div class="spec-grid" id="pdp-specs">
+        <!-- Injected by JS -->
       </div>
     </div>
 
     <!-- Accordions -->
     <div>
       <div class="accordion-item">
-        <button class="accordion-trigger">Shipping & Delivery <span class="accordion-icon">add</span></button>
-        <div class="accordion-content"><div class="accordion-body">Complimentary insured shipping worldwide. Orders typically arrive in 7–14 business days in our signature Véris presentation box. Duties and taxes may apply for international orders and will be calculated at checkout.</div></div>
+        <button class="accordion-trigger">Shipping & Secure Delivery <span class="accordion-icon">add</span></button>
+        <div class="accordion-content"><div class="accordion-body">Complimentary armored courier shipping worldwide. Orders arrive in 7–14 business days enclosed in our signature museum-grade lacquer presentation box with wax seal.</div></div>
       </div>
       <div class="accordion-item">
-        <button class="accordion-trigger">Returns & Resizing <span class="accordion-icon">add</span></button>
-        <div class="accordion-content"><div class="accordion-body">We offer free resizing within 30 days of delivery. Returns are accepted within 30 days in original, unworn condition with all original packaging and IGI certification documents.</div></div>
-      </div>
-      <div class="accordion-item" id="sizing">
-        <button class="accordion-trigger">Ring Sizing Guide <span class="accordion-icon">add</span></button>
-        <div class="accordion-content"><div class="accordion-body">We recommend measuring your ring size at the end of the day when fingers are at their largest. Our complimentary ring sizer kit can be mailed to you. Standard US sizes 4–11, UK sizes J–W, and European sizes 47–63 are available. Half sizes available on request.</div></div>
+        <button class="accordion-trigger">30-Day Returns & Complimentary Resizing <span class="accordion-icon">add</span></button>
+        <div class="accordion-content"><div class="accordion-body">We provide one complimentary precision resizing within 30 days of delivery. Returns are accepted within 30 days in pristine unworn condition with IGI documentation.</div></div>
       </div>
       <div class="accordion-item">
-        <button class="accordion-trigger">Craftsmanship & Care <span class="accordion-icon">add</span></button>
-        <div class="accordion-content"><div class="accordion-body">Each Véris piece is handcrafted by master artisans in Surat over 14–21 days. Store in the provided anti-tarnish pouch. Clean gently with lukewarm water and a soft brush. Avoid ultrasonic cleaners for pavé settings. Polish with the included microfibre cloth.</div></div>
+        <button class="accordion-trigger">Surat Atelier Heritage & CVD Purity <span class="accordion-icon">add</span></button>
+        <div class="accordion-content"><div class="accordion-body">Every diamond is grown using Chemical Vapor Deposition (CVD) at our Surat facility, creating Type IIa diamond crystals chemically and optically identical to top-tier mined stones with zero environmental excavation.</div></div>
       </div>
     </div>
   </div>
@@ -401,49 +365,68 @@
     <div class="section-head-row reveal">
       <div>
         <div class="section-eyebrow">Complete the Look</div>
-        <h2 class="section-title" style="font-size:clamp(1.6rem,3vw,2.2rem)">Pair it Perfectly</h2>
+        <h2 class="section-title" style="font-size:clamp(1.6rem,3vw,2.2rem)">Curated Pairings</h2>
       </div>
     </div>
-    <div class="product-grid-4 reveal">
-      <div class="product-card">
-        <div class="product-card-image">
-          <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=900&q=80&auto=format" alt="Stella Studs" />
-          <div class="product-card-tag">Earrings</div>
-        </div>
-        <a href="product.html?id=4" class="product-card-body" style="display:block">
-          <div class="product-card-name">Stella Studs</div>
-          <div class="product-card-sub">2.0 CT TW Round Cut</div>
-          <div class="product-card-price">From $1,800</div>
-        </a>
-        <a href="product.html?id=4" class="product-card-cta">View Details</a>
-      </div>
-      <div class="product-card">
-        <div class="product-card-image">
-          <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=1400&q=80&auto=format" alt="Lumière Pendant" />
-          <div class="product-card-tag">Pendant</div>
-        </div>
-        <a href="product.html?id=3" class="product-card-body" style="display:block">
-          <div class="product-card-name">Lumière Pendant</div>
-          <div class="product-card-sub">1.0 CT Halo Drop</div>
-          <div class="product-card-price">From $1,150</div>
-        </a>
-        <a href="product.html?id=3" class="product-card-cta">View Details</a>
-      </div>
-      <div class="product-card">
-        <div class="product-card-image">
-          <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=900&q=80&auto=format" alt="Eternal Strand" />
-          <div class="product-card-tag">Bracelet</div>
-        </div>
-        <a href="product.html?id=2" class="product-card-body" style="display:block">
-          <div class="product-card-name">Eternal Strand</div>
-          <div class="product-card-sub">5.0 CT Tennis Bracelet</div>
-          <div class="product-card-price">From $4,850</div>
-        </a>
-        <a href="product.html?id=2" class="product-card-cta">View Details</a>
-      </div>
+    <div class="product-grid-4 reveal" id="related-grid" style="gap:1px; background:rgba(208,197,175,0.15)">
+      <!-- Injected by JS -->
     </div>
   </div>
 </section>
+
+<!-- ─── Footer ─────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Véris</div>
+        <p class="footer-desc">A modern house of high jewelry, pioneering the future of ethical diamonds through scientific precision and heritage artistry from Surat.</p>
+        <div class="footer-social-icons">
+          <a href="#" class="footer-social-icon" aria-label="Camera">photo_camera</a>
+          <a href="#" class="footer-social-icon" aria-label="Email">alternate_email</a>
+          <a href="#" class="footer-social-icon" aria-label="Video">play_circle</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Collections</div>
+        <div class="footer-links">
+          <a href="collections.html?cat=rings" class="footer-link">Solitaire Rings</a>
+          <a href="collections.html?cat=bracelets" class="footer-link">Tennis Bracelets</a>
+          <a href="collections.html?cat=necklaces" class="footer-link">Eternal Pendants</a>
+          <a href="collections.html?cat=earrings" class="footer-link">Diamond Studs</a>
+          <a href="ring-builder.html" class="footer-link">The Atelier Series</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Information</div>
+        <div class="footer-links">
+          <a href="our-story.html" class="footer-link">The CVD Process</a>
+          <a href="our-story.html#ethics" class="footer-link">Ethical Sourcing</a>
+          <a href="our-story.html#certification" class="footer-link">IGI Certification</a>
+          <a href="#" class="footer-link" data-policy="shipping">Shipping & Returns</a>
+          <a href="#" class="footer-link" data-sizeguide-open>Sizing Guide</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Newsletter</div>
+        <p style="font-family:var(--font-sans);font-size:0.6875rem;font-weight:300;color:rgba(243,240,239,0.5);line-height:1.7;margin-bottom:var(--space-4)">Join the circle of curated elegance. Be first for new collections and exclusive offers.</p>
+        <form class="footer-newsletter-form" data-newsletter-form>
+          <input type="email" class="footer-newsletter-input" placeholder="YOUR EMAIL" required />
+          <button class="footer-newsletter-btn" type="submit" aria-label="Subscribe">arrow_forward</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Véris Diamonds. All Rights Reserved. Crafted in Surat, India.</div>
+      <div class="footer-socials">
+        <a href="#" class="footer-social" data-policy="privacy">Privacy</a>
+        <a href="#" class="footer-social" data-policy="terms">Terms</a>
+        <a href="#" class="footer-social">Instagram</a>
+        <a href="#" class="footer-social" data-policy="contact">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
 
 <!-- Mobile Nav -->
 <nav class="mobile-nav">
@@ -454,47 +437,189 @@
   <a href="cart.html" class="mobile-nav-item"><span class="icon">shopping_bag</span><span>Cart</span></a>
 </nav>
 
+<script src="js/products.js"></script>
 <script src="js/app.js"></script>
 <script>
-  const IMAGES = [
-    'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=900&q=80&auto=format',
-    'https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=1400&q=80&auto=format',
-    'https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=1400&q=80&auto=format',
-    'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=900&q=80&auto=format'
-  ];
+  let currentProduct = null;
+  let currentImages = [];
   let basePrice = 2400;
   let metalAdd = 0;
-  let selectedMetal = '18K Yellow Gold';
-  let selectedCarat = '2.5';
-  let selectedSize = '6';
+  let selectedMetal = '';
+  let selectedCaratLabel = '';
+  let selectedSizeLabel = '6';
+
+  function initPDP() {
+    const params = new URLSearchParams(window.location.search);
+    const id = parseInt(params.get('id'), 10) || 1;
+    currentProduct = (typeof getProductById === 'function') ? getProductById(id) : PRODUCTS[0];
+    if (!currentProduct) currentProduct = PRODUCTS[0];
+
+    // Page title & meta
+    document.title = `${currentProduct.name} — Véris Diamonds`;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.content = currentProduct.description;
+
+    // Breadcrumb
+    const catTitles = { rings: 'Rings', bracelets: 'Bracelets', necklaces: 'Pendants & Necklaces', earrings: 'Earrings' };
+    const catName = catTitles[currentProduct.cat] || 'Collections';
+    document.getElementById('pdp-breadcrumb').innerHTML = `
+      <a href="index.html">Home</a>
+      <span style="font-family:'Material Symbols Outlined';font-size:12px;font-variation-settings:'FILL' 0,'wght' 200">chevron_right</span>
+      <a href="collections.html?cat=${currentProduct.cat}">${catName}</a>
+      <span style="font-family:'Material Symbols Outlined';font-size:12px;font-variation-settings:'FILL' 0,'wght' 200">chevron_right</span>
+      <span style="color:var(--on-surface)">${currentProduct.name}</span>
+    `;
+
+    // Titles & ratings
+    document.getElementById('pdp-tag-eyebrow').textContent = `Véris Atelier · ${currentProduct.tag || 'Fine Jewelry'}`;
+    document.getElementById('pdp-title').textContent = currentProduct.name;
+    document.getElementById('pdp-desc').textContent = currentProduct.description;
+    document.getElementById('pdp-review-count').textContent = `${currentProduct.reviewsCount || 24} Verified Atelier Reviews`;
+    
+    // Rating stars
+    const fullStars = Math.floor(currentProduct.rating || 5);
+    let starsHtml = '';
+    for (let i = 0; i < 5; i++) {
+      starsHtml += `<span style="font-family:'Material Symbols Outlined';font-size:14px;color:var(--primary-container);font-variation-settings:'FILL' ${i < fullStars ? '1' : '0'},'wght' 300">star</span>`;
+    }
+    document.getElementById('pdp-stars').innerHTML = starsHtml;
+
+    // Gallery
+    currentImages = currentProduct.images && currentProduct.images.length ? currentProduct.images : [currentProduct.img];
+    const thumbsEl = document.getElementById('pdp-thumbs');
+    thumbsEl.innerHTML = currentImages.map((src, idx) => `
+      <div class="pdp-thumb ${idx === 0 ? 'active' : ''}" onclick="switchImage(${idx})">
+        <img src="${src}" alt="${currentProduct.name} view ${idx + 1}" />
+      </div>
+    `).join('');
+    document.getElementById('main-img').src = currentImages[0];
+    document.getElementById('main-img').alt = currentProduct.name;
+    document.getElementById('loupe-img').src = currentImages[0];
+
+    // Metals
+    const metals = currentProduct.metals || ['18K Yellow Gold', '18K White Gold', '18K Rose Gold', 'Platinum'];
+    selectedMetal = metals[0];
+    metalAdd = 0;
+    document.getElementById('metal-label').textContent = selectedMetal;
+    const metalChipsEl = document.getElementById('metal-chips');
+    metalChipsEl.innerHTML = metals.map((m, idx) => {
+      let add = 0;
+      if (m.includes('White')) add = 100;
+      else if (m.includes('Rose')) add = 50;
+      else if (m.includes('Platinum')) add = 400;
+      return `
+        <button class="metal-chip ${idx === 0 ? 'active' : ''}" data-price-add="${add}" onclick="selectMetal(this)">
+          ${m}
+        </button>
+      `;
+    }).join('');
+
+    // Carats
+    const carats = currentProduct.carats || [
+      { label: '1.5 CT', value: 1.5, price: currentProduct.price * 0.8 },
+      { label: '2.0 CT', value: 2.0, price: currentProduct.price },
+      { label: '3.0 CT', value: 3.0, price: currentProduct.price * 1.3 }
+    ];
+    basePrice = carats[0].price;
+    selectedCaratLabel = carats[0].label;
+    document.getElementById('carat-label').textContent = selectedCaratLabel;
+    const caratChipsEl = document.getElementById('carat-chips');
+    caratChipsEl.innerHTML = carats.map((c, idx) => `
+      <button class="size-chip ${idx === 0 ? 'active' : ''}" data-price="${c.price}" data-carat="${c.label}" onclick="selectCarat(this)">
+        ${c.label}
+      </button>
+    `).join('');
+
+    // Sizes
+    setupSizeSection(currentProduct.cat);
+
+    // Specs
+    const specs = currentProduct.specs || {
+      type: 'Type IIa CVD Lab-Grown',
+      certification: 'IGI Graded Suite',
+      cut: 'Ideal / Excellent',
+      color: 'D–F (Colorless)',
+      clarity: 'VVS2–VS1',
+      setting: 'Hand-Finished Atelier Mount',
+      origin: 'Surat Atelier, Gujarat'
+    };
+    const specsEl = document.getElementById('pdp-specs');
+    specsEl.innerHTML = `
+      <div class="spec-cell"><div class="spec-key">Growth Method</div><div class="spec-val">${specs.type || 'CVD Lab-Grown'}</div></div>
+      <div class="spec-cell"><div class="spec-key">Certification</div><div class="spec-val">${specs.certification || 'IGI Certified'}</div></div>
+      <div class="spec-cell"><div class="spec-key">Cut & Polish</div><div class="spec-val">${specs.cut || 'Ideal Cut'}</div></div>
+      <div class="spec-cell"><div class="spec-key">Color Grade</div><div class="spec-val">${specs.color || 'E–F Colorless'}</div></div>
+      <div class="spec-cell"><div class="spec-key">Clarity</div><div class="spec-val">${specs.clarity || 'VS1+'}</div></div>
+      <div class="spec-cell"><div class="spec-key">Crafted In</div><div class="spec-val">${specs.origin || 'Surat Atelier'}</div></div>
+    `;
+
+    // Related Products
+    renderRelatedProducts(currentProduct);
+
+    // Initial Price calculation
+    updatePrice();
+
+    // Sync Wishlist button
+    syncWishlistIcon();
+  }
+
+  function setupSizeSection(cat) {
+    const labelEl = document.getElementById('size-type-label');
+    const chipsEl = document.getElementById('size-chips');
+    let sizes = [];
+
+    if (cat === 'rings') {
+      labelEl.textContent = 'Ring Size (US)';
+      sizes = ['4', '5', '6', '7', '8', '9', '10'];
+      selectedSizeLabel = 'Size 6';
+    } else if (cat === 'bracelets') {
+      labelEl.textContent = 'Wrist Size';
+      sizes = ['6.5 Inches', '7.0 Inches', '7.5 Inches'];
+      selectedSizeLabel = '7.0 Inches';
+    } else if (cat === 'necklaces') {
+      labelEl.textContent = 'Chain Length';
+      sizes = ['16 Inches', '18 Inches', '20 Inches'];
+      selectedSizeLabel = '18 Inches';
+    } else {
+      labelEl.textContent = 'Backing Type';
+      sizes = ['Screw Back (Secure)', 'Push Back'];
+      selectedSizeLabel = 'Screw Back';
+    }
+
+    chipsEl.innerHTML = sizes.map((s, idx) => `
+      <button class="size-chip ${idx === (sizes.length > 2 ? 2 : 0) ? 'active' : ''}" onclick="selectSize(this)">
+        ${s}
+      </button>
+    `).join('');
+  }
 
   function updatePrice() {
-    const total = basePrice + metalAdd;
-    document.getElementById('displayed-price').textContent = `From $${total.toLocaleString()}`;
+    const total = Math.round(basePrice + metalAdd);
+    document.getElementById('displayed-price').textContent = `$${total.toLocaleString()}`;
   }
 
   function selectMetal(btn) {
-    document.querySelectorAll('.metal-chip').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('#metal-chips .metal-chip').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    metalAdd = parseInt(btn.dataset.priceAdd) || 0;
+    metalAdd = parseInt(btn.dataset.priceAdd, 10) || 0;
     selectedMetal = btn.textContent.trim();
-    document.getElementById('metal-label').textContent = '18K ' + btn.textContent.trim();
+    document.getElementById('metal-label').textContent = selectedMetal;
     updatePrice();
   }
 
   function selectCarat(btn) {
-    document.querySelectorAll('.size-chip[data-carat]').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('#carat-chips .size-chip').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    basePrice = parseInt(btn.dataset.price) || 2400;
-    selectedCarat = btn.dataset.carat;
-    document.getElementById('carat-label').textContent = btn.dataset.carat + ' CT';
+    basePrice = parseFloat(btn.dataset.price) || currentProduct.price;
+    selectedCaratLabel = btn.dataset.carat;
+    document.getElementById('carat-label').textContent = selectedCaratLabel;
     updatePrice();
   }
 
   function selectSize(btn) {
-    document.querySelectorAll('.size-chip:not([data-carat]):not([data-metal])').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('#size-chips .size-chip').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    selectedSize = btn.textContent.trim();
+    selectedSizeLabel = btn.textContent.trim();
   }
 
   function switchImage(idx) {
@@ -502,8 +627,8 @@
     const loupeImg = document.getElementById('loupe-img');
     mainImg.style.opacity = '0';
     setTimeout(() => {
-      mainImg.src = IMAGES[idx];
-      loupeImg.src = IMAGES[idx];
+      mainImg.src = currentImages[idx];
+      loupeImg.src = currentImages[idx];
       mainImg.style.opacity = '1';
     }, 200);
     document.querySelectorAll('.pdp-thumb').forEach((t, i) => t.classList.toggle('active', i === idx));
@@ -513,6 +638,7 @@
     const loupe = document.getElementById('loupe');
     const loupeImg = document.getElementById('loupe-img');
     const container = document.getElementById('pdp-main');
+    if (!container || !loupe || !loupeImg) return;
     const rect = container.getBoundingClientRect();
     const clientX = (e.touches && e.touches.length) ? e.touches[0].clientX : e.clientX;
     const clientY = (e.touches && e.touches.length) ? e.touches[0].clientY : e.clientY;
@@ -528,19 +654,21 @@
   }
 
   function hideLoup() {
-    document.getElementById('loupe').classList.remove('visible');
+    const loupe = document.getElementById('loupe');
+    if (loupe) loupe.classList.remove('visible');
   }
 
   function addToCartPDP() {
-    const price = basePrice + metalAdd;
+    if (!currentProduct) return;
+    const finalPrice = Math.round(basePrice + metalAdd);
     Cart.add({
-      id: 1,
-      name: 'The Aura Ring',
-      variant: `${selectedCarat}CT · ${selectedMetal} · Size ${selectedSize}`,
-      price: price,
+      id: currentProduct.id,
+      name: currentProduct.name,
+      variant: `${selectedCaratLabel} · ${selectedMetal} · ${selectedSizeLabel}`,
+      price: finalPrice,
       qty: 1,
-      img: IMAGES[0],
-      href: 'product.html?id=1'
+      img: currentImages[0],
+      href: `product.html?id=${currentProduct.id}`
     });
     const btn = document.getElementById('atc-btn');
     btn.textContent = '✓ Added to Cart';
@@ -552,19 +680,47 @@
   }
 
   function saveToWishlist() {
-    const isNow = Wishlist.toggle(1, 'The Aura Ring');
+    if (!currentProduct) return;
+    const isNow = Wishlist.toggle(currentProduct.id, currentProduct.name);
+    syncWishlistIcon();
+  }
+
+  function syncWishlistIcon() {
+    if (!currentProduct) return;
+    const isSaved = Wishlist.has(currentProduct.id);
     const icon = document.getElementById('wish-icon');
-    icon.style.fontVariationSettings = isNow ? "'FILL' 1,'wght' 300" : "'FILL' 0,'wght' 200";
-    icon.style.color = isNow ? 'var(--error)' : '';
+    if (icon) {
+      icon.style.fontVariationSettings = isSaved ? "'FILL' 1,'wght' 300" : "'FILL' 0,'wght' 200";
+      icon.style.color = isSaved ? 'var(--error)' : '';
+    }
+  }
+
+  function renderRelatedProducts(prod) {
+    const relatedGrid = document.getElementById('related-grid');
+    if (!relatedGrid) return;
+    const all = (typeof PRODUCTS !== 'undefined') ? PRODUCTS : [];
+    const others = all.filter(p => p.id !== prod.id).slice(0, 4);
+    relatedGrid.innerHTML = others.map(p => `
+      <div class="product-card">
+        <div class="product-card-image">
+          <img src="${p.img}" alt="${p.name}" loading="lazy" />
+          <div class="product-card-tag">${p.tag}</div>
+        </div>
+        <a href="product.html?id=${p.id}" class="product-card-body" style="display:block">
+          <div class="product-card-name">${p.name}</div>
+          <div class="product-card-sub">${p.sub}</div>
+          <div class="product-card-price">From $${p.price.toLocaleString()}</div>
+        </a>
+        <a href="product.html?id=${p.id}" class="product-card-cta">View Piece</a>
+      </div>
+    `).join('');
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    if (Wishlist.has(1)) {
-      const icon = document.getElementById('wish-icon');
-      icon.style.fontVariationSettings = "'FILL' 1,'wght' 300";
-      icon.style.color = 'var(--error)';
-    }
+    initPDP();
   });
+  window.addEventListener('wishlist:update', syncWishlistIcon);
 </script>
 </body>
 </html>
+

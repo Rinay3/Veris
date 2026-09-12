@@ -25,17 +25,106 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: var(--space-8);
+      gap: var(--space-6);
       padding: var(--space-8);
+      overflow: hidden;
+    }
+    .preview-header {
+      width: 100%;
+      max-width: 320px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .preview-eyebrow {
+      font-family: var(--font-sans);
+      font-size: 0.45rem;
+      font-weight: 700;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--secondary);
+    }
+    .preview-view-tabs {
+      display: flex;
+      gap: 2px;
+      background: rgba(208, 197, 175, 0.2);
+      padding: 2px;
+    }
+    .preview-tab {
+      background: transparent;
+      border: none;
+      font-family: var(--font-sans);
+      font-size: 0.45rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 5px 9px;
+      color: var(--secondary);
+      cursor: pointer;
+      transition: all var(--transition-base);
+    }
+    .preview-tab.active {
+      background: var(--primary);
+      color: #ffffff;
     }
     .ring-preview {
-      width: 280px;
-      height: 280px;
+      width: 320px;
+      height: 320px;
       position: relative;
+      background: radial-gradient(circle at 50% 48%, rgba(255,255,255,0.85) 0%, rgba(243,240,239,0.4) 65%, transparent 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(208, 197, 175, 0.25);
+      cursor: crosshair;
+      transition: box-shadow var(--transition-base), border-color var(--transition-base);
+    }
+    .ring-preview:hover {
+      box-shadow: 0 12px 36px rgba(28,27,27,0.06);
+      border-color: rgba(208, 197, 175, 0.45);
     }
     .ring-svg-outer {
       width: 100%;
       height: 100%;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.05));
+    }
+    .carat-dimension-badge {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(208, 197, 175, 0.35);
+      padding: 4px 12px;
+      font-family: var(--font-sans);
+      font-size: 0.45rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--primary);
+      white-space: nowrap;
+      pointer-events: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .sparkle-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    @keyframes sparkleGlint {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.2) rotate(0deg); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15) rotate(45deg); }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(0.2) rotate(90deg); }
+    }
+    .sparkle-star {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      color: #d4af37;
+      animation: sparkleGlint 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      pointer-events: none;
     }
     .config-pane {
       background: var(--surface-lowest);
@@ -312,6 +401,10 @@
       <button class="nav-icon-btn" data-search-open aria-label="Search">
         <span style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 200">search</span>
       </button>
+      <button class="nav-icon-btn" data-wishlist-open aria-label="Wishlist">
+        <span style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 200">favorite</span>
+        <span class="wishlist-badge" id="wishlist-badge">0</span>
+      </button>
       <a href="cart.html" class="nav-icon-btn" aria-label="Cart">
         <span style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 200">shopping_bag</span>
         <span class="cart-badge" id="cart-badge">0</span>
@@ -379,41 +472,31 @@
 <div class="builder-wrap">
   <!-- Preview Pane -->
   <div class="preview-pane">
-    <div style="font-family:var(--font-sans);font-size:0.45rem;font-weight:700;letter-spacing:0.35em;text-transform:uppercase;color:var(--secondary)">Live Preview</div>
-    <div class="ring-preview">
-      <svg class="ring-svg-outer" viewBox="0 0 280 280" id="ring-svg">
-        <!-- Ring Band -->
-        <ellipse cx="140" cy="200" rx="90" ry="18" fill="none" stroke-width="8" id="ring-band-bottom"/>
-        <rect x="50" y="105" width="180" height="95" rx="0" fill="none" id="ring-band-sides" style="display:none"/>
-        <line x1="50" y1="105" x2="50" y2="200" stroke-width="8" id="ring-left"/>
-        <line x1="230" y1="105" x2="230" y2="200" stroke-width="8" id="ring-right"/>
-        <!-- Setting prongs -->
-        <g id="ring-prongs">
-          <line x1="110" y1="80" x2="127" y2="105" stroke-width="4"/>
-          <line x1="170" y1="80" x2="153" y2="105" stroke-width="4"/>
-          <line x1="95" y1="108" x2="118" y2="108" stroke-width="4"/>
-          <line x1="185" y1="108" x2="162" y2="108" stroke-width="4"/>
-        </g>
-        <!-- Diamond shape -->
-        <polygon id="diamond-shape" points="140,32 170,82 140,108 110,82" fill="#e8f4fd" stroke-width="1.5"/>
-        <!-- Shimmer lines -->
-        <g id="diamond-shimmer" opacity="0.4">
-          <line x1="140" y1="32" x2="140" y2="108" stroke="#ffffff" stroke-width="0.8"/>
-          <line x1="110" y1="82" x2="170" y2="82" stroke="#ffffff" stroke-width="0.8"/>
-          <line x1="140" y1="32" x2="155" y2="70" stroke="#ffffff" stroke-width="0.5"/>
-          <line x1="140" y1="32" x2="125" y2="70" stroke="#ffffff" stroke-width="0.5"/>
-        </g>
-      </svg>
+    <div class="preview-header">
+      <div class="preview-eyebrow">Atelier Live Preview</div>
+      <div class="preview-view-tabs" role="tablist">
+        <button type="button" class="preview-tab active" data-view="side" onclick="setPreviewView('side')">Profile</button>
+        <button type="button" class="preview-tab" data-view="top" onclick="setPreviewView('top')">Overhead</button>
+        <button type="button" class="preview-tab" data-view="perspective" onclick="setPreviewView('perspective')">Perspective</button>
+      </div>
+    </div>
+    <div class="ring-preview" id="ring-preview-box" onmousemove="onPreviewHover(event)">
+      <div class="sparkle-layer" id="sparkle-layer"></div>
+      <svg class="ring-svg-outer" viewBox="0 0 320 320" id="ring-svg" preserveAspectRatio="xMidYMid meet"></svg>
+      <div class="carat-dimension-badge" id="carat-dimension-badge">
+        <span id="dimension-text">8.1 mm · 2.00 CT</span>
+      </div>
     </div>
     <!-- Config summary -->
-    <div style="width:100%;max-width:280px;display:flex;flex-direction:column;gap:var(--space-2)">
+    <div style="width:100%;max-width:320px;display:flex;flex-direction:column;gap:var(--space-2)">
       <div style="display:flex;justify-content:space-between;align-items:center">
         <span style="font-family:var(--font-sans);font-size:0.45rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--secondary)">Estimated Price</span>
+        <span style="font-family:var(--font-sans);font-size:0.45rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--primary)" id="preview-tag-badge">18K Yellow Gold · 2.00 CT</span>
       </div>
       <div id="preview-price" style="font-family:var(--font-serif);font-size:2.5rem;font-weight:300;color:var(--primary);letter-spacing:-0.02em">$2,400</div>
-      <div style="font-family:var(--font-sans);font-size:0.45rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--secondary)">Finalized at consultation</div>
+      <div style="font-family:var(--font-sans);font-size:0.45rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--secondary)">Includes IGI Dossier · Complimentary Resizing</div>
     </div>
-    <div id="preview-summary" style="width:100%;max-width:280px;font-family:var(--font-sans);font-size:0.5625rem;line-height:1.8;color:var(--secondary)"></div>
+    <div id="preview-summary" style="width:100%;max-width:320px;font-family:var(--font-sans);font-size:0.5625rem;line-height:1.8;color:var(--secondary)"></div>
   </div>
 
   <!-- Config Pane -->
@@ -492,7 +575,10 @@
       </div>
 
       <div class="option-group">
-        <div class="option-group-label">Ring Size (US)</div>
+        <div class="option-group-label" style="display:flex;justify-content:space-between;align-items:center">
+          <span>Ring Size (US)</span>
+          <button data-sizeguide-open style="font-family:var(--font-sans);font-size:0.45rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--primary);background:none;border:none;border-bottom:1px solid var(--primary);cursor:pointer">Size Guide</button>
+        </div>
         <div class="chips-row" style="display:flex;flex-wrap:wrap;gap:var(--space-2)">
           <button class="metal-chip" onclick="selectRingSize(this)" style="padding:8px 12px;font-size:0.45rem">4</button>
           <button class="metal-chip" onclick="selectRingSize(this)" style="padding:8px 12px;font-size:0.45rem">4.5</button>
@@ -630,6 +716,60 @@
   </div>
 </div>
 
+<!-- ─── Footer ─────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Véris</div>
+        <p class="footer-desc">A modern house of high jewelry, pioneering the future of ethical diamonds through scientific precision and heritage artistry from Surat.</p>
+        <div class="footer-social-icons">
+          <a href="#" class="footer-social-icon" aria-label="Camera">photo_camera</a>
+          <a href="#" class="footer-social-icon" aria-label="Email">alternate_email</a>
+          <a href="#" class="footer-social-icon" aria-label="Video">play_circle</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Collections</div>
+        <div class="footer-links">
+          <a href="collections.html?cat=rings" class="footer-link">Solitaire Rings</a>
+          <a href="collections.html?cat=bracelets" class="footer-link">Tennis Bracelets</a>
+          <a href="collections.html?cat=necklaces" class="footer-link">Eternal Pendants</a>
+          <a href="collections.html?cat=earrings" class="footer-link">Diamond Studs</a>
+          <a href="ring-builder.html" class="footer-link">The Atelier Series</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Information</div>
+        <div class="footer-links">
+          <a href="our-story.html" class="footer-link">The CVD Process</a>
+          <a href="our-story.html#ethics" class="footer-link">Ethical Sourcing</a>
+          <a href="our-story.html#certification" class="footer-link">IGI Certification</a>
+          <a href="#" class="footer-link" data-policy="shipping">Shipping & Returns</a>
+          <a href="#" class="footer-link" data-sizeguide-open>Sizing Guide</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Newsletter</div>
+        <p style="font-family:var(--font-sans);font-size:0.6875rem;font-weight:300;color:rgba(243,240,239,0.5);line-height:1.7;margin-bottom:var(--space-4)">Join the circle of curated elegance. Be first for new collections and exclusive offers.</p>
+        <form class="footer-newsletter-form" data-newsletter-form>
+          <input type="email" class="footer-newsletter-input" placeholder="YOUR EMAIL" required />
+          <button class="footer-newsletter-btn" type="submit" aria-label="Subscribe">arrow_forward</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Véris Diamonds. All Rights Reserved. Crafted in Surat, India.</div>
+      <div class="footer-socials">
+        <a href="#" class="footer-social" data-policy="privacy">Privacy</a>
+        <a href="#" class="footer-social" data-policy="terms">Terms</a>
+        <a href="#" class="footer-social">Instagram</a>
+        <a href="#" class="footer-social" data-policy="contact">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
 <!-- Mobile Nav -->
 <nav class="mobile-nav">
   <a href="index.html" class="mobile-nav-item"><span class="icon">auto_awesome</span><span>Atelier</span></a>
@@ -639,6 +779,7 @@
   <a href="cart.html" class="mobile-nav-item"><span class="icon">shopping_bag</span><span>Cart</span></a>
 </nav>
 
+<script src="js/products.js"></script>
 <script src="js/app.js"></script>
 <script>
   // ─── Ring Builder State ─────────────────────────────────
@@ -648,38 +789,123 @@
     width: '1.5mm', size: '6',
     shape: 'Round', shapeAdd: 0,
     carat: 2.0, caratMult: 1200,
-    cutAdd: 0, colorAdd: 0, clarityAdd: 0
+    cut: 'Ideal', cutAdd: 0,
+    color: 'D (Colorless)', colorAdd: 0,
+    clarity: 'VVS1–VVS2', clarityAdd: 0
   };
+
+  let currentPreviewView = 'side';
 
   function getTotal() {
     const caratPrice = Math.round(config.carat * config.caratMult);
     return config.settingBase + config.metalAdd + config.shapeAdd + config.cutAdd + config.colorAdd + config.clarityAdd + caratPrice;
   }
 
+  function getDiamondDimensions() {
+    // True millimeter estimates based on carat & geometry
+    const cbrt = Math.cbrt(config.carat);
+    switch (config.shape) {
+      case 'Round':
+        return { w: (6.5 * cbrt).toFixed(1), h: (6.5 * cbrt).toFixed(1), text: `${(6.5 * cbrt).toFixed(1)} mm` };
+      case 'Oval':
+        return { w: (7.7 * cbrt).toFixed(1), h: (5.4 * cbrt).toFixed(1), text: `${(7.7 * cbrt).toFixed(1)} × ${(5.4 * cbrt).toFixed(1)} mm` };
+      case 'Princess':
+        return { w: (5.6 * cbrt).toFixed(1), h: (5.6 * cbrt).toFixed(1), text: `${(5.6 * cbrt).toFixed(1)} × ${(5.6 * cbrt).toFixed(1)} mm` };
+      case 'Cushion':
+        return { w: (6.1 * cbrt).toFixed(1), h: (6.1 * cbrt).toFixed(1), text: `${(6.1 * cbrt).toFixed(1)} × ${(6.1 * cbrt).toFixed(1)} mm` };
+      case 'Emerald':
+        return { w: (7.6 * cbrt).toFixed(1), h: (5.2 * cbrt).toFixed(1), text: `${(7.6 * cbrt).toFixed(1)} × ${(5.2 * cbrt).toFixed(1)} mm` };
+      case 'Pear':
+        return { w: (8.6 * cbrt).toFixed(1), h: (5.6 * cbrt).toFixed(1), text: `${(8.6 * cbrt).toFixed(1)} × ${(5.6 * cbrt).toFixed(1)} mm` };
+      case 'Marquise':
+        return { w: (10.2 * cbrt).toFixed(1), h: (5.1 * cbrt).toFixed(1), text: `${(10.2 * cbrt).toFixed(1)} × ${(5.1 * cbrt).toFixed(1)} mm` };
+      case 'Heart':
+        return { w: (6.6 * cbrt).toFixed(1), h: (6.6 * cbrt).toFixed(1), text: `${(6.6 * cbrt).toFixed(1)} × ${(6.6 * cbrt).toFixed(1)} mm` };
+      default:
+        return { w: (6.5 * cbrt).toFixed(1), h: (6.5 * cbrt).toFixed(1), text: `${(6.5 * cbrt).toFixed(1)} mm` };
+    }
+  }
+
+  function setPreviewView(view) {
+    currentPreviewView = view;
+    document.querySelectorAll('.preview-tab').forEach(t => {
+      t.classList.toggle('active', t.dataset.view === view);
+    });
+    updateRingSVG();
+    triggerSparkle();
+  }
+
+  function triggerSparkle(customX, customY) {
+    const layer = document.getElementById('sparkle-layer');
+    if (!layer) return;
+    const star = document.createElement('div');
+    star.className = 'sparkle-star';
+    
+    // Pick position relative to center of stone
+    const x = (customX !== undefined) ? customX : 160 + (Math.random() * 40 - 20);
+    const y = (customY !== undefined) ? customY : 90 + (Math.random() * 40 - 20);
+    
+    star.style.left = `${x}px`;
+    star.style.top = `${y}px`;
+    star.innerHTML = `
+      <svg viewBox="0 0 24 24" width="100%" height="100%">
+        <path fill="currentColor" d="M12 0L14.4 9.6L24 12L14.4 14.4L12 24L9.6 14.4L0 12L9.6 9.6Z"/>
+      </svg>
+    `;
+    layer.appendChild(star);
+    setTimeout(() => { star.remove(); }, 1100);
+  }
+
+  let hoverThrottle = 0;
+  function onPreviewHover(e) {
+    const now = Date.now();
+    if (now - hoverThrottle < 280) return;
+    hoverThrottle = now;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    // Sparkle if hovering in diamond vicinity
+    if (Math.hypot(x - 160, y - 110) < 70) {
+      triggerSparkle(x, y);
+    }
+  }
+
   function updateUI() {
     const total = getTotal();
+    const dims = getDiamondDimensions();
+    
     document.getElementById('preview-price').textContent = '$' + total.toLocaleString();
+    const tagBadge = document.getElementById('preview-tag-badge');
+    if (tagBadge) tagBadge.textContent = `${config.metal} · ${config.carat.toFixed(2)} CT`;
+    
+    document.getElementById('dimension-text').textContent = `${dims.text} · ${config.carat.toFixed(2)} CT`;
+    
     document.getElementById('preview-summary').innerHTML = `
-      <strong style="color:var(--on-surface)">${config.setting}</strong> setting · ${config.metal}<br/>
-      ${config.carat}CT ${config.shape} · Cut: Ideal · Color: ${['D','E–F','G–H','I–J'][Math.round(-config.colorAdd/150)]||'D'}<br/>
-      Ring Size ${config.size}
+      <strong style="color:var(--on-surface)">${config.setting}</strong> setting · ${config.metal} (${config.width})<br/>
+      ${config.carat.toFixed(2)} CT ${config.shape} · ${config.cut} Cut · ${config.color}<br/>
+      ${config.clarity} · Ring Size ${config.size}
     `;
     const mobPrice = document.getElementById('mob-price');
     const mobSummary = document.getElementById('mob-summary');
     if (mobPrice) mobPrice.textContent = '$' + total.toLocaleString();
-    if (mobSummary) mobSummary.textContent = `${config.setting} · ${config.metal} · ${config.carat}CT ${config.shape}`;
+    if (mobSummary) mobSummary.textContent = `${config.setting} · ${config.metal} · ${config.carat.toFixed(2)} CT ${config.shape}`;
+    
     updateReviewDetails();
     updateRingSVG();
   }
 
   function updateReviewDetails() {
+    const dims = getDiamondDimensions();
     const rows = [
       ['Setting', config.setting],
       ['Metal', config.metal],
       ['Band Width', config.width],
       ['Ring Size', config.size + ' (US)'],
       ['Diamond Shape', config.shape],
-      ['Carat Weight', config.carat + ' CT'],
+      ['Carat Weight', `${config.carat.toFixed(2)} CT (${dims.text})`],
+      ['Cut Grade', config.cut],
+      ['Color Grade', config.color],
+      ['Clarity Grade', config.clarity],
       ['Origin', 'CVD Lab-Grown · IGI Certified'],
     ];
     const el = document.getElementById('review-details');
@@ -695,27 +921,489 @@
     if (rp) rp.textContent = '$' + getTotal().toLocaleString();
   }
 
+  // ─── SVG Live Visualizer Engine ───────────────────────────
   function updateRingSVG() {
-    // Update band color
-    const metalColors = {
-      '18K Yellow Gold': '#c5a028',
-      '18K White Gold': '#a8a8b0',
-      '18K Rose Gold': '#c47c6a',
-      'Platinum': '#8c8c96'
+    const svg = document.getElementById('ring-svg');
+    if (!svg) return;
+
+    // Metal Palettes & Gradients
+    const metalShades = {
+      '18K Yellow Gold': {
+        stop0: '#fae596', stop25: '#e5be53', stop50: '#c59b27', stop75: '#fad978', stop100: '#9e7813',
+        stroke: '#8a650d', specular: '#fff5cc', dark: '#5c4306'
+      },
+      '18K White Gold': {
+        stop0: '#ffffff', stop25: '#e4e7eb', stop50: '#b9bec7', stop75: '#f0f2f5', stop100: '#8c939d',
+        stroke: '#737a85', specular: '#ffffff', dark: '#484d54'
+      },
+      '18K Rose Gold': {
+        stop0: '#ffe5dc', stop25: '#f1ab97', stop50: '#cc7b67', stop75: '#ffd6cb', stop100: '#a35340',
+        stroke: '#8b3e2c', specular: '#fff0ec', dark: '#5e2315'
+      },
+      'Platinum': {
+        stop0: '#ffffff', stop25: '#dbe2ea', stop50: '#a8b5c2', stop75: '#edf2f7', stop100: '#7a8694',
+        stroke: '#667280', specular: '#ffffff', dark: '#3b434d'
+      }
     };
-    const col = metalColors[config.metal] || '#c5a028';
-    ['ring-band-bottom','ring-left','ring-right'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) { el.setAttribute('stroke', col); }
-    });
-    document.querySelectorAll('#ring-prongs line').forEach(l => l.setAttribute('stroke', col));
-    // Diamond shape color hints
-    const shapeColors = { Round:'#ddeeff', Princess:'#e8f4fd', Oval:'#ddeeff', Cushion:'#e0f0e8', Emerald:'#f0e8d8', Pear:'#e8d8f0', Marquise:'#f0f0d8', Heart:'#ffe8e8' };
-    const dColor = shapeColors[config.shape] || '#ddeeff';
-    document.getElementById('diamond-shape').setAttribute('fill', dColor);
-    document.getElementById('diamond-shape').setAttribute('stroke', col);
+    const m = metalShades[config.metal] || metalShades['18K Yellow Gold'];
+
+    // Diamond Tint by Color Grade
+    let dTable = '#ffffff';
+    let dFacet = '#eef6ff';
+    let dShadow = '#d4e6f9';
+    let dStroke = '#c0dcf7';
+    if (config.color.includes('E–F')) {
+      dFacet = '#f5f7fa'; dShadow = '#dce1e8'; dStroke = '#cad2df';
+    } else if (config.color.includes('G–H')) {
+      dFacet = '#faf8f2'; dShadow = '#e8e4d6'; dStroke = '#d6d0bf';
+    } else if (config.color.includes('I–J')) {
+      dFacet = '#fbf5e6'; dShadow = '#eadfbe'; dStroke = '#d9cca6';
+    }
+
+    // Band width mapping to pixels
+    const widthMap = { '1.5mm': 5, '2.0mm': 7.5, '2.5mm': 10, '3.0mm': 12.5 };
+    const bandPx = widthMap[config.width] || 7.5;
+
+    // Carat scale factor
+    const scale = Math.sqrt(config.carat / 2.0);
+
+    const defs = `
+      <defs>
+        <linearGradient id="bandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="${m.stop0}" />
+          <stop offset="25%" stop-color="${m.stop25}" />
+          <stop offset="50%" stop-color="${m.stop50}" />
+          <stop offset="75%" stop-color="${m.stop75}" />
+          <stop offset="100%" stop-color="${m.stop100}" />
+        </linearGradient>
+        <linearGradient id="metalHoriz" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="${m.stop0}" />
+          <stop offset="50%" stop-color="${m.stop50}" />
+          <stop offset="100%" stop-color="${m.dark}" />
+        </linearGradient>
+        <radialGradient id="sparkleRad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9" />
+          <stop offset="60%" stop-color="${dFacet}" stop-opacity="0.5" />
+          <stop offset="100%" stop-color="${dShadow}" stop-opacity="0" />
+        </radialGradient>
+        <radialGradient id="shadowRad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="rgba(28,27,27,0.18)" />
+          <stop offset="100%" stop-color="rgba(28,27,27,0)" />
+        </radialGradient>
+        <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="2.5" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
+      </defs>
+    `;
+
+    if (currentPreviewView === 'side') {
+      svg.innerHTML = defs + renderSideProfile(m, dTable, dFacet, dShadow, dStroke, bandPx, scale);
+    } else if (currentPreviewView === 'top') {
+      svg.innerHTML = defs + renderTopView(m, dTable, dFacet, dShadow, dStroke, bandPx, scale);
+    } else {
+      svg.innerHTML = defs + renderPerspectiveView(m, dTable, dFacet, dShadow, dStroke, bandPx, scale);
+    }
   }
 
+  // ─── 1. Side Profile Renderer ─────────────────────────────
+  function renderSideProfile(m, dTable, dFacet, dShadow, dStroke, bandPx, scale) {
+    const cx = 160, cy = 195;
+    const rOut = 84;
+    const rIn = rOut - bandPx;
+
+    let html = `<!-- Ground Shadow -->
+      <ellipse cx="${cx}" cy="286" rx="95" ry="10" fill="url(#shadowRad)" />
+    `;
+
+    // Ring Shank (Band)
+    html += `
+      <!-- Ring Shank -->
+      <path d="M ${cx - rOut} 122 A ${rOut} ${rOut} 0 1 0 ${cx + rOut} 122 L ${cx + rIn} 122 A ${rIn} ${rIn} 0 1 1 ${cx - rIn} 122 Z"
+            fill="url(#bandGrad)" stroke="${m.stroke}" stroke-width="0.8" />
+      <path d="M ${cx - rOut + 1} 122 A ${rOut - 1} ${rOut - 1} 0 1 0 ${cx + rOut - 1} 122"
+            fill="none" stroke="${m.specular}" stroke-width="0.75" opacity="0.6" />
+    `;
+
+    // Cathedral Setting Shoulders
+    if (config.setting === 'Cathedral') {
+      html += `
+        <!-- Cathedral Arches -->
+        <path d="M ${cx - 72} 130 C ${cx - 60} 100, ${cx - 36} 92, ${cx - 24} 88 L ${cx - 18} 93 C ${cx - 30} 98, ${cx - 52} 110, ${cx - 64} 136 Z"
+              fill="url(#bandGrad)" stroke="${m.stroke}" stroke-width="0.8" />
+        <path d="M ${cx + 72} 130 C ${cx + 60} 100, ${cx + 36} 92, ${cx + 24} 88 L ${cx + 18} 93 C ${cx + 30} 98, ${cx + 52} 110, ${cx + 64} 136 Z"
+              fill="url(#bandGrad)" stroke="${m.stroke}" stroke-width="0.8" />
+      `;
+    }
+
+    // Pavé Shoulder Diamonds
+    if (config.setting === 'Pavé') {
+      html += `<!-- Pavé Shoulder Accents -->`;
+      for (let i = 0; i < 5; i++) {
+        const angL = Math.PI * (0.64 + i * 0.05);
+        const angR = Math.PI * (0.36 - i * 0.05);
+        const pxL = cx + (rOut - bandPx/2) * Math.cos(angL);
+        const pyL = cy - (rOut - bandPx/2) * Math.sin(angL);
+        const pxR = cx + (rOut - bandPx/2) * Math.cos(angR);
+        const pyR = cy - (rOut - bandPx/2) * Math.sin(angR);
+        html += `
+          <circle cx="${pxL}" cy="${pyL}" r="2" fill="#ffffff" stroke="${dStroke}" stroke-width="0.5" />
+          <circle cx="${pxR}" cy="${pyR}" r="2" fill="#ffffff" stroke="${dStroke}" stroke-width="0.5" />
+        `;
+      }
+    }
+
+    // Trilogy (Three-Stone) Side Diamonds
+    if (config.setting === 'Trilogy') {
+      const sideR = 14 * scale * 0.65;
+      html += `
+        <!-- Trilogy Flanking Side Stones -->
+        <circle cx="${cx - 40}" cy="100" r="${sideR}" fill="${dFacet}" stroke="${dStroke}" stroke-width="0.8" />
+        <polygon points="${cx - 40},${100 - sideR} ${cx - 40 + sideR * 0.7},${100} ${cx - 40},${100 + sideR} ${cx - 40 - sideR * 0.7},${100}" fill="${dTable}" stroke="${dStroke}" stroke-width="0.5" />
+        <circle cx="${cx + 40}" cy="100" r="${sideR}" fill="${dFacet}" stroke="${dStroke}" stroke-width="0.8" />
+        <polygon points="${cx + 40},${100 - sideR} ${cx + 40 + sideR * 0.7},${100} ${cx + 40},${100 + sideR} ${cx + 40 - sideR * 0.7},${100}" fill="${dTable}" stroke="${dStroke}" stroke-width="0.5" />
+        <!-- Side stone prongs -->
+        <line x1="${cx - 52}" y1="96" x2="${cx - 36}" y2="114" stroke="${m.stop50}" stroke-width="2" />
+        <line x1="${cx + 52}" y1="96" x2="${cx + 36}" y2="114" stroke="${m.stop50}" stroke-width="2" />
+      `;
+    }
+
+    // Head Base & Basket Platform
+    html += `
+      <!-- Head Platform Base -->
+      <rect x="${cx - 22}" y="112" width="44" height="6" rx="2" fill="url(#bandGrad)" stroke="${m.stroke}" stroke-width="0.8" />
+    `;
+
+    // Halo Collar Platform
+    if (config.setting === 'Halo') {
+      const haloW = 62 * scale;
+      html += `
+        <!-- Halo Collar Platform -->
+        <ellipse cx="${cx}" cy="88" rx="${haloW / 2}" ry="7" fill="url(#bandGrad)" stroke="${m.stroke}" stroke-width="0.8" />
+      `;
+      // Halo side stones
+      for (let x = -haloW/2 + 4; x <= haloW/2 - 4; x += 6) {
+        html += `<circle cx="${cx + x}" cy="88" r="2.2" fill="#ffffff" stroke="${dStroke}" stroke-width="0.4" />`;
+      }
+    }
+
+    // Bezel Setting Cup
+    if (config.setting === 'Bezel') {
+      const bW = 54 * scale;
+      html += `
+        <!-- Bezel Collar Rim -->
+        <path d="M ${cx - bW/2 - 2} 76 L ${cx - bW/2 + 6} 112 L ${cx + bW/2 - 6} 112 L ${cx + bW/2 + 2} 76 Z"
+              fill="url(#bandGrad)" stroke="${m.stroke}" stroke-width="0.9" />
+      `;
+    }
+
+    // Diamond Side Silhouette (scaled by Carat)
+    const dw = 48 * scale;
+    const tableW = dw * 0.58;
+    const crownH = 14 * scale;
+    const pavilionH = 26 * scale;
+    const girdleY = 82;
+    const tableY = girdleY - crownH;
+    const culetY = girdleY + pavilionH;
+
+    html += `
+      <!-- Center Diamond Side Profile -->
+      <g id="diamond-side-profile">
+        <!-- Pavilion (Lower) -->
+        <polygon points="${cx - dw/2},${girdleY} ${cx + dw/2},${girdleY} ${cx},${culetY}"
+                 fill="${dShadow}" stroke="${dStroke}" stroke-width="0.8" />
+        <!-- Crown (Upper) -->
+        <polygon points="${cx - tableW/2},${tableY} ${cx + tableW/2},${tableY} ${cx + dw/2},${girdleY} ${cx - dw/2},${girdleY}"
+                 fill="${dTable}" stroke="${dStroke}" stroke-width="0.8" />
+        <!-- Table Top -->
+        <line x1="${cx - tableW/2}" y1="${tableY}" x2="${cx + tableW/2}" y2="${tableY}" stroke="${dStroke}" stroke-width="1.2" />
+        <!-- Internal Refraction Lines -->
+        <line x1="${cx - tableW/2}" y1="${tableY}" x2="${cx}" y2="${culetY}" stroke="#ffffff" stroke-width="0.8" opacity="0.85" />
+        <line x1="${cx + tableW/2}" y1="${tableY}" x2="${cx}" y2="${culetY}" stroke="#ffffff" stroke-width="0.8" opacity="0.85" />
+        <line x1="${cx - dw/2}" y1="${girdleY}" x2="${cx + dw/2}" y2="${girdleY}" stroke="${dStroke}" stroke-width="0.8" />
+        <line x1="${cx}" y1="${tableY}" x2="${cx}" y2="${culetY}" stroke="#ffffff" stroke-width="0.5" opacity="0.9" />
+        <polygon points="${cx - tableW/4},${tableY} ${cx + tableW/4},${tableY} ${cx},${girdleY}" fill="#ffffff" opacity="0.5" />
+      </g>
+    `;
+
+    // Prongs (Front Layer) - if not full Bezel
+    if (config.setting !== 'Bezel') {
+      html += `
+        <!-- Setting Prongs -->
+        <line x1="${cx - dw/2 + 2}" y1="${tableY - 1}" x2="${cx - 16}" y2="114" stroke="url(#bandGrad)" stroke-width="3" stroke-linecap="round" />
+        <line x1="${cx + dw/2 - 2}" y1="${tableY - 1}" x2="${cx + 16}" y2="114" stroke="url(#bandGrad)" stroke-width="3" stroke-linecap="round" />
+        <line x1="${cx - dw/4}" y1="${tableY + 1}" x2="${cx - 8}" y2="114" stroke="url(#bandGrad)" stroke-width="2.5" stroke-linecap="round" opacity="0.85" />
+        <line x1="${cx + dw/4}" y1="${tableY + 1}" x2="${cx + 8}" y2="114" stroke="url(#bandGrad)" stroke-width="2.5" stroke-linecap="round" opacity="0.85" />
+        <!-- Prong Claws / Beads -->
+        <circle cx="${cx - dw/2 + 2}" cy="${tableY}" r="2.2" fill="${m.stop0}" stroke="${m.stroke}" stroke-width="0.5" />
+        <circle cx="${cx + dw/2 - 2}" cy="${tableY}" r="2.2" fill="${m.stop0}" stroke="${m.stroke}" stroke-width="0.5" />
+      `;
+    }
+
+    return html;
+  }
+
+  // ─── 2. Top View (Overhead Table) Renderer ────────────────
+  function renderTopView(m, dTable, dFacet, dShadow, dStroke, bandPx, scale) {
+    const cx = 160, cy = 160;
+    const bandW = bandPx * 1.6;
+
+    let html = `<!-- Band Shoulders (Top View) -->
+      <rect x="24" y="${cy - bandW/2}" width="272" height="${bandW}" rx="2" fill="url(#bandGrad)" stroke="${m.stroke}" stroke-width="0.8" />
+      <line x1="24" y1="${cy - bandW/2 + 1}" x2="296" y2="${cy - bandW/2 + 1}" stroke="${m.specular}" stroke-width="0.8" opacity="0.6" />
+    `;
+
+    // Pavé Shoulder Stones
+    if (config.setting === 'Pavé') {
+      html += `<!-- Pavé Shoulder Stones -->`;
+      for (let i = 0; i < 6; i++) {
+        const xL = cx - 78 + i * 8;
+        const xR = cx + 78 - i * 8;
+        html += `
+          <circle cx="${xL}" cy="${cy}" r="3" fill="#ffffff" stroke="${dStroke}" stroke-width="0.5" />
+          <circle cx="${xR}" cy="${cy}" r="3" fill="#ffffff" stroke="${dStroke}" stroke-width="0.5" />
+        `;
+      }
+    }
+
+    // Trilogy Side Diamonds
+    if (config.setting === 'Trilogy') {
+      const sR = 14 * scale * 0.65;
+      html += `
+        <!-- Flanking Side Diamonds -->
+        <circle cx="${cx - 48 * scale}" cy="${cy}" r="${sR}" fill="${dFacet}" stroke="${dStroke}" stroke-width="0.8" />
+        <circle cx="${cx - 48 * scale}" cy="${cy}" r="${sR * 0.55}" fill="${dTable}" stroke="${dStroke}" stroke-width="0.5" />
+        <circle cx="${cx + 48 * scale}" cy="${cy}" r="${sR}" fill="${dFacet}" stroke="${dStroke}" stroke-width="0.8" />
+        <circle cx="${cx + 48 * scale}" cy="${cy}" r="${sR * 0.55}" fill="${dTable}" stroke="${dStroke}" stroke-width="0.5" />
+      `;
+    }
+
+    // Halo Collar Surround
+    if (config.setting === 'Halo') {
+      const hR = (config.shape === 'Marquise' || config.shape === 'Oval') ? 48 * scale : 42 * scale;
+      html += `
+        <!-- Halo Ring Contour -->
+        <circle cx="${cx}" cy="${cy}" r="${hR + 7}" fill="url(#bandGrad)" stroke="${m.stroke}" stroke-width="0.8" />
+      `;
+      // Halo gems array
+      const count = 20;
+      for (let i = 0; i < count; i++) {
+        const a = (i / count) * 2 * Math.PI;
+        const hx = cx + (hR + 1) * Math.cos(a);
+        const hy = cy + (hR + 1) * Math.sin(a);
+        html += `<circle cx="${hx}" cy="${hy}" r="2.5" fill="#ffffff" stroke="${dStroke}" stroke-width="0.4" />`;
+      }
+    }
+
+    // Bezel Frame
+    if (config.setting === 'Bezel') {
+      const bR = 38 * scale;
+      html += `
+        <!-- Bezel Metal Rim -->
+        <circle cx="${cx}" cy="${cy}" r="${bR + 4}" fill="url(#bandGrad)" stroke="${m.stroke}" stroke-width="1" />
+      `;
+    }
+
+    // Center Diamond Face-Up Brilliant Faceting by Shape
+    html += renderDiamondTopCut(cx, cy, scale, dTable, dFacet, dShadow, dStroke);
+
+    // Prongs (4 Corner or Cardinal Beads)
+    if (config.setting !== 'Bezel') {
+      const pDist = 34 * scale;
+      const prongAngles = (config.shape === 'Princess' || config.shape === 'Cushion')
+        ? [Math.PI/4, 3*Math.PI/4, 5*Math.PI/4, 7*Math.PI/4]
+        : [Math.PI/4, 3*Math.PI/4, 5*Math.PI/4, 7*Math.PI/4];
+      
+      prongAngles.forEach(ang => {
+        const px = cx + pDist * Math.cos(ang);
+        const py = cy + pDist * Math.sin(ang);
+        html += `
+          <circle cx="${px}" cy="${py}" r="3.2" fill="url(#bandGrad)" stroke="${m.stroke}" stroke-width="0.6" />
+          <circle cx="${px - 0.7}" cy="${py - 0.7}" r="1" fill="#ffffff" opacity="0.8" />
+        `;
+      });
+    }
+
+    return html;
+  }
+
+  // ─── 3. Perspective (3D Angle) Renderer ───────────────────
+  function renderPerspectiveView(m, dTable, dFacet, dShadow, dStroke, bandPx, scale) {
+    const cx = 160, cy = 185;
+    const rx = 92;
+    const ry = 42;
+
+    let html = `<!-- Ground Shadow -->
+      <ellipse cx="${cx}" cy="275" rx="100" ry="16" fill="url(#shadowRad)" />
+    `;
+
+    // 3D Tilted Ring Shank
+    html += `
+      <!-- Ring Outer & Inner Ellipse -->
+      <ellipse cx="${cx}" cy="${cy + 12}" rx="${rx}" ry="${ry}" fill="none" stroke="${m.stroke}" stroke-width="${bandPx}" opacity="0.3" />
+      <ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="none" stroke="url(#bandGrad)" stroke-width="${bandPx}" />
+      <ellipse cx="${cx}" cy="${cy - 1}" rx="${rx - bandPx/2}" ry="${ry - bandPx/4}" fill="none" stroke="${m.specular}" stroke-width="0.8" opacity="0.6" />
+    `;
+
+    // 3D Basket & Prongs
+    const gemY = 110;
+    const dw = 46 * scale;
+    const dh = 24 * scale;
+
+    html += `
+      <!-- 3D Prongs Rising to Gem -->
+      <line x1="${cx - 18}" y1="${cy - 30}" x2="${cx - dw/2}" y2="${gemY + 6}" stroke="url(#bandGrad)" stroke-width="3" stroke-linecap="round" />
+      <line x1="${cx + 18}" y1="${cy - 30}" x2="${cx + dw/2}" y2="${gemY + 6}" stroke="url(#bandGrad)" stroke-width="3" stroke-linecap="round" />
+      <line x1="${cx}" y1="${cy - 20}" x2="${cx}" y2="${gemY + 16}" stroke="url(#bandGrad)" stroke-width="2.5" stroke-linecap="round" />
+
+      <!-- 3D Diamond Gem (Tilted Brilliant Cut) -->
+      <!-- Pavilion Depth -->
+      <polygon points="${cx - dw/2},${gemY + 4} ${cx + dw/2},${gemY + 4} ${cx},${gemY + dh + 18}" fill="${dShadow}" stroke="${dStroke}" stroke-width="0.8" />
+      <!-- Table Facet (Tilted Ellipse/Polygon) -->
+      <polygon points="${cx},${gemY - dh/2} ${cx + dw/2},${gemY + 4} ${cx},${gemY + dh/2 + 6} ${cx - dw/2},${gemY + 4}"
+               fill="${dTable}" stroke="${dStroke}" stroke-width="0.9" />
+      <ellipse cx="${cx}" cy="${gemY + 2}" rx="${dw * 0.32}" ry="${dh * 0.35}" fill="#ffffff" opacity="0.75" />
+      <!-- Specular Shimmer Ray -->
+      <line x1="${cx - dw/3}" y1="${gemY - dh/4}" x2="${cx + dw/3}" y2="${gemY + dh/3}" stroke="#ffffff" stroke-width="1.2" opacity="0.9" />
+      <line x1="${cx + dw/4}" y1="${gemY - dh/3}" x2="${cx - dw/4}" y2="${gemY + dh/2}" stroke="#ffffff" stroke-width="0.8" opacity="0.8" />
+
+      <!-- Corner Claws -->
+      <circle cx="${cx - dw/2}" cy="${gemY + 4}" r="2.8" fill="${m.stop0}" stroke="${m.stroke}" stroke-width="0.5" />
+      <circle cx="${cx + dw/2}" cy="${gemY + 4}" r="2.8" fill="${m.stop0}" stroke="${m.stroke}" stroke-width="0.5" />
+      <circle cx="${cx}" cy="${gemY - dh/2}" r="2.5" fill="${m.stop0}" stroke="${m.stroke}" stroke-width="0.5" />
+      <circle cx="${cx}" cy="${gemY + dh/2 + 6}" r="2.5" fill="${m.stop0}" stroke="${m.stroke}" stroke-width="0.5" />
+    `;
+
+    return html;
+  }
+
+  // ─── 4. Face-Up Diamond Cut Generator (Top View) ──────────
+  function renderDiamondTopCut(cx, cy, scale, dTable, dFacet, dShadow, dStroke) {
+    const s = scale;
+    switch (config.shape) {
+      case 'Round': {
+        const R = 34 * s;
+        const rT = R * 0.54;
+        let p = `<!-- Round Brilliant 57-Facet Cut -->
+          <circle cx="${cx}" cy="${cy}" r="${R}" fill="${dFacet}" stroke="${dStroke}" stroke-width="0.9" />
+        `;
+        // Star & Kite Facets
+        for (let i = 0; i < 8; i++) {
+          const a1 = (i / 8) * 2 * Math.PI;
+          const a2 = ((i + 0.5) / 8) * 2 * Math.PI;
+          const a3 = ((i + 1) / 8) * 2 * Math.PI;
+          const x1 = cx + R * Math.cos(a1), y1 = cy + R * Math.sin(a1);
+          const xMid = cx + R * 0.78 * Math.cos(a2), yMid = cy + R * 0.78 * Math.sin(a2);
+          const xT = cx + rT * Math.cos(a1), yT = cy + rT * Math.sin(a1);
+          const xTNext = cx + rT * Math.cos(a3), yTNext = cy + rT * Math.sin(a3);
+          p += `
+            <polygon points="${x1},${y1} ${xMid},${yMid} ${xT},${yT}" fill="${i%2===0 ? dShadow : dFacet}" stroke="${dStroke}" stroke-width="0.4" />
+            <line x1="${cx}" y1="${cy}" x2="${xT}" y2="${yT}" stroke="${dStroke}" stroke-width="0.4" opacity="0.4" />
+          `;
+        }
+        // Table Octagram
+        p += `<circle cx="${cx}" cy="${cy}" r="${rT}" fill="${dTable}" stroke="${dStroke}" stroke-width="0.8" />
+              <circle cx="${cx - rT/3}" cy="${cy - rT/3}" r="${rT/3}" fill="#ffffff" opacity="0.65" />`;
+        return p;
+      }
+      case 'Princess': {
+        const w = 54 * s;
+        const hw = w / 2;
+        const tw = hw * 0.58;
+        return `<!-- Princess Square Cut -->
+          <rect x="${cx - hw}" y="${cy - hw}" width="${w}" height="${w}" fill="${dFacet}" stroke="${dStroke}" stroke-width="1" />
+          <polygon points="${cx - hw},${cy - hw} ${cx + hw},${cy + hw} ${cx + hw},${cy - hw} ${cx - hw},${cy + hw}" fill="none" stroke="${dStroke}" stroke-width="0.5" />
+          <polygon points="${cx - hw},${cy} ${cx},${cy - hw} ${cx + hw},${cy} ${cx},${cy + hw}" fill="${dShadow}" stroke="${dStroke}" stroke-width="0.5" opacity="0.7" />
+          <!-- Table -->
+          <rect x="${cx - tw}" y="${cy - tw}" width="${tw*2}" height="${tw*2}" fill="${dTable}" stroke="${dStroke}" stroke-width="0.8" />
+          <polygon points="${cx - tw},${cy - tw} ${cx + tw},${cy - tw} ${cx},${cy}" fill="#ffffff" opacity="0.6" />
+        `;
+      }
+      case 'Oval': {
+        const rx = 44 * s;
+        const ry = 30 * s;
+        return `<!-- Oval Brilliant Cut -->
+          <ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="${dFacet}" stroke="${dStroke}" stroke-width="1" />
+          <!-- Radial Brilliant Rays -->
+          <polygon points="${cx},${cy - ry} ${cx + rx*0.7},${cy - ry*0.6} ${cx + rx},${cy} ${cx + rx*0.7},${cy + ry*0.6} ${cx},${cy + ry} ${cx - rx*0.7},${cy + ry*0.6} ${cx - rx},${cy} ${cx - rx*0.7},${cy - ry*0.6}" fill="${dShadow}" stroke="${dStroke}" stroke-width="0.5" opacity="0.65" />
+          <ellipse cx="${cx}" cy="${cy}" rx="${rx * 0.55}" ry="${ry * 0.55}" fill="${dTable}" stroke="${dStroke}" stroke-width="0.8" />
+          <ellipse cx="${cx - rx*0.15}" cy="${cy - ry*0.15}" rx="${rx * 0.22}" ry="${ry * 0.22}" fill="#ffffff" opacity="0.7" />
+        `;
+      }
+      case 'Cushion': {
+        const w = 50 * s;
+        const hw = w / 2;
+        return `<!-- Cushion Pillow Cut -->
+          <path d="M ${cx - hw + 6} ${cy - hw} Q ${cx} ${cy - hw - 3} ${cx + hw - 6} ${cy - hw} Q ${cx + hw + 3} ${cy} ${cx + hw - 6} ${cy + hw} Q ${cx} ${cy + hw + 3} ${cx - hw + 6} ${cy + hw} Q ${cx - hw - 3} ${cy} ${cx - hw + 6} ${cy - hw} Z"
+                fill="${dFacet}" stroke="${dStroke}" stroke-width="1" />
+          <path d="M ${cx - hw/2} ${cy - hw/2} L ${cx + hw/2} ${cy - hw/2} L ${cx + hw/2} ${cy + hw/2} L ${cx - hw/2} ${cy + hw/2} Z"
+                fill="${dTable}" stroke="${dStroke}" stroke-width="0.8" />
+          <line x1="${cx - hw + 6}" y1="${cy - hw}" x2="${cx - hw/2}" y2="${cy - hw/2}" stroke="${dStroke}" stroke-width="0.5" />
+          <line x1="${cx + hw - 6}" y1="${cy - hw}" x2="${cx + hw/2}" y2="${cy - hw/2}" stroke="${dStroke}" stroke-width="0.5" />
+          <line x1="${cx + hw - 6}" y1="${cy + hw}" x2="${cx + hw/2}" y2="${cy + hw/2}" stroke="${dStroke}" stroke-width="0.5" />
+          <line x1="${cx - hw + 6}" y1="${cy + hw}" x2="${cx - hw/2}" y2="${cy + hw/2}" stroke="${dStroke}" stroke-width="0.5" />
+          <circle cx="${cx - 4}" cy="${cy - 4}" r="${hw * 0.3}" fill="#ffffff" opacity="0.6" />
+        `;
+      }
+      case 'Emerald': {
+        const w = 54 * s;
+        const h = 38 * s;
+        const hw = w / 2;
+        const hh = h / 2;
+        return `<!-- Emerald Step Cut -->
+          <polygon points="${cx - hw + 7},${cy - hh} ${cx + hw - 7},${cy - hh} ${cx + hw},${cy - hh + 7} ${cx + hw},${cy + hh - 7} ${cx + hw - 7},${cy + hh} ${cx - hw + 7},${cy + hh} ${cx - hw},${cy + hh - 7} ${cx - hw},${cy - hh + 7}"
+                   fill="${dFacet}" stroke="${dStroke}" stroke-width="1" />
+          <!-- Concentric Step Tier 1 -->
+          <polygon points="${cx - hw*0.75 + 5},${cy - hh*0.75} ${cx + hw*0.75 - 5},${cy - hh*0.75} ${cx + hw*0.75},${cy - hh*0.75 + 5} ${cx + hw*0.75},${cy + hh*0.75 - 5} ${cx + hw*0.75 - 5},${cy + hh*0.75} ${cx - hw*0.75 + 5},${cy + hh*0.75} ${cx - hw*0.75},${cy + hh*0.75 - 5} ${cx - hw*0.75},${cy - hh*0.75 + 5}"
+                   fill="${dShadow}" stroke="${dStroke}" stroke-width="0.6" opacity="0.8" />
+          <!-- Table Octagon -->
+          <polygon points="${cx - hw*0.5 + 4},${cy - hh*0.5} ${cx + hw*0.5 - 4},${cy - hh*0.5} ${cx + hw*0.5},${cy - hh*0.5 + 4} ${cx + hw*0.5},${cy + hh*0.5 - 4} ${cx + hw*0.5 - 4},${cy + hh*0.5} ${cx - hw*0.5 + 4},${cy + hh*0.5} ${cx - hw*0.5},${cy + hh*0.5 - 4} ${cx - hw*0.5},${cy - hh*0.5 + 4}"
+                   fill="${dTable}" stroke="${dStroke}" stroke-width="0.8" />
+          <polygon points="${cx - hw*0.4},${cy - hh*0.4} ${cx + hw*0.2},${cy - hh*0.4} ${cx + hw*0.1},${cy} ${cx - hw*0.4},${cy}" fill="#ffffff" opacity="0.6" />
+        `;
+      }
+      case 'Pear': {
+        const len = 56 * s;
+        const w = 36 * s;
+        return `<!-- Pear Teardrop Cut -->
+          <path d="M ${cx} ${cy - len/2} C ${cx + w} ${cy - len/6} ${cx + w*0.9} ${cy + len/2} ${cx} ${cy + len/2} C ${cx - w*0.9} ${cy + len/2} ${cx - w} ${cy - len/6} ${cx} ${cy - len/2} Z"
+                fill="${dFacet}" stroke="${dStroke}" stroke-width="1" />
+          <!-- Radiant Facets -->
+          <polygon points="${cx},${cy - len/2.3} ${cx + w*0.5},${cy} ${cx},${cy + len/3} ${cx - w*0.5},${cy}"
+                   fill="${dTable}" stroke="${dStroke}" stroke-width="0.8" />
+          <line x1="${cx}" y1="${cy - len/2}" x2="${cx}" y2="${cy + len/2}" stroke="${dStroke}" stroke-width="0.5" />
+          <circle cx="${cx - 3}" cy="${cy + 2}" r="${w*0.2}" fill="#ffffff" opacity="0.65" />
+        `;
+      }
+      case 'Marquise': {
+        const len = 64 * s;
+        const w = 32 * s;
+        return `<!-- Marquise Navette Cut -->
+          <path d="M ${cx} ${cy - len/2} Q ${cx + w} ${cy} ${cx} ${cy + len/2} Q ${cx - w} ${cy} ${cx} ${cy - len/2} Z"
+                fill="${dFacet}" stroke="${dStroke}" stroke-width="1" />
+          <!-- Central Diamond Star -->
+          <polygon points="${cx},${cy - len/3} ${cx + w*0.55},${cy} ${cx},${cy + len/3} ${cx - w*0.55},${cy}"
+                   fill="${dTable}" stroke="${dStroke}" stroke-width="0.8" />
+          <line x1="${cx}" y1="${cy - len/2}" x2="${cx}" y2="${cy + len/2}" stroke="${dStroke}" stroke-width="0.5" />
+          <polygon points="${cx - w*0.2},${cy - len/6} ${cx + w*0.2},${cy - len/6} ${cx},${cy}" fill="#ffffff" opacity="0.7" />
+        `;
+      }
+      case 'Heart': {
+        const sz = 46 * s;
+        return `<!-- Sweetheart Brilliant Cut -->
+          <path d="M ${cx} ${cy + sz/2 + 6} C ${cx - sz} ${cy + 2} ${cx - sz} ${cy - sz/2} ${cx - sz/3} ${cy - sz/2} C ${cx} ${cy - sz/2} ${cx} ${cy - sz/3} ${cx} ${cy - sz/3} C ${cx} ${cy - sz/3} ${cx} ${cy - sz/2} ${cx + sz/3} ${cy - sz/2} C ${cx + sz} ${cy - sz/2} ${cx + sz} ${cy + 2} ${cx} ${cy + sz/2 + 6} Z"
+                fill="${dFacet}" stroke="${dStroke}" stroke-width="1" />
+          <polygon points="${cx},${cy - sz/6} ${cx + sz*0.35},${cy} ${cx},${cy + sz*0.3} ${cx - sz*0.35},${cy}"
+                   fill="${dTable}" stroke="${dStroke}" stroke-width="0.8" />
+          <circle cx="${cx - 6}" cy="${cy - 4}" r="${sz*0.18}" fill="#ffffff" opacity="0.65" />
+        `;
+      }
+      default:
+        return `<circle cx="${cx}" cy="${cy}" r="${34 * s}" fill="${dTable}" stroke="${dStroke}" stroke-width="1" />`;
+    }
+  }
+
+  // ─── Step Navigation ──────────────────────────────────────
   function goToStep(step) {
     [0,1,2].forEach(i => {
       document.getElementById('step-' + i).classList.toggle('active', i === step);
@@ -727,79 +1415,109 @@
     if (step === 2) updateReviewDetails();
   }
 
+  // ─── Control Handlers ─────────────────────────────────────
   function selectSetting(btn) {
     document.querySelectorAll('.setting-option').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     config.setting = btn.dataset.setting;
     config.settingBase = parseInt(btn.dataset.priceBase) || 1800;
     updateUI();
+    triggerSparkle();
   }
+
   function selectMetal(btn) {
     btn.closest('.chips-row').querySelectorAll('.metal-chip').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     config.metal = btn.dataset.metal;
     config.metalAdd = parseInt(btn.dataset.metalAdd) || 0;
     updateUI();
+    triggerSparkle();
   }
+
   function selectBand(btn) {
     btn.closest('.chips-row').querySelectorAll('.metal-chip').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     config.width = btn.dataset.width;
+    updateUI();
   }
+
   function selectRingSize(btn) {
     btn.closest('.chips-row').querySelectorAll('.metal-chip').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     config.size = btn.textContent.trim();
+    updateUI();
   }
+
   function selectShape(btn) {
     document.querySelectorAll('.shape-option').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     config.shape = btn.dataset.shape;
     config.shapeAdd = parseInt(btn.dataset.shapeAdd) || 0;
     updateUI();
+    triggerSparkle();
   }
+
   function updateCarat(val) {
     config.carat = parseFloat(val);
     document.getElementById('carat-display').textContent = parseFloat(val).toFixed(2) + ' CT';
     updateUI();
   }
+
   function selectGrade(type, btn) {
     btn.closest('.grade-row').querySelectorAll('.grade-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
+    if (type === 'cut') {
+      config.cut = btn.textContent.trim();
+    } else if (type === 'color') {
+      config.color = btn.textContent.trim();
+    } else if (type === 'clarity') {
+      config.clarity = btn.textContent.trim();
+    }
     config[type + 'Add'] = parseInt(btn.dataset.gradeAdd) || 0;
     updateUI();
+    triggerSparkle();
   }
 
   function openRequestModal() {
     const modal = document.getElementById('request-modal');
     const summary = document.getElementById('request-summary');
+    const dims = getDiamondDimensions();
     summary.innerHTML = `
-      <strong>Your Design:</strong><br/>
-      ${config.setting} · ${config.metal} · ${config.width}<br/>
-      ${config.carat}CT ${config.shape} Round Brilliant<br/>
-      Size ${config.size} · Estimated: $${getTotal().toLocaleString()}
+      <strong>Your Bespoke Design:</strong><br/>
+      ${config.setting} Setting · ${config.metal} · ${config.width}<br/>
+      ${config.carat.toFixed(2)} CT ${config.shape} (${dims.text}) · ${config.cut} Cut · ${config.color}<br/>
+      Size ${config.size} (US) · Estimated: $${getTotal().toLocaleString()}
     `;
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
+
   function closeRequestModal() {
     document.getElementById('request-modal').classList.remove('open');
     document.body.style.overflow = '';
   }
+
   function submitRequest(e) {
     e.preventDefault();
     closeRequestModal();
-    Toast.show('Quote request submitted! We\'ll contact you within 24 hours.', 'check_circle', 5000);
+    Toast.show('Quote request submitted! Our Surat atelier master will contact you within 24 hours.', 'check_circle', 5000);
   }
+
   function addCustomToCart() {
+    const dims = getDiamondDimensions();
     Cart.add({
       id: 'custom-' + Date.now(),
       name: 'Bespoke Ring Commission',
-      variant: `${config.carat}CT ${config.shape} · ${config.setting} · ${config.metal} · Size ${config.size}`,
+      variant: `${config.carat.toFixed(2)} CT ${config.shape} (${dims.text}) · ${config.setting} · ${config.metal} · Size ${config.size}`,
       price: getTotal(),
       qty: 1,
-      img: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=900&q=80&auto=format'
+      img: 'assets/aura-ring.jpg',
+      href: 'ring-builder.html'
     });
+    Toast.show('Bespoke creation added to cart!', 'shopping_bag');
+    setTimeout(() => {
+      window.location.href = 'cart.html';
+    }, 1000);
   }
 
   document.addEventListener('DOMContentLoaded', () => { updateUI(); });
