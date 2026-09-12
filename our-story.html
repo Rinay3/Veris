@@ -1,89 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Our Story — Véris Diamonds | The CVD Process & Ethical Sourcing</title>
-  <meta name="description" content="Learn how Véris creates IGI-certified CVD lab-grown diamonds. From our Surat atelier to your hands — zero mining, pure brilliance, ethical luxury." />
+  <meta name="description"
+    content="Learn how Véris creates IGI-certified CVD lab-grown diamonds. From our Surat atelier to your hands — zero mining, pure brilliance, ethical luxury." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Manrope:wght@200;300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
   <style>
     .story-hero {
       position: relative;
-      height: 80vh;
-      min-height: 500px;
+      min-height: 80vh;
+      height: 750px;
+      max-height: 900px;
       overflow: hidden;
       display: flex;
       align-items: center;
+      background: var(--surface);
     }
+
     .story-hero-bg {
       position: absolute;
       inset: 0;
     }
-    .story-hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
+
+    .story-hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 80% 25%;
+    }
+
     .story-hero-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, rgba(28,27,27,0.2) 0%, rgba(252,249,248,0.95) 90%);
+      background: linear-gradient(to right, rgba(252, 249, 248, 0.97) 0%, rgba(252, 249, 248, 0.90) 42%, rgba(252, 249, 248, 0.35) 70%, rgba(252, 249, 248, 0.05) 100%),
+                  linear-gradient(to top, rgba(252, 249, 248, 0.95) 0%, rgba(252, 249, 248, 0) 30%);
     }
+
+    .story-hero-container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+    }
+
     .story-hero-content {
       position: relative;
-      z-index: 1;
-      padding: 0 var(--space-12);
-      max-width: 800px;
-      margin-top: auto;
-      padding-top: 60%;
-      padding-bottom: var(--space-12);
+      z-index: 2;
+      max-width: 620px;
+      padding: var(--space-12) 0;
     }
+
+    .story-hero-p {
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--secondary);
+      max-width: 530px;
+    }
+
     .story-intro-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: var(--space-16);
       align-items: center;
     }
-    .story-intro-img { position: relative; aspect-ratio: 4/5; overflow: hidden; }
-    .story-intro-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    .story-intro-img {
+      position: relative;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+    }
+
+    .story-intro-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     .stats-row {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      border-top: 1px solid rgba(208,197,175,0.25);
-      border-bottom: 1px solid rgba(208,197,175,0.25);
+      border-top: 1px solid rgba(208, 197, 175, 0.25);
+      border-bottom: 1px solid rgba(208, 197, 175, 0.25);
     }
+
     .stat-cell {
       padding: var(--space-10) var(--space-6);
-      border-right: 1px solid rgba(208,197,175,0.25);
+      border-right: 1px solid rgba(208, 197, 175, 0.25);
       text-align: center;
     }
-    .stat-cell:last-child { border-right: none; }
-    .process-section { background: var(--surface-low); }
+
+    .stat-cell:last-child {
+      border-right: none;
+    }
+
+    .process-section {
+      background: var(--surface-low);
+    }
+
     .process-inner {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 0;
     }
+
     .process-image {
       position: sticky;
       top: 73px;
       height: calc(100vh - 73px);
       overflow: hidden;
     }
-    .process-image img { width: 100%; height: 100%; object-fit: cover; }
+
+    .process-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     .process-steps {
       padding: var(--space-16) var(--space-12);
       display: flex;
       flex-direction: column;
       gap: 0;
     }
+
     .process-step {
       padding: var(--space-10) 0;
-      border-bottom: 1px solid rgba(208,197,175,0.2);
+      border-bottom: 1px solid rgba(208, 197, 175, 0.2);
       display: grid;
       grid-template-columns: 56px 1fr;
       gap: var(--space-6);
     }
+
     .step-num-lg {
       font-family: var(--font-serif);
       font-size: 2.5rem;
@@ -93,6 +152,7 @@
       opacity: 0.5;
       padding-top: 4px;
     }
+
     .step-title {
       font-family: var(--font-sans);
       font-size: 0.5625rem;
@@ -101,382 +161,585 @@
       text-transform: uppercase;
       margin-bottom: var(--space-3);
     }
-    .step-text { font-family: var(--font-sans); font-size: 0.8125rem; font-weight: 300; line-height: 1.8; color: var(--secondary); }
-    .artisans-section { background: var(--surface); }
-    .artisan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(208,197,175,0.15); }
-    .artisan-card { background: var(--surface-lowest); }
-    .artisan-img { aspect-ratio: 3/4; overflow: hidden; }
-    .artisan-img img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--transition-cinematic); }
-    .artisan-card:hover .artisan-img img { transform: scale(1.05); }
-    .artisan-body { padding: var(--space-6); }
-    .artisan-name { font-family: var(--font-sans); font-size: 0.5625rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: var(--space-1); }
-    .artisan-role { font-family: var(--font-serif); font-style: italic; font-size: 0.875rem; color: var(--primary); margin-bottom: var(--space-2); }
-    .artisan-bio { font-family: var(--font-sans); font-size: 0.75rem; font-weight: 300; line-height: 1.7; color: var(--secondary); }
-    .cert-section { background: var(--inverse-surface); color: var(--inverse-on-surface); }
+
+    .step-text {
+      font-family: var(--font-sans);
+      font-size: 0.8125rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--secondary);
+    }
+
+    .artisans-section {
+      background: var(--surface);
+    }
+
+    .artisan-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(208, 197, 175, 0.15);
+    }
+
+    .artisan-card {
+      background: var(--surface-lowest);
+    }
+
+    .artisan-img {
+      aspect-ratio: 3/4;
+      overflow: hidden;
+    }
+
+    .artisan-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-cinematic);
+    }
+
+    .artisan-card:hover .artisan-img img {
+      transform: scale(1.05);
+    }
+
+    .artisan-body {
+      padding: var(--space-6);
+    }
+
+    .artisan-name {
+      font-family: var(--font-sans);
+      font-size: 0.5625rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-1);
+    }
+
+    .artisan-role {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.875rem;
+      color: var(--primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .artisan-bio {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--secondary);
+    }
+
+    .cert-section {
+      background: var(--inverse-surface);
+      color: var(--inverse-on-surface);
+    }
+
     .cert-card {
-      border: 1px solid rgba(243,240,239,0.1);
+      border: 1px solid rgba(243, 240, 239, 0.1);
       padding: var(--space-8);
     }
+
     .cert-badge {
       width: 64px;
       height: 64px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid rgba(212,175,55,0.4);
+      border: 1px solid rgba(212, 175, 55, 0.4);
       margin-bottom: var(--space-4);
     }
+
     .manifesto {
       background: var(--primary);
       padding: var(--space-20) var(--space-6);
       text-align: center;
     }
+
     @media (max-width: 1024px) {
-      .process-inner { grid-template-columns: 1fr; }
-      .process-image { position: static; height: 50vw; }
-      .story-intro-grid { grid-template-columns: 1fr; }
-      .stats-row { grid-template-columns: repeat(2, 1fr); }
-      .artisan-grid { grid-template-columns: 1fr 1fr; }
+      .process-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .process-image {
+        position: static;
+        height: 50vw;
+      }
+
+      .story-intro-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .artisan-grid {
+        grid-template-columns: 1fr 1fr;
+      }
     }
+
     @media (max-width: 768px) {
-      .story-hero-content { padding: 0 var(--space-6); padding-top: 55%; padding-bottom: var(--space-10); }
-      .process-steps { padding: var(--space-8) var(--space-6); }
-      .stats-row { grid-template-columns: repeat(2, 1fr); }
-      .artisan-grid { grid-template-columns: 1fr; }
-      .stat-cell { border-right: none; border-bottom: 1px solid rgba(208,197,175,0.2); }
+      .story-hero {
+        min-height: 640px;
+        height: auto;
+        align-items: flex-end;
+      }
+
+      .story-hero-bg img {
+        object-position: center 10%;
+      }
+
+      .story-hero-overlay {
+        background: linear-gradient(180deg, rgba(28, 27, 27, 0.08) 0%, rgba(252, 249, 248, 0.65) 45%, rgba(252, 249, 248, 0.98) 85%);
+      }
+
+      .story-hero-content {
+        padding: var(--space-8) var(--space-4) var(--space-12);
+        max-width: 100%;
+      }
+
+      .process-steps {
+        padding: var(--space-8) var(--space-6);
+      }
+
+      .stats-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .artisan-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stat-cell {
+        border-right: none;
+        border-bottom: 1px solid rgba(208, 197, 175, 0.2);
+      }
     }
   </style>
 </head>
+
 <body>
 
-<div class="announcement-banner">
-  <div class="announcement-ticker">
-    <span>The story of ethical fire <span class="dot-sep"></span> Zero mining · Zero conflict · Pure brilliance <span class="dot-sep"></span> Handcrafted in Surat since 2019</span>
-    <span>The story of ethical fire <span class="dot-sep"></span> Zero mining · Zero conflict · Pure brilliance <span class="dot-sep"></span> Handcrafted in Surat since 2019</span>
-  </div>
-</div>
-
-<header class="site-nav">
-  <div class="nav-inner container">
-    <nav class="nav-left">
-      <a href="collections.html" class="nav-link">Collections</a>
-      <a href="our-story.html" class="nav-link active">Our Story</a>
-      <a href="ring-builder.html" class="nav-link">Design Yours</a>
-    </nav>
-    <a href="index.html" class="nav-logo">Véris</a>
-    <div class="nav-right">
-      <button class="nav-icon-btn" data-search-open aria-label="Search">
-        <span style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 200">search</span>
-      </button>
-      <button class="nav-icon-btn" data-wishlist-open aria-label="Wishlist">
-        <span style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 200">favorite</span>
-        <span class="wishlist-badge" id="wishlist-badge">0</span>
-      </button>
-      <a href="cart.html" class="nav-icon-btn" aria-label="Cart">
-        <span style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 200">shopping_bag</span>
-        <span class="cart-badge" id="cart-badge">0</span>
-      </a>
+  <div class="announcement-banner">
+    <div class="announcement-ticker">
+      <span>The story of ethical fire <span class="dot-sep"></span> Zero mining · Zero conflict · Pure brilliance <span
+          class="dot-sep"></span> Handcrafted in Surat since 2019</span>
+      <span>The story of ethical fire <span class="dot-sep"></span> Zero mining · Zero conflict · Pure brilliance <span
+          class="dot-sep"></span> Handcrafted in Surat since 2019</span>
     </div>
   </div>
-</header>
 
-<div class="search-overlay" id="search-overlay">
-  <div class="search-input-wrap">
-    <span style="font-family:'Material Symbols Outlined';font-size:24px;color:var(--outline);font-variation-settings:'FILL' 0,'wght' 200">search</span>
-    <input type="text" id="search-input" placeholder="Search diamonds, rings, bracelets…" autocomplete="off" />
-    <button class="search-close" data-search-close>Close</button>
-  </div>
-  <div class="search-results" id="search-results"></div>
-</div>
+  <header class="site-nav">
+    <div class="nav-inner container">
+      <nav class="nav-left">
+        <a href="collections.html" class="nav-link">Collections</a>
+        <a href="our-story.html" class="nav-link active">Our Story</a>
+        <a href="ring-builder.html" class="nav-link">Design Yours</a>
+      </nav>
+      <a href="index.html" class="nav-logo">Véris</a>
+      <div class="nav-right">
+        <button class="nav-icon-btn" data-search-open aria-label="Search">
+          <span
+            style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 200">search</span>
+        </button>
+        <button class="nav-icon-btn" data-wishlist-open aria-label="Wishlist">
+          <span
+            style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 200">favorite</span>
+          <span class="wishlist-badge" id="wishlist-badge">0</span>
+        </button>
+        <a href="cart.html" class="nav-icon-btn" aria-label="Cart">
+          <span
+            style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 200">shopping_bag</span>
+          <span class="cart-badge" id="cart-badge">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
 
-<!-- Hero -->
-<section class="story-hero">
-  <div class="story-hero-bg">
-    <img src="assets/hero-model.jpg" alt="Luxury diamond jewelry" />
-    <div class="story-hero-overlay"></div>
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-input-wrap">
+      <span
+        style="font-family:'Material Symbols Outlined';font-size:24px;color:var(--outline);font-variation-settings:'FILL' 0,'wght' 200">search</span>
+      <input type="text" id="search-input" placeholder="Search diamonds, rings, bracelets…" autocomplete="off" />
+      <button class="search-close" data-search-close>Close</button>
+    </div>
+    <div class="search-results" id="search-results"></div>
   </div>
-  <div class="story-hero-content">
-    <div class="section-eyebrow" style="margin-bottom:var(--space-4)">The Véris Manifesto</div>
-    <h1 class="display-lg" style="margin-bottom:var(--space-6)">We believe the<br/>future of luxury<br/><em style="font-weight:300">must be ethical.</em></h1>
-    <p style="font-family:var(--font-sans);font-size:0.875rem;font-weight:300;line-height:1.8;color:var(--secondary);max-width:520px">Founded in Surat in 2019, Véris was born from a simple conviction: that the most brilliant diamonds should never cost the Earth. We are pioneering the future of fine jewelry through the science of CVD — Chemical Vapour Deposition.</p>
-  </div>
-</section>
 
-<!-- Intro -->
-<section class="section" style="background:var(--surface)">
-  <div class="container">
-    <div class="story-intro-grid reveal">
-      <div class="story-intro-img">
-        <img src="assets/craftsman-surat.jpg" alt="Master artisan in Surat atelier" style="filter:grayscale(0.15)" />
-        <div style="position:absolute;bottom:var(--space-6);left:var(--space-6);right:var(--space-6);background:var(--surface-lowest);padding:var(--space-6)">
-          <p style="font-family:var(--font-serif);font-style:italic;font-size:0.9375rem;line-height:1.7;color:var(--on-surface)">"We didn't disrupt fine jewelry. We evolved it — honoring the craft of Surat while freeing it from the burden of the mine."</p>
-          <div style="margin-top:var(--space-4);font-family:var(--font-sans);font-size:0.45rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--primary)">Priya Mehta, Founder</div>
+  <!-- Hero -->
+  <section class="story-hero">
+    <div class="story-hero-bg">
+      <img src="assets/hero-model2.jpg" alt="Véris Fine Ethical Diamonds" />
+      <div class="story-hero-overlay"></div>
+    </div>
+    <div class="container story-hero-container">
+      <div class="story-hero-content">
+        <div class="section-eyebrow" style="margin-bottom:var(--space-4)">The Véris Manifesto</div>
+        <h1 class="display-lg" style="margin-bottom:var(--space-6);line-height:1.05">We believe the<br />future of luxury<br /><em
+            style="font-weight:300">must be ethical.</em></h1>
+        <p class="story-hero-p">
+          Founded in Surat in 2019, Véris was born from a simple conviction: that the most brilliant diamonds should never
+          cost the Earth. We are pioneering the future of fine jewelry through the science of CVD — Chemical Vapour
+          Deposition.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section class="section" style="background:var(--surface)">
+    <div class="container">
+      <div class="story-intro-grid reveal">
+        <div class="story-intro-img">
+          <img src="assets/craftsman-surat.jpg" alt="Master artisan in Surat atelier" style="filter:grayscale(0.15)" />
+          <div
+            style="position:absolute;bottom:var(--space-6);left:var(--space-6);right:var(--space-6);background:var(--surface-lowest);padding:var(--space-6)">
+            <p
+              style="font-family:var(--font-serif);font-style:italic;font-size:0.9375rem;line-height:1.7;color:var(--on-surface)">
+              "We didn't disrupt fine jewelry. We evolved it — honoring the craft of Surat while freeing it from the
+              burden of the mine."</p>
+            <div
+              style="margin-top:var(--space-4);font-family:var(--font-sans);font-size:0.45rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--primary)">
+              Priya Mehta, Founder</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:var(--space-8);justify-content:center">
+          <div>
+            <div class="section-eyebrow">Our Foundation</div>
+            <h2 class="section-title">Born in the<br />City of Diamonds</h2>
+          </div>
+          <p
+            style="font-family:var(--font-sans);font-size:0.875rem;font-weight:300;line-height:1.8;color:var(--secondary)">
+            Surat has been the world's diamond cutting capital for centuries. Over 90% of the world's rough diamonds are
+            cut and polished here by artisans whose skills pass from generation to generation.</p>
+          <p
+            style="font-family:var(--font-sans);font-size:0.875rem;font-weight:300;line-height:1.8;color:var(--secondary)">
+            Véris was founded to honor this heritage while building on it — pairing ancient Surat craftsmanship with
+            21st-century CVD laboratory science to create diamonds that are physically and chemically identical to mined
+            stones, but free of human cost.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);margin-top:var(--space-4)">
+            <div>
+              <div style="font-family:var(--font-serif);font-size:2rem;font-weight:300;color:var(--primary-container)">
+                2019</div>
+              <div
+                style="font-family:var(--font-sans);font-size:0.5rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--secondary);margin-top:4px">
+                Year Founded</div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-serif);font-size:2rem;font-weight:300;color:var(--primary-container)">
+                Surat</div>
+              <div
+                style="font-family:var(--font-sans);font-size:0.5rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--secondary);margin-top:4px">
+                India HQ</div>
+            </div>
+          </div>
         </div>
       </div>
-      <div style="display:flex;flex-direction:column;gap:var(--space-8);justify-content:center">
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <div class="stats-row container reveal">
+    <div class="stat-cell">
+      <div class="stat-number" data-counter="12000" data-suffix="+">0+</div>
+      <div class="stat-label">Diamonds Crafted</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-number" data-counter="98" data-suffix="%">0%</div>
+      <div class="stat-label">Customer Satisfaction</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-number" data-counter="40" data-suffix="% Less CO₂">0%</div>
+      <div class="stat-label">vs. Mined Diamonds</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-number" data-counter="28" data-suffix="">0</div>
+      <div class="stat-label">Countries Delivered</div>
+    </div>
+  </div>
+
+  <!-- CVD Process -->
+  <section class="process-section section">
+    <div class="container" style="padding:0;max-width:100%">
+      <div style="max-width:1440px;margin:0 auto">
+        <div style="padding:var(--space-16) var(--space-6) var(--space-8);text-align:center" class="reveal">
+          <div class="section-eyebrow">Science of Brilliance</div>
+          <h2 class="section-title">The CVD Process</h2>
+          <p
+            style="font-family:var(--font-sans);font-size:0.8125rem;font-weight:300;color:var(--secondary);max-width:480px;margin:var(--space-4) auto 0;line-height:1.8">
+            Six steps that turn carbon gas into the world's rarest mineral — without a single mine.</p>
+        </div>
+        <div class="process-inner">
+          <div class="process-image">
+            <img src="assets/cvd-process.jpg" alt="CVD diamond synthesis plasma reactor" />
+          </div>
+          <div class="process-steps">
+            <div class="process-step reveal">
+              <div class="step-num-lg">01</div>
+              <div>
+                <div class="step-title">Seed Crystal Preparation</div>
+                <p class="step-text">A microscopically thin diamond seed crystal — often a small slice of an existing
+                  diamond — is precisely cut, polished, and placed inside a vacuum plasma reactor chamber. This seed
+                  will become the foundation of the new diamond.</p>
+              </div>
+            </div>
+            <div class="process-step reveal delay-1">
+              <div class="step-num-lg">02</div>
+              <div>
+                <div class="step-title">Plasma Ignition</div>
+                <p class="step-text">A mixture of hydrogen and methane gas is introduced into the chamber. Microwave
+                  energy creates a high-energy plasma ball reaching temperatures exceeding 3,000°C — replicating the
+                  intense heat of Earth's mantle in a controlled laboratory environment.</p>
+              </div>
+            </div>
+            <div class="process-step reveal delay-2">
+              <div class="step-num-lg">03</div>
+              <div>
+                <div class="step-title">Carbon Deposition</div>
+                <p class="step-text">Carbon atoms from the methane plasma rain down layer by layer onto the diamond seed
+                  at an atomic level, bonding in an exact crystalline lattice identical to a natural diamond. Growth
+                  progresses at approximately 0.006mm per hour — an act of extraordinary patience.</p>
+              </div>
+            </div>
+            <div class="process-step reveal delay-3">
+              <div class="step-num-lg">04</div>
+              <div>
+                <div class="step-title">Rough Diamond Harvest</div>
+                <p class="step-text">After 2–4 weeks of growth, the rough CVD diamond crystal is carefully removed from
+                  the chamber. At this stage, it resembles a rough natural crystal — unpolished, complex, and
+                  carbon-pure. Our gemologists assess its yield and quality grade.</p>
+              </div>
+            </div>
+            <div class="process-step reveal">
+              <div class="step-num-lg">05</div>
+              <div>
+                <div class="step-title">Master Cutting in Surat</div>
+                <p class="step-text">The rough is transported to our Surat atelier where fourth-generation diamond
+                  cutters plan and execute each cut using 3D optical mapping software. A single Round Brilliant requires
+                  58 precisely angled facets, optimized for maximum light return.</p>
+              </div>
+            </div>
+            <div class="process-step reveal">
+              <div class="step-num-lg">06</div>
+              <div>
+                <div class="step-title">IGI Certification</div>
+                <p class="step-text">Every finished stone is sent to the International Gemological Institute for
+                  independent grading. Each report documents Cut, Color, Clarity, and Carat with a unique
+                  laser-inscribed serial number invisible to the naked eye. Your certificate of ethical origin.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Artisans -->
+  <section class="artisans-section section" id="artisans">
+    <div class="container">
+      <div class="section-head-row reveal"
+        style="justify-content:center;flex-direction:column;align-items:center;text-align:center;margin-bottom:var(--space-12)">
+        <div class="section-eyebrow">The Human Touch</div>
+        <h2 class="section-title">Meet Our Artisans</h2>
+      </div>
+      <div class="artisan-grid reveal">
+        <div class="artisan-card">
+          <div class="artisan-img">
+            <img src="https://images.unsplash.com/photo-1618077360395-f3068be8e001?w=900&q=80&auto=format"
+              alt="Master cutter Vijay" />
+          </div>
+          <div class="artisan-body">
+            <div class="artisan-name">Vijay Khatri</div>
+            <div class="artisan-role">Master Diamond Cutter · 28 Years</div>
+            <p class="artisan-bio">Third-generation polisher whose grandfather trained under Surat's founding diamond
+              cutters. Vijay leads our Brilliant Cut department, analyzing each stone's natural inclusions to maximize
+              its light performance.</p>
+          </div>
+        </div>
+        <div class="artisan-card">
+          <div class="artisan-img">
+            <img src="https://images.unsplash.com/photo-1472289065668-ce650ac443d2?w=900&q=80&auto=format"
+              alt="Goldsmith Rohan" />
+          </div>
+          <div class="artisan-body">
+            <div class="artisan-name">Rohan Desai</div>
+            <div class="artisan-role">Senior Goldsmith · 19 Years</div>
+            <p class="artisan-bio">Specializing in micro-pavé and channel settings, Rohan crafts each ring's metal
+              architecture by hand before a single diamond is set. His signature: a seamless gallery with zero visible
+              seam lines.</p>
+          </div>
+        </div>
+        <div class="artisan-card">
+          <div class="artisan-img">
+            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=900&q=80&auto=format&fit=crop"
+              alt="Quality director Priya" />
+          </div>
+          <div class="artisan-body">
+            <div class="artisan-name">Priya Mehta</div>
+            <div class="artisan-role">Founder & Creative Director</div>
+            <p class="artisan-bio">A former IGI gemologist, Priya founded Véris to unite Surat's artisanal heritage with
+              ethical science. She personally approves every design before it enters production, guided by a single
+              criterion: does it justify the hands it took to create it?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IGI Certification -->
+  <section class="cert-section section" id="certification">
+    <div class="container">
+      <div class="reveal" style="text-align:center;margin-bottom:var(--space-12)">
+        <div class="section-eyebrow" style="color:var(--primary-container)">Scientific Verification</div>
+        <h2 class="section-title" style="color:var(--inverse-on-surface)">IGI Certification<br />Explained</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(243,240,239,0.05)"
+        class="reveal">
+        <div class="cert-card">
+          <div class="cert-badge">
+            <span
+              style="font-family:'Material Symbols Outlined';font-size:28px;color:var(--primary-container);font-variation-settings:'FILL' 0,'wght' 200">diamond</span>
+          </div>
+          <div
+            style="font-family:var(--font-sans);font-size:0.5rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--primary-container);margin-bottom:var(--space-3)">
+            Cut</div>
+          <p
+            style="font-family:var(--font-sans);font-size:0.75rem;font-weight:300;line-height:1.7;color:rgba(243,240,239,0.6)">
+            Evaluates the proportions and symmetry of each facet. Our stones are graded Excellent or Ideal — the top 3%
+            of all diamonds cut worldwide.</p>
+        </div>
+        <div class="cert-card">
+          <div class="cert-badge">
+            <span
+              style="font-family:'Material Symbols Outlined';font-size:28px;color:var(--primary-container);font-variation-settings:'FILL' 0,'wght' 200">palette</span>
+          </div>
+          <div
+            style="font-family:var(--font-sans);font-size:0.5rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--primary-container);margin-bottom:var(--space-3)">
+            Color</div>
+          <p
+            style="font-family:var(--font-sans);font-size:0.75rem;font-weight:300;line-height:1.7;color:rgba(243,240,239,0.6)">
+            Measured on D–Z scale. D, E, F are colorless — the rarest. Véris's CVD process produces predominantly D–F
+            range stones due to the controlled purity of the growth environment.</p>
+        </div>
+        <div class="cert-card">
+          <div class="cert-badge">
+            <span
+              style="font-family:'Material Symbols Outlined';font-size:28px;color:var(--primary-container);font-variation-settings:'FILL' 0,'wght' 200">center_focus_strong</span>
+          </div>
+          <div
+            style="font-family:var(--font-sans);font-size:0.5rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--primary-container);margin-bottom:var(--space-3)">
+            Clarity</div>
+          <p
+            style="font-family:var(--font-sans);font-size:0.75rem;font-weight:300;line-height:1.7;color:rgba(243,240,239,0.6)">
+            Assesses internal (inclusions) and external (blemishes) characteristics. Our standard is VS1–VVS2:
+            inclusions visible only under 10x magnification, invisible to the naked eye.</p>
+        </div>
+        <div class="cert-card">
+          <div class="cert-badge">
+            <span
+              style="font-family:'Material Symbols Outlined';font-size:28px;color:var(--primary-container);font-variation-settings:'FILL' 0,'wght' 200">scale</span>
+          </div>
+          <div
+            style="font-family:var(--font-sans);font-size:0.5rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--primary-container);margin-bottom:var(--space-3)">
+            Carat</div>
+          <p
+            style="font-family:var(--font-sans);font-size:0.75rem;font-weight:300;line-height:1.7;color:rgba(243,240,239,0.6)">
+            The metric weight of the diamond. One carat equals 0.2 grams. Because CVD diamonds grow in controlled
+            conditions, weight is precisely calibrated — no yield loss from mining imperfections.</p>
+        </div>
+      </div>
+      <div class="reveal" style="text-align:center;margin-top:var(--space-12)">
+        <a href="collections.html" class="btn btn-primary btn-lg">Begin Your Journey</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Manifesto -->
+  <section class="manifesto">
+    <div class="container-narrow" style="padding:0">
+      <div class="reveal">
+        <div class="section-eyebrow" style="color:rgba(255,255,255,0.5);text-align:center;margin-bottom:var(--space-6)">
+          Our Promise</div>
+        <p
+          style="font-family:var(--font-serif);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:300;font-style:italic;line-height:1.4;color:#fff;text-align:center">
+          "Every Véris diamond carries the same atomic signature as a diamond formed three billion years beneath the
+          Earth — but its story is one of science, artistry, and conscience."</p>
+        <div
+          style="text-align:center;margin-top:var(--space-8);font-family:var(--font-sans);font-size:0.5rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.5)">
+          Priya Mehta · Founder, Véris Diamonds</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Footer ─────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
         <div>
-          <div class="section-eyebrow">Our Foundation</div>
-          <h2 class="section-title">Born in the<br/>City of Diamonds</h2>
-        </div>
-        <p style="font-family:var(--font-sans);font-size:0.875rem;font-weight:300;line-height:1.8;color:var(--secondary)">Surat has been the world's diamond cutting capital for centuries. Over 90% of the world's rough diamonds are cut and polished here by artisans whose skills pass from generation to generation.</p>
-        <p style="font-family:var(--font-sans);font-size:0.875rem;font-weight:300;line-height:1.8;color:var(--secondary)">Véris was founded to honor this heritage while building on it — pairing ancient Surat craftsmanship with 21st-century CVD laboratory science to create diamonds that are physically and chemically identical to mined stones, but free of human cost.</p>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);margin-top:var(--space-4)">
-          <div>
-            <div style="font-family:var(--font-serif);font-size:2rem;font-weight:300;color:var(--primary-container)">2019</div>
-            <div style="font-family:var(--font-sans);font-size:0.5rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--secondary);margin-top:4px">Year Founded</div>
-          </div>
-          <div>
-            <div style="font-family:var(--font-serif);font-size:2rem;font-weight:300;color:var(--primary-container)">Surat</div>
-            <div style="font-family:var(--font-sans);font-size:0.5rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--secondary);margin-top:4px">India HQ</div>
+          <div class="footer-logo">Véris</div>
+          <p class="footer-desc">A modern house of high jewelry, pioneering the future of ethical diamonds through
+            scientific precision and heritage artistry from Surat.</p>
+          <div class="footer-social-icons">
+            <a href="#" class="footer-social-icon" aria-label="Camera">photo_camera</a>
+            <a href="#" class="footer-social-icon" aria-label="Email">alternate_email</a>
+            <a href="#" class="footer-social-icon" aria-label="Video">play_circle</a>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Stats -->
-<div class="stats-row container reveal">
-  <div class="stat-cell">
-    <div class="stat-number" data-counter="12000" data-suffix="+">0+</div>
-    <div class="stat-label">Diamonds Crafted</div>
-  </div>
-  <div class="stat-cell">
-    <div class="stat-number" data-counter="98" data-suffix="%">0%</div>
-    <div class="stat-label">Customer Satisfaction</div>
-  </div>
-  <div class="stat-cell">
-    <div class="stat-number" data-counter="40" data-suffix="% Less CO₂">0%</div>
-    <div class="stat-label">vs. Mined Diamonds</div>
-  </div>
-  <div class="stat-cell">
-    <div class="stat-number" data-counter="28" data-suffix="">0</div>
-    <div class="stat-label">Countries Delivered</div>
-  </div>
-</div>
-
-<!-- CVD Process -->
-<section class="process-section section">
-  <div class="container" style="padding:0;max-width:100%">
-    <div style="max-width:1440px;margin:0 auto">
-      <div style="padding:var(--space-16) var(--space-6) var(--space-8);text-align:center" class="reveal">
-        <div class="section-eyebrow">Science of Brilliance</div>
-        <h2 class="section-title">The CVD Process</h2>
-        <p style="font-family:var(--font-sans);font-size:0.8125rem;font-weight:300;color:var(--secondary);max-width:480px;margin:var(--space-4) auto 0;line-height:1.8">Six steps that turn carbon gas into the world's rarest mineral — without a single mine.</p>
-      </div>
-      <div class="process-inner">
-        <div class="process-image">
-          <img src="assets/cvd-process.jpg" alt="CVD diamond synthesis plasma reactor" />
-        </div>
-        <div class="process-steps">
-          <div class="process-step reveal">
-            <div class="step-num-lg">01</div>
-            <div>
-              <div class="step-title">Seed Crystal Preparation</div>
-              <p class="step-text">A microscopically thin diamond seed crystal — often a small slice of an existing diamond — is precisely cut, polished, and placed inside a vacuum plasma reactor chamber. This seed will become the foundation of the new diamond.</p>
-            </div>
-          </div>
-          <div class="process-step reveal delay-1">
-            <div class="step-num-lg">02</div>
-            <div>
-              <div class="step-title">Plasma Ignition</div>
-              <p class="step-text">A mixture of hydrogen and methane gas is introduced into the chamber. Microwave energy creates a high-energy plasma ball reaching temperatures exceeding 3,000°C — replicating the intense heat of Earth's mantle in a controlled laboratory environment.</p>
-            </div>
-          </div>
-          <div class="process-step reveal delay-2">
-            <div class="step-num-lg">03</div>
-            <div>
-              <div class="step-title">Carbon Deposition</div>
-              <p class="step-text">Carbon atoms from the methane plasma rain down layer by layer onto the diamond seed at an atomic level, bonding in an exact crystalline lattice identical to a natural diamond. Growth progresses at approximately 0.006mm per hour — an act of extraordinary patience.</p>
-            </div>
-          </div>
-          <div class="process-step reveal delay-3">
-            <div class="step-num-lg">04</div>
-            <div>
-              <div class="step-title">Rough Diamond Harvest</div>
-              <p class="step-text">After 2–4 weeks of growth, the rough CVD diamond crystal is carefully removed from the chamber. At this stage, it resembles a rough natural crystal — unpolished, complex, and carbon-pure. Our gemologists assess its yield and quality grade.</p>
-            </div>
-          </div>
-          <div class="process-step reveal">
-            <div class="step-num-lg">05</div>
-            <div>
-              <div class="step-title">Master Cutting in Surat</div>
-              <p class="step-text">The rough is transported to our Surat atelier where fourth-generation diamond cutters plan and execute each cut using 3D optical mapping software. A single Round Brilliant requires 58 precisely angled facets, optimized for maximum light return.</p>
-            </div>
-          </div>
-          <div class="process-step reveal">
-            <div class="step-num-lg">06</div>
-            <div>
-              <div class="step-title">IGI Certification</div>
-              <p class="step-text">Every finished stone is sent to the International Gemological Institute for independent grading. Each report documents Cut, Color, Clarity, and Carat with a unique laser-inscribed serial number invisible to the naked eye. Your certificate of ethical origin.</p>
-            </div>
+        <div>
+          <div class="footer-col-title">Collections</div>
+          <div class="footer-links">
+            <a href="collections.html?cat=rings" class="footer-link">Solitaire Rings</a>
+            <a href="collections.html?cat=bracelets" class="footer-link">Tennis Bracelets</a>
+            <a href="collections.html?cat=necklaces" class="footer-link">Eternal Pendants</a>
+            <a href="collections.html?cat=earrings" class="footer-link">Diamond Studs</a>
+            <a href="ring-builder.html" class="footer-link">The Atelier Series</a>
           </div>
         </div>
+        <div>
+          <div class="footer-col-title">Information</div>
+          <div class="footer-links">
+            <a href="our-story.html" class="footer-link">The CVD Process</a>
+            <a href="our-story.html#ethics" class="footer-link">Ethical Sourcing</a>
+            <a href="our-story.html#certification" class="footer-link">IGI Certification</a>
+            <a href="#" class="footer-link" data-policy="shipping">Shipping & Returns</a>
+            <a href="#" class="footer-link" data-sizeguide-open>Sizing Guide</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Newsletter</div>
+          <p
+            style="font-family:var(--font-sans);font-size:0.6875rem;font-weight:300;color:rgba(243,240,239,0.5);line-height:1.7;margin-bottom:var(--space-4)">
+            Join the circle of curated elegance. Be first for new collections and exclusive offers.</p>
+          <form class="footer-newsletter-form" data-newsletter-form>
+            <input type="email" class="footer-newsletter-input" placeholder="YOUR EMAIL" required />
+            <button class="footer-newsletter-btn" type="submit" aria-label="Subscribe">arrow_forward</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2026 Véris Diamonds. All Rights Reserved. Crafted in Surat, India.</div>
+        <div class="footer-socials">
+          <a href="#" class="footer-social" data-policy="privacy">Privacy</a>
+          <a href="#" class="footer-social" data-policy="terms">Terms</a>
+          <a href="#" class="footer-social">Instagram</a>
+          <a href="#" class="footer-social" data-policy="contact">Contact</a>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </footer>
 
-<!-- Artisans -->
-<section class="artisans-section section" id="artisans">
-  <div class="container">
-    <div class="section-head-row reveal" style="justify-content:center;flex-direction:column;align-items:center;text-align:center;margin-bottom:var(--space-12)">
-      <div class="section-eyebrow">The Human Touch</div>
-      <h2 class="section-title">Meet Our Artisans</h2>
-    </div>
-    <div class="artisan-grid reveal">
-      <div class="artisan-card">
-        <div class="artisan-img">
-          <img src="https://images.unsplash.com/photo-1618077360395-f3068be8e001?w=900&q=80&auto=format" alt="Master cutter Vijay" />
-        </div>
-        <div class="artisan-body">
-          <div class="artisan-name">Vijay Khatri</div>
-          <div class="artisan-role">Master Diamond Cutter · 28 Years</div>
-          <p class="artisan-bio">Third-generation polisher whose grandfather trained under Surat's founding diamond cutters. Vijay leads our Brilliant Cut department, analyzing each stone's natural inclusions to maximize its light performance.</p>
-        </div>
-      </div>
-      <div class="artisan-card">
-        <div class="artisan-img">
-          <img src="https://images.unsplash.com/photo-1472289065668-ce650ac443d2?w=900&q=80&auto=format" alt="Goldsmith Rohan" />
-        </div>
-        <div class="artisan-body">
-          <div class="artisan-name">Rohan Desai</div>
-          <div class="artisan-role">Senior Goldsmith · 19 Years</div>
-          <p class="artisan-bio">Specializing in micro-pavé and channel settings, Rohan crafts each ring's metal architecture by hand before a single diamond is set. His signature: a seamless gallery with zero visible seam lines.</p>
-        </div>
-      </div>
-      <div class="artisan-card">
-        <div class="artisan-img">
-          <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=900&q=80&auto=format&fit=crop" alt="Quality director Priya" />
-        </div>
-        <div class="artisan-body">
-          <div class="artisan-name">Priya Mehta</div>
-          <div class="artisan-role">Founder & Creative Director</div>
-          <p class="artisan-bio">A former IGI gemologist, Priya founded Véris to unite Surat's artisanal heritage with ethical science. She personally approves every design before it enters production, guided by a single criterion: does it justify the hands it took to create it?</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  <!-- Mobile Nav -->
+  <nav class="mobile-nav">
+    <a href="index.html" class="mobile-nav-item"><span class="icon">auto_awesome</span><span>Atelier</span></a>
+    <a href="collections.html" class="mobile-nav-item"><span class="icon">diamond</span><span>Shop</span></a>
+    <a href="ring-builder.html" class="mobile-nav-item"><span
+        class="icon">settings_applications</span><span>Design</span></a>
+    <a href="our-story.html" class="mobile-nav-item active"><span class="icon">eco</span><span>Story</span></a>
+    <a href="cart.html" class="mobile-nav-item"><span class="icon">shopping_bag</span><span>Cart</span></a>
+  </nav>
 
-<!-- IGI Certification -->
-<section class="cert-section section" id="certification">
-  <div class="container">
-    <div class="reveal" style="text-align:center;margin-bottom:var(--space-12)">
-      <div class="section-eyebrow" style="color:var(--primary-container)">Scientific Verification</div>
-      <h2 class="section-title" style="color:var(--inverse-on-surface)">IGI Certification<br/>Explained</h2>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(243,240,239,0.05)" class="reveal">
-      <div class="cert-card">
-        <div class="cert-badge">
-          <span style="font-family:'Material Symbols Outlined';font-size:28px;color:var(--primary-container);font-variation-settings:'FILL' 0,'wght' 200">diamond</span>
-        </div>
-        <div style="font-family:var(--font-sans);font-size:0.5rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--primary-container);margin-bottom:var(--space-3)">Cut</div>
-        <p style="font-family:var(--font-sans);font-size:0.75rem;font-weight:300;line-height:1.7;color:rgba(243,240,239,0.6)">Evaluates the proportions and symmetry of each facet. Our stones are graded Excellent or Ideal — the top 3% of all diamonds cut worldwide.</p>
-      </div>
-      <div class="cert-card">
-        <div class="cert-badge">
-          <span style="font-family:'Material Symbols Outlined';font-size:28px;color:var(--primary-container);font-variation-settings:'FILL' 0,'wght' 200">palette</span>
-        </div>
-        <div style="font-family:var(--font-sans);font-size:0.5rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--primary-container);margin-bottom:var(--space-3)">Color</div>
-        <p style="font-family:var(--font-sans);font-size:0.75rem;font-weight:300;line-height:1.7;color:rgba(243,240,239,0.6)">Measured on D–Z scale. D, E, F are colorless — the rarest. Véris's CVD process produces predominantly D–F range stones due to the controlled purity of the growth environment.</p>
-      </div>
-      <div class="cert-card">
-        <div class="cert-badge">
-          <span style="font-family:'Material Symbols Outlined';font-size:28px;color:var(--primary-container);font-variation-settings:'FILL' 0,'wght' 200">center_focus_strong</span>
-        </div>
-        <div style="font-family:var(--font-sans);font-size:0.5rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--primary-container);margin-bottom:var(--space-3)">Clarity</div>
-        <p style="font-family:var(--font-sans);font-size:0.75rem;font-weight:300;line-height:1.7;color:rgba(243,240,239,0.6)">Assesses internal (inclusions) and external (blemishes) characteristics. Our standard is VS1–VVS2: inclusions visible only under 10x magnification, invisible to the naked eye.</p>
-      </div>
-      <div class="cert-card">
-        <div class="cert-badge">
-          <span style="font-family:'Material Symbols Outlined';font-size:28px;color:var(--primary-container);font-variation-settings:'FILL' 0,'wght' 200">scale</span>
-        </div>
-        <div style="font-family:var(--font-sans);font-size:0.5rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--primary-container);margin-bottom:var(--space-3)">Carat</div>
-        <p style="font-family:var(--font-sans);font-size:0.75rem;font-weight:300;line-height:1.7;color:rgba(243,240,239,0.6)">The metric weight of the diamond. One carat equals 0.2 grams. Because CVD diamonds grow in controlled conditions, weight is precisely calibrated — no yield loss from mining imperfections.</p>
-      </div>
-    </div>
-    <div class="reveal" style="text-align:center;margin-top:var(--space-12)">
-      <a href="collections.html" class="btn btn-primary btn-lg">Begin Your Journey</a>
-    </div>
-  </div>
-</section>
-
-<!-- Manifesto -->
-<section class="manifesto">
-  <div class="container-narrow" style="padding:0">
-    <div class="reveal">
-      <div class="section-eyebrow" style="color:rgba(255,255,255,0.5);text-align:center;margin-bottom:var(--space-6)">Our Promise</div>
-      <p style="font-family:var(--font-serif);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:300;font-style:italic;line-height:1.4;color:#fff;text-align:center">"Every Véris diamond carries the same atomic signature as a diamond formed three billion years beneath the Earth — but its story is one of science, artistry, and conscience."</p>
-      <div style="text-align:center;margin-top:var(--space-8);font-family:var(--font-sans);font-size:0.5rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.5)">Priya Mehta · Founder, Véris Diamonds</div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── Footer ─────────────────────────────────────────────── -->
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-logo">Véris</div>
-        <p class="footer-desc">A modern house of high jewelry, pioneering the future of ethical diamonds through scientific precision and heritage artistry from Surat.</p>
-        <div class="footer-social-icons">
-          <a href="#" class="footer-social-icon" aria-label="Camera">photo_camera</a>
-          <a href="#" class="footer-social-icon" aria-label="Email">alternate_email</a>
-          <a href="#" class="footer-social-icon" aria-label="Video">play_circle</a>
-        </div>
-      </div>
-      <div>
-        <div class="footer-col-title">Collections</div>
-        <div class="footer-links">
-          <a href="collections.html?cat=rings" class="footer-link">Solitaire Rings</a>
-          <a href="collections.html?cat=bracelets" class="footer-link">Tennis Bracelets</a>
-          <a href="collections.html?cat=necklaces" class="footer-link">Eternal Pendants</a>
-          <a href="collections.html?cat=earrings" class="footer-link">Diamond Studs</a>
-          <a href="ring-builder.html" class="footer-link">The Atelier Series</a>
-        </div>
-      </div>
-      <div>
-        <div class="footer-col-title">Information</div>
-        <div class="footer-links">
-          <a href="our-story.html" class="footer-link">The CVD Process</a>
-          <a href="our-story.html#ethics" class="footer-link">Ethical Sourcing</a>
-          <a href="our-story.html#certification" class="footer-link">IGI Certification</a>
-          <a href="#" class="footer-link" data-policy="shipping">Shipping & Returns</a>
-          <a href="#" class="footer-link" data-sizeguide-open>Sizing Guide</a>
-        </div>
-      </div>
-      <div>
-        <div class="footer-col-title">Newsletter</div>
-        <p style="font-family:var(--font-sans);font-size:0.6875rem;font-weight:300;color:rgba(243,240,239,0.5);line-height:1.7;margin-bottom:var(--space-4)">Join the circle of curated elegance. Be first for new collections and exclusive offers.</p>
-        <form class="footer-newsletter-form" data-newsletter-form>
-          <input type="email" class="footer-newsletter-input" placeholder="YOUR EMAIL" required />
-          <button class="footer-newsletter-btn" type="submit" aria-label="Subscribe">arrow_forward</button>
-        </form>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="footer-copy">© 2026 Véris Diamonds. All Rights Reserved. Crafted in Surat, India.</div>
-      <div class="footer-socials">
-        <a href="#" class="footer-social" data-policy="privacy">Privacy</a>
-        <a href="#" class="footer-social" data-policy="terms">Terms</a>
-        <a href="#" class="footer-social">Instagram</a>
-        <a href="#" class="footer-social" data-policy="contact">Contact</a>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<!-- Mobile Nav -->
-<nav class="mobile-nav">
-  <a href="index.html" class="mobile-nav-item"><span class="icon">auto_awesome</span><span>Atelier</span></a>
-  <a href="collections.html" class="mobile-nav-item"><span class="icon">diamond</span><span>Shop</span></a>
-  <a href="ring-builder.html" class="mobile-nav-item"><span class="icon">settings_applications</span><span>Design</span></a>
-  <a href="our-story.html" class="mobile-nav-item active"><span class="icon">eco</span><span>Story</span></a>
-  <a href="cart.html" class="mobile-nav-item"><span class="icon">shopping_bag</span><span>Cart</span></a>
-</nav>
-
-<script src="js/products.js"></script>
-<script src="js/app.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
 </body>
+
 </html>
